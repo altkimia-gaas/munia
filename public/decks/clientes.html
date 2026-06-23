@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MunIA — Presentación Municipios</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy-900:#080B12;
+  --navy-800:#0D1117;
+  --navy-700:#111827;
+  --blue-500:#2196F3;
+  --blue-400:#42A5F5;
+  --blue-600:#1565C0;
+  --blue-pale:#E3F2FD;
+  --blue-glow:rgba(33,150,243,.35);
+  --ink:#F0F4FF;
+  --ink-dim:#8B9DC3;
+  --ink-faint:#5e7693;
+  --line:rgba(120,160,210,.16);
+  --line-strong:rgba(120,160,210,.30);
+  --green:#10B981;
+  --amber:#F59E0B;
+  --red:#EF4444;
+  --card:rgba(20,40,68,.5);
+  --card-solid:#101a2e;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  background:var(--navy-900);
+  color:var(--ink);
+  font-family:'Inter',sans-serif;
+  overflow:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+.mono{font-family:'DM Mono',monospace}
+
+#deck{position:fixed;inset:0;overflow:hidden}
+.slide{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;
+  padding:clamp(26px,4.2vh,60px) clamp(34px,5vw,84px);
+  opacity:0;visibility:hidden;transform:translateX(38px);
+  transition:opacity .5s ease, transform .5s ease, visibility .5s;
+  background:
+    radial-gradient(900px 500px at 85% -10%, rgba(33,150,243,.10), transparent 60%),
+    radial-gradient(700px 600px at -5% 110%, rgba(21,101,192,.12), transparent 55%),
+    var(--navy-900);
+}
+.slide.active{opacity:1;visibility:visible;transform:translateX(0)}
+.slide.prev{transform:translateX(-38px)}
+
+/* section marker (mirrors landing eyebrows) */
+.eyebrow{font-family:'DM Mono',monospace;font-size:clamp(10px,1.1vw,13px);
+  letter-spacing:.22em;text-transform:uppercase;color:var(--blue-400);
+  display:flex;align-items:center;gap:10px;margin-bottom:clamp(10px,1.8vh,20px)}
+.eyebrow::before{content:"";width:24px;height:1px;background:var(--blue-400);opacity:.7}
+.eyebrow .sn{color:var(--ink-faint)}
+
+h1.t{font-size:clamp(28px,4.4vw,60px);font-weight:800;line-height:1.02;letter-spacing:-.02em;max-width:18ch}
+h2.t{font-size:clamp(23px,3.3vw,44px);font-weight:800;line-height:1.06;letter-spacing:-.02em;max-width:22ch}
+.accent{color:var(--blue-400)}
+.lead{font-size:clamp(15px,1.5vw,20px);color:var(--ink-dim);line-height:1.5;max-width:60ch;margin-top:clamp(10px,1.7vh,18px)}
+.kick{margin-top:auto;font-style:italic;color:var(--ink);font-size:clamp(14px,1.45vw,19px);font-weight:500;opacity:.92}
+
+.two{display:grid;grid-template-columns:1.04fr .96fr;gap:clamp(26px,4vw,60px);flex:1;align-items:center}
+.col-text{display:flex;flex-direction:column;justify-content:center;min-width:0}
+.col-visual{display:flex;align-items:center;justify-content:center;min-width:0;height:100%}
+.col-visual svg{width:100%;height:auto;max-height:76vh;filter:drop-shadow(0 24px 50px rgba(0,0,0,.45))}
+
+/* hero metrics (mirrors landing +60/-80/24-7/3d) */
+.metrics{display:flex;gap:clamp(14px,2.2vw,34px);flex-wrap:wrap;margin-top:clamp(16px,2.6vh,30px)}
+.metric{flex:1;min-width:130px}
+.metric .num{font-size:clamp(30px,4.4vw,58px);font-weight:900;line-height:1;letter-spacing:-.03em;
+  background:linear-gradient(135deg,#fff 10%,var(--blue-400));-webkit-background-clip:text;background-clip:text;color:transparent}
+.metric .lbl{font-size:clamp(11px,1.15vw,14px);color:var(--ink-dim);margin-top:8px;line-height:1.35;max-width:24ch}
+
+/* diagnosis 3-up (40% / 3 meses / 0) */
+.diag{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:clamp(16px,2.6vh,28px)}
+.diag-card{padding:20px;border-radius:14px;background:var(--card);border:1px solid var(--line)}
+.diag-card .big{font-size:clamp(30px,3.6vw,50px);font-weight:900;letter-spacing:-.03em;color:var(--red);line-height:1}
+.diag-card .big sub{font-size:.42em;font-weight:600;color:var(--ink-dim);letter-spacing:0}
+.diag-card h4{font-size:clamp(13px,1.35vw,17px);margin:12px 0 7px;font-weight:700;line-height:1.2}
+.diag-card p{font-size:clamp(12px,1.2vw,14px);color:var(--ink-dim);line-height:1.45}
+
+/* before/after */
+.ba{display:flex;flex-direction:column;gap:13px;margin-top:clamp(12px,2.2vh,24px)}
+.ba-row{display:flex;gap:14px;align-items:flex-start;padding:14px 16px;border-radius:12px;border:1px solid var(--line)}
+.ba-row.before{background:rgba(239,68,68,.06);border-color:rgba(239,68,68,.18)}
+.ba-row.after{background:rgba(16,185,129,.07);border-color:rgba(16,185,129,.2)}
+.ba-tag{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  padding:4px 9px;border-radius:6px;white-space:nowrap;font-weight:500;margin-top:1px}
+.ba-row.before .ba-tag{background:rgba(239,68,68,.16);color:#ff8a8a}
+.ba-row.after .ba-tag{background:rgba(16,185,129,.16);color:#4fe0a8}
+.ba-text{font-size:clamp(13px,1.32vw,16px);color:var(--ink-dim);line-height:1.45}
+.ba-text b{color:var(--ink);font-weight:600}
+
+/* persona chip */
+.persona{display:flex;align-items:center;gap:14px;margin-bottom:clamp(8px,1.6vh,16px)}
+.persona .face{font-size:clamp(28px,3.4vw,44px);line-height:1}
+.persona .pwho{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.1em;color:var(--ink-faint);text-transform:uppercase}
+
+/* modules grid (plataforma) */
+.mods{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:clamp(16px,2.6vh,28px)}
+.mod{padding:18px;border-radius:14px;background:var(--card);border:1px solid var(--line)}
+.mod .mi{font-size:20px;margin-bottom:10px}
+.mod h4{font-size:clamp(13px,1.35vw,17px);font-weight:700;margin-bottom:6px;line-height:1.15}
+.mod p{font-size:clamp(11px,1.12vw,13px);color:var(--ink-dim);line-height:1.4}
+.mod .tags{margin-top:9px;display:flex;flex-wrap:wrap;gap:5px}
+.mod .tg{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.04em;padding:3px 7px;border-radius:5px;
+  background:rgba(33,150,243,.1);color:var(--blue-400)}
+
+/* flow steps */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:clamp(18px,3vh,32px)}
+.step{padding:18px 16px;border-radius:14px;background:var(--card);border:1px solid var(--line);position:relative}
+.step .n{font-family:'DM Mono',monospace;font-size:13px;color:var(--blue-400);letter-spacing:.06em;font-weight:500}
+.step h4{font-size:clamp(13px,1.4vw,18px);margin:11px 0 7px;font-weight:700;line-height:1.15}
+.step p{font-size:clamp(11px,1.12vw,13px);color:var(--ink-dim);line-height:1.4}
+.step .arr{position:absolute;right:-11px;top:50%;transform:translateY(-50%);color:var(--blue-400);font-size:16px;z-index:2}
+.step:last-child .arr{display:none}
+
+/* laws */
+.laws{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:clamp(16px,2.6vh,28px)}
+.law{padding:18px 20px;border-radius:14px;background:var(--card);border:1px solid var(--line)}
+.law .code{font-family:'DM Mono',monospace;font-size:13px;color:var(--blue-400);letter-spacing:.08em}
+.law h4{font-size:clamp(13px,1.35vw,17px);margin:8px 0 7px;font-weight:700;line-height:1.2}
+.law p{font-size:clamp(12px,1.18vw,14px);color:var(--ink-dim);line-height:1.42}
+
+.tag-incl{display:inline-flex;align-items:center;gap:8px;margin-top:clamp(14px,2.4vh,24px);
+  font-family:'DM Mono',monospace;font-size:13px;color:var(--green);padding:9px 15px;border-radius:8px;
+  background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.22)}
+
+/* pricing */
+.plans{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:clamp(16px,2.6vh,26px)}
+.plan{padding:18px;border-radius:16px;background:var(--card);border:1px solid var(--line);position:relative;display:flex;flex-direction:column}
+.plan.feat{border-color:var(--blue-500);background:rgba(33,150,243,.07)}
+.plan .star{position:absolute;top:-10px;left:50%;transform:translateX(-50%);font-family:'DM Mono',monospace;
+  font-size:9px;letter-spacing:.1em;background:var(--blue-500);color:#fff;padding:3px 10px;border-radius:999px;text-transform:uppercase}
+.plan .pn{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.1em;color:var(--blue-400);text-transform:uppercase}
+.plan .scope{font-size:11px;color:var(--ink-faint);margin:4px 0 12px}
+.plan .price{font-size:clamp(20px,2.3vw,30px);font-weight:900;letter-spacing:-.02em}
+.plan .price span{font-size:13px;font-weight:500;color:var(--ink-dim)}
+.plan .clp{font-family:'DM Mono',monospace;font-size:10px;color:var(--ink-faint);margin-top:4px}
+.plan ul{list-style:none;margin-top:13px;display:flex;flex-direction:column;gap:6px}
+.plan li{font-size:clamp(10px,1.05vw,12px);color:var(--ink-dim);line-height:1.35;padding-left:16px;position:relative}
+.plan li::before{content:"✓";position:absolute;left:0;color:var(--green);font-weight:700}
+.price-foot{margin-top:clamp(14px,2.2vh,22px);font-size:clamp(13px,1.35vw,17px);color:var(--ink-dim);line-height:1.5;max-width:80ch}
+.price-foot b{color:var(--ink);font-weight:600}
+
+/* objections (condensed FAQ) */
+.objs{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:clamp(16px,2.6vh,26px)}
+.obj{padding:16px 18px;border-radius:13px;background:var(--card);border:1px solid var(--line)}
+.obj .q{font-size:clamp(13px,1.32vw,16px);font-weight:700;margin-bottom:7px;color:var(--ink)}
+.obj .q::before{content:"“";color:var(--blue-400);font-weight:800;margin-right:3px}
+.obj .q::after{content:"”";color:var(--blue-400);font-weight:800;margin-left:2px}
+.obj p{font-size:clamp(11px,1.15vw,14px);color:var(--ink-dim);line-height:1.45}
+
+/* pills */
+.pills{display:flex;flex-wrap:wrap;gap:10px;margin-top:clamp(14px,2.4vh,24px)}
+.pill{font-family:'DM Mono',monospace;font-size:12px;letter-spacing:.04em;padding:9px 15px;border-radius:999px;
+  border:1px solid var(--line-strong);color:var(--ink-dim);background:rgba(16,32,54,.5)}
+.pill b{color:var(--blue-400);font-weight:500}
+
+/* cta */
+.cta-grid{display:flex;gap:16px;margin-top:clamp(18px,3vh,30px);flex-wrap:wrap}
+.cta-card{flex:1;min-width:180px;padding:20px 22px;border-radius:16px;background:var(--card);border:1px solid var(--line)}
+.cta-card .ic{font-size:22px;margin-bottom:10px}
+.cta-card h4{font-size:clamp(14px,1.45vw,18px);margin-bottom:7px;font-weight:700}
+.cta-card p{font-size:clamp(11px,1.2vw,14px);color:var(--ink-dim);line-height:1.45}
+
+.footnote{font-family:'DM Mono',monospace;font-size:11px;color:var(--ink-faint);margin-top:13px;letter-spacing:.02em}
+.footnote.illus{color:var(--amber);opacity:.85}
+
+/* progress + nav */
+#progress{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--blue-600),var(--blue-400));
+  z-index:50;transition:width .4s ease;box-shadow:0 0 12px var(--blue-glow)}
+#nav{position:fixed;bottom:22px;right:32px;display:flex;align-items:center;gap:14px;z-index:50}
+.navbtn{width:40px;height:40px;border-radius:50%;border:1px solid var(--line-strong);background:rgba(16,24,40,.7);
+  color:var(--ink);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;backdrop-filter:blur(8px);transition:.2s}
+.navbtn:hover{background:var(--blue-600);border-color:var(--blue-500)}
+.navbtn:disabled{opacity:.3;cursor:default}
+#counter{font-family:'DM Mono',monospace;font-size:13px;color:var(--ink-dim);letter-spacing:.1em;min-width:54px;text-align:center}
+#brandmark{position:fixed;bottom:24px;left:32px;z-index:50;display:flex;align-items:center;gap:10px;
+  font-family:'DM Mono',monospace;font-size:12px;letter-spacing:.12em;color:var(--ink-faint)}
+#brandmark .dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green)}
+#hint{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:50;font-family:'DM Mono',monospace;
+  font-size:11px;color:var(--ink-faint);letter-spacing:.08em;opacity:.7;transition:opacity .4s}
+
+/* logo + cover */
+.logo{display:flex;align-items:center;gap:12px}
+.logo .mark{width:46px;height:46px;flex:none}
+.logo .wm{font-weight:800;font-size:26px;letter-spacing:-.02em}
+.logo .wm .ia{color:var(--blue-400)}
+.cover{justify-content:center;align-items:flex-start}
+.cover .big{font-size:clamp(36px,6.4vw,96px);font-weight:900;line-height:.97;letter-spacing:-.03em;margin:clamp(18px,3.6vh,38px) 0 18px}
+.cover .sub{font-size:clamp(15px,1.85vw,25px);color:var(--ink-dim);max-width:40ch;line-height:1.4}
+.cover .for{margin-top:clamp(20px,3.6vh,40px);font-family:'DM Mono',monospace;font-size:clamp(12px,1.3vw,16px);
+  letter-spacing:.1em;color:var(--blue-400);padding:10px 16px;border:1px solid var(--line-strong);border-radius:10px;display:inline-block}
+.law-banner{margin-top:18px;font-family:'DM Mono',monospace;font-size:clamp(11px,1.2vw,14px);color:var(--amber);
+  display:flex;align-items:center;gap:9px}
+
+/* divider */
+.divider{justify-content:center;align-items:center;text-align:center;
+  background:radial-gradient(1000px 700px at 50% 50%,rgba(21,101,192,.16),transparent 60%),var(--navy-900)}
+.divider .eyebrow{justify-content:center}
+.divider .eyebrow::before{display:none}
+.anexo-list{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:30px;max-width:760px;text-align:left}
+.anexo-item{padding:16px 18px;border-radius:12px;background:var(--card);border:1px solid var(--line)}
+.anexo-item .ax{font-family:'DM Mono',monospace;font-size:12px;color:var(--blue-400)}
+.anexo-item h4{font-size:15px;margin:7px 0 5px;font-weight:700}
+.anexo-item p{font-size:13px;color:var(--ink-dim);line-height:1.4}
+
+@media (max-width:900px){
+  .two{grid-template-columns:1fr;gap:18px}
+  .col-visual{display:none}
+  .diag,.mods,.laws,.plans,.objs,.steps,.anexo-list{grid-template-columns:1fr}
+  h1.t,h2.t{max-width:none}
+}
+
+/* ===== REAL SYSTEM MOCKUPS ===== */
+.mock{--blue:#2196F3;--blue-dark:#1565C0;--blue-xdark:#0D47A1;--blue-light:#42A5F5;--blue-pale:#E3F2FD;--bg1:#080B12;--bg2:#0D1117;--bg3:#111827;--text:#F0F4FF;--muted:#8B9DC3;--border:#1E2D4A;--white:#fff;--green:#10B981;--green-dark:#059669;--amber:#F59E0B;--red:#EF4444;--radius:14px;color:var(--text);font-family:'Inter',sans-serif}
+.mock *{box-sizing:border-box}.mock svg{display:block}
+.mock .kpi-n.blue{color:var(--blue-light)}
+.mock .kpi-n.green{color:#34D399}
+.mock .kpi-n.amber{color:#FCD34D}
+.mock .screen{background:var(--bg1);border:1px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:0 20px 48px rgba(0,0,0,.3)}
+.mock .sc-bar{background:var(--bg2);border-bottom:1px solid var(--border);padding:9px 12px;display:flex;align-items:center;gap:8px}
+.mock .sc-dots{display:flex;gap:4px}
+.mock .sc-dot{width:9px;height:9px;border-radius:50%}
+.mock .sc-url{flex:1;background:rgba(255,255,255,.04);border-radius:5px;padding:4px 10px;font-size:9px;color:var(--muted);font-family:'DM Mono',monospace;text-align:center}
+.mock .sc-body{padding:14px}
+.mock .portal-top{background:var(--blue);border-radius:10px 10px 0 0;padding:12px 14px;margin:-14px -14px 12px}
+.mock .portal-top-name{font-size:13px;font-weight:600;color:#fff;margin-bottom:1px}
+.mock .portal-top-sub{font-size:10px;color:rgba(255,255,255,.8)}
+.mock .p-welcome{background:rgba(255,255,255,.06);border:1px solid var(--border);border-radius:8px;padding:9px 11px;margin-bottom:9px;font-size:11px;color:var(--text)}
+.mock .p-field{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:7px;padding:8px 10px;margin-bottom:6px}
+.mock .p-fl{font-size:9px;font-family:'DM Mono',monospace;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:2px}
+.mock .p-fv{font-size:11px;color:var(--text)}
+.mock .p-confirm{background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.25);border-radius:8px;padding:10px 12px;text-align:center;margin-top:8px}
+.mock .p-code{font-size:20px;font-weight:700;color:#34D399;letter-spacing:3px;font-family:'DM Mono',monospace}
+.mock .p-code-sub{font-size:9px;color:var(--muted);margin-top:3px;font-family:'DM Mono',monospace}
+.mock .fn-layout{display:grid;grid-template-columns:30px 1fr;gap:9px}
+.mock .fn-nav{display:flex;flex-direction:column;gap:4px}
+.mock .fn-ni{width:28px;height:28px;border-radius:6px;background:rgba(255,255,255,.04);display:flex;align-items:center;justify-content:center;cursor:pointer}
+.mock .fn-ni.act{background:var(--blue)}
+.mock .fn-ni svg{width:12px;height:12px;stroke:var(--muted);fill:none;stroke-width:1.8;stroke-linecap:round}
+.mock .fn-ni.act svg{stroke:#fff}
+.mock .fn-main{display:flex;flex-direction:column;gap:7px}
+.mock .fn-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:2px}
+.mock .fn-top-h{font-size:11px;font-weight:600;color:var(--text)}
+.mock .fn-card{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:8px;padding:8px 10px;display:flex;flex-direction:column;gap:4px}
+.mock .fn-r1{display:flex;align-items:center;gap:7px}
+.mock .fn-num{font-size:9px;font-family:'DM Mono',monospace;color:var(--muted);flex-shrink:0}
+.mock .fn-tit{font-size:11px;color:var(--text);font-weight:500;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mock .fn-sla{font-size:9px;font-family:'DM Mono',monospace;padding:2px 7px;border-radius:20px}
+.mock .sla-ok{background:rgba(16,185,129,.1);color:#34D399;border:1px solid rgba(16,185,129,.2)}
+.mock .sla-warn{background:rgba(245,158,11,.1);color:#FCD34D;border:1px solid rgba(245,158,11,.2)}
+.mock .sla-late{background:rgba(239,68,68,.1);color:#FCA5A5;border:1px solid rgba(239,68,68,.2)}
+.mock .fn-r2{display:flex;gap:8px;align-items:center}
+.mock .fn-tag{font-size:9px;color:var(--muted);font-family:'DM Mono',monospace}
+.mock .fn-ass{display:flex;align-items:center;gap:4px;margin-left:auto;font-size:9px;color:var(--muted)}
+.mock .fn-av{width:14px;height:14px;border-radius:50%;background:var(--blue-dark);display:flex;align-items:center;justify-content:center;font-size:7px;color:#fff;font-weight:700}
+.mock .jf-kpis{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px}
+.mock .jf-k{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:8px;padding:8px 10px}
+.mock .jf-kv{font-size:20px;font-weight:700;letter-spacing:-1px;color:var(--white);line-height:1}
+.mock .jf-kv.blue{color:var(--blue-light)}
+.mock .jf-kv.green{color:#34D399}
+.mock .jf-kv.red{color:#FCA5A5}
+.mock .jf-kl{font-size:9px;font-family:'DM Mono',monospace;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
+.mock .jf-table{width:100%;border-collapse:collapse}
+.mock .jf-table th{font-size:8px;font-family:'DM Mono',monospace;color:var(--muted);text-transform:uppercase;letter-spacing:1px;padding:3px 5px;text-align:left;border-bottom:1px solid var(--border)}
+.mock .jf-table td{font-size:10px;color:var(--muted);padding:4px 5px;border-bottom:1px solid rgba(30,45,74,.4)}
+.mock .jf-table td:first-child{color:var(--text);font-weight:500}
+.mock .jf-bar-w{height:4px;background:var(--border);border-radius:2px;overflow:hidden;margin-top:2px}
+.mock .jf-bar{height:100%;border-radius:2px;background:var(--blue)}
+.mock .jf-alert{margin-top:7px;background:rgba(33,150,243,.08);border:1px solid rgba(33,150,243,.2);border-radius:7px;padding:6px 9px;font-size:9px;color:var(--blue-light);font-family:'DM Mono',monospace}
+.mock .alc-map{background:rgba(255,255,255,.02);border:1px solid var(--border);border-radius:9px;height:88px;position:relative;overflow:hidden;margin-bottom:7px}
+.mock .alc-map-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,rgba(33,150,243,.07),transparent 70%)}
+.mock .cluster{position:absolute;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;color:#fff;font-family:'DM Mono',monospace;transform:translate(-50%,-50%)}
+.mock .alc-legend{display:flex;gap:10px;margin-bottom:7px}
+.mock .al-i{display:flex;align-items:center;gap:4px;font-size:9px;color:var(--muted);font-family:'DM Mono',monospace}
+.mock .al-d{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.mock .alc-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:5px}
+.mock .alc-m{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:7px;padding:7px;text-align:center}
+.mock .alc-mv{font-size:17px;font-weight:700;letter-spacing:-1px;color:var(--white)}
+.mock .alc-mv.green{color:#34D399}
+.mock .alc-mv.amber{color:#FCD34D}
+.mock .alc-mv.blue{color:var(--blue-light)}
+.mock .alc-ml{font-size:8px;font-family:'DM Mono',monospace;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-top:2px;line-height:1.3}
+.mock .alc-foot{margin-top:7px;background:rgba(16,185,129,.07);border:1px solid rgba(16,185,129,.2);border-radius:7px;padding:6px 9px;font-size:9px;color:#34D399;font-family:'DM Mono',monospace}
+.mock-wrap{width:100%;max-width:520px;margin:0 auto;filter:drop-shadow(0 24px 55px rgba(0,0,0,.5))}
+.mock-wrap .screen{width:100%;border-radius:14px;overflow:hidden}
+.mock-cap{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.1em;color:var(--ink-faint);text-align:center;margin-top:14px;text-transform:uppercase}
+.mock{font-size:13px;line-height:1.4}
+.col-visual.has-mock{align-items:center;padding:8px 0}
+@media (min-width:1200px){.mock-wrap{max-width:540px}}
+@media (max-height:760px){.mock-wrap{max-width:445px}}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+<div id="deck"></div>
+<div id="brandmark"><span class="dot"></span>MunIA · ALTKimia</div>
+<div id="hint">← → para navegar</div>
+<div id="nav"><button class="navbtn" id="prev">‹</button><span id="counter">01 / 18</span><button class="navbtn" id="next">›</button></div>
+<script>
+
+const SCREENS={"t0": "<div class=\"screen\">\n        <div class=\"sc-bar\"><div class=\"sc-dots\"><div class=\"sc-dot\" style=\"background:#ff5f57\"></div><div class=\"sc-dot\" style=\"background:#ffbd2e\"></div><div class=\"sc-dot\" style=\"background:#28c840\"></div></div><div class=\"sc-url\">munia.cl · nueva solicitud ciudadana</div></div>\n        <div class=\"sc-body\" style=\"padding:0\">\n          <div class=\"portal-top\"><div class=\"portal-top-name\">🏛️ Municipalidad · Portal Ciudadano</div><div class=\"portal-top-sub\">Atención disponible las 24 horas, todos los días</div></div>\n          <div style=\"padding:13px\">\n            <div class=\"p-welcome\">Bienvenido/a. ¿En qué podemos ayudarle hoy?</div>\n            <div class=\"p-field\"><div class=\"p-fl\">Tipo de solicitud</div><div class=\"p-fv\">🔧 Obras y Mantención — Revisión pozo negro</div></div>\n            <div class=\"p-field\"><div class=\"p-fl\">Descripción del problema</div><div class=\"p-fv\">Pozo negro con riesgo de desborde, afecta a vecinos colindantes...</div></div>\n            <div class=\"p-field\"><div class=\"p-fl\">Ubicación exacta</div><div class=\"p-fv\">📍 Camino sector rural, km 3 — adjunto foto</div></div>\n            <div class=\"p-field\"><div class=\"p-fl\">Archivo adjunto</div><div class=\"p-fv\">📷 foto_problema.jpg · 2.3 MB ✓</div></div>\n            <div class=\"p-confirm\">\n              <div class=\"p-code\">#4821</div>\n              <div class=\"p-code-sub\">Solicitud ingresada · Asignada a Obras · SLA activo: 48 horas</div>\n              <div style=\"font-size:9px;color:var(--muted);margin-top:4px;font-family:'DM Mono',monospace\">Seguimiento: munia.cl/caso/4821</div>\n            </div>\n          </div>\n        </div>\n      </div>", "t1": "<div class=\"screen\">\n        <div class=\"sc-bar\"><div class=\"sc-dots\"><div class=\"sc-dot\" style=\"background:#ff5f57\"></div><div class=\"sc-dot\" style=\"background:#ffbd2e\"></div><div class=\"sc-dot\" style=\"background:#28c840\"></div></div><div class=\"sc-url\">munia.cl · bandeja del funcionario</div></div>\n        <div class=\"sc-body\">\n          <div class=\"fn-layout\">\n            <div class=\"fn-nav\">\n              <div class=\"fn-ni act\"><svg viewBox=\"0 0 24 24\"><rect x=\"3\" y=\"3\" width=\"7\" height=\"7\"/><rect x=\"14\" y=\"3\" width=\"7\" height=\"7\"/><rect x=\"3\" y=\"14\" width=\"7\" height=\"7\"/><rect x=\"14\" y=\"14\" width=\"7\" height=\"7\"/></svg></div>\n              <div class=\"fn-ni\"><svg viewBox=\"0 0 24 24\"><path d=\"M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z\"/></svg></div>\n              <div class=\"fn-ni\"><svg viewBox=\"0 0 24 24\"><polyline points=\"22 12 18 12 15 21 9 3 6 12 2 12\"/></svg></div>\n            </div>\n            <div class=\"fn-main\">\n              <div class=\"fn-top\">\n                <div class=\"fn-top-h\">Mi bandeja · 12 casos</div>\n                <span class=\"fn-sla sla-warn\" style=\"font-size:9px;padding:1px 7px\">3 urgentes</span>\n              </div>\n              <div class=\"fn-card\">\n                <div class=\"fn-r1\"><div class=\"fn-num\">#4821</div><div class=\"fn-tit\">Revisión pozo negro · Sector rural km 3</div><span class=\"fn-sla sla-ok\">48h OK</span></div>\n                <div class=\"fn-r2\"><span class=\"fn-tag\">Obras · Alta prioridad</span><div class=\"fn-ass\"><div class=\"fn-av\">F</div>Mío</div></div>\n              </div>\n              <div class=\"fn-card\">\n                <div class=\"fn-r1\"><div class=\"fn-num\">#4820</div><div class=\"fn-tit\">Luminaria apagada · Av. Principal 450</div><span class=\"fn-sla sla-warn\">2h restantes</span></div>\n                <div class=\"fn-r2\"><span class=\"fn-tag\">Infraestructura · Media</span><div class=\"fn-ass\"><div class=\"fn-av\">F</div>Mío</div></div>\n              </div>\n              <div class=\"fn-card\">\n                <div class=\"fn-r1\"><div class=\"fn-num\">#4815</div><div class=\"fn-tit\">Micro basural · Calle Sur s/n</div><span class=\"fn-sla sla-late\">Vencido</span></div>\n                <div class=\"fn-r2\"><span class=\"fn-tag\">Aseo · Requiere aprobación jefatura</span><div class=\"fn-ass\"><div class=\"fn-av\" style=\"background:#DC2626\">F</div>Mío</div></div>\n              </div>\n              <div style=\"font-size:9px;color:var(--muted);text-align:center;padding:4px;font-family:'DM Mono',monospace\">+ 9 casos más · Ver todos →</div>\n            </div>\n          </div>\n        </div>\n      </div>", "t2": "<div class=\"screen\">\n        <div class=\"sc-bar\"><div class=\"sc-dots\"><div class=\"sc-dot\" style=\"background:#ff5f57\"></div><div class=\"sc-dot\" style=\"background:#ffbd2e\"></div><div class=\"sc-dot\" style=\"background:#28c840\"></div></div><div class=\"sc-url\">munia.cl · panel de supervisión · dirección obras</div></div>\n        <div class=\"sc-body\">\n          <div style=\"font-size:11px;font-weight:600;color:var(--text);margin-bottom:8px\">Dirección de Obras · Visión en tiempo real</div>\n          <div class=\"jf-kpis\">\n            <div class=\"jf-k\"><div class=\"jf-kv blue\">47</div><div class=\"jf-kl\">Casos activos</div></div>\n            <div class=\"jf-k\"><div class=\"jf-kv red\">8</div><div class=\"jf-kl\">Vencidos esta semana</div></div>\n            <div class=\"jf-k\"><div class=\"jf-kv green\">91%</div><div class=\"jf-kl\">Cumplimiento SLA</div></div>\n            <div class=\"jf-k\"><div class=\"jf-kv amber\">3</div><div class=\"jf-kl\">Esperan mi firma</div></div>\n          </div>\n          <div style=\"font-size:8px;font-family:'DM Mono',monospace;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:5px\">Carga por funcionario</div>\n          <table class=\"jf-table\">\n            <tr><th>Funcionario</th><th>Activos</th><th>Vencidos</th><th>Carga</th></tr>\n            <tr><td>Funcionario A</td><td>12</td><td>1</td><td><div class=\"jf-bar-w\"><div class=\"jf-bar\" style=\"width:80%;background:#10B981\"></div></div></td></tr>\n            <tr><td>Funcionario B</td><td>12</td><td>2</td><td><div class=\"jf-bar-w\"><div class=\"jf-bar\" style=\"width:80%\"></div></div></td></tr>\n            <tr><td>Funcionario C</td><td>7</td><td>3</td><td><div class=\"jf-bar-w\"><div class=\"jf-bar\" style=\"width:47%;background:#F59E0B\"></div></div></td></tr>\n            <tr><td>Funcionario D</td><td>16</td><td>2</td><td><div class=\"jf-bar-w\"><div class=\"jf-bar\" style=\"width:100%;background:#EF4444\"></div></div></td></tr>\n          </table>\n          <div class=\"jf-alert\">⚡ Funcionario D tiene sobrecarga. Reasignar 4 casos → <span style=\"font-weight:600;cursor:pointer\">Ver opciones →</span></div>\n        </div>\n      </div>", "t3": "<div class=\"screen\">\n        <div class=\"sc-bar\"><div class=\"sc-dots\"><div class=\"sc-dot\" style=\"background:#ff5f57\"></div><div class=\"sc-dot\" style=\"background:#ffbd2e\"></div><div class=\"sc-dot\" style=\"background:#28c840\"></div></div><div class=\"sc-url\">munia.cl · panel ejecutivo · alcaldía</div></div>\n        <div class=\"sc-body\">\n          <div style=\"font-size:11px;font-weight:600;color:var(--text);margin-bottom:8px\">Vista Ejecutiva · Gestión Comunal</div>\n          <div class=\"alc-map\">\n            <div class=\"alc-map-bg\"></div>\n            <div class=\"cluster\" style=\"width:28px;height:28px;top:35%;left:45%;background:rgba(239,68,68,.75)\">47</div>\n            <div class=\"cluster\" style=\"width:22px;height:22px;top:22%;left:65%;background:rgba(245,158,11,.75)\">23</div>\n            <div class=\"cluster\" style=\"width:18px;height:18px;top:60%;left:30%;background:rgba(33,150,243,.75)\">18</div>\n            <div class=\"cluster\" style=\"width:15px;height:15px;top:55%;left:70%;background:rgba(33,150,243,.7)\">12</div>\n            <div style=\"position:absolute;top:5px;left:7px;font-size:8px;color:var(--muted);font-family:'DM Mono',monospace\">MAPA DE CALOR · SOLICITUDES ACTIVAS</div>\n          </div>\n          <div class=\"alc-legend\">\n            <div class=\"al-i\"><div class=\"al-d\" style=\"background:#EF4444\"></div>Alta demanda</div>\n            <div class=\"al-i\"><div class=\"al-d\" style=\"background:#F59E0B\"></div>Media</div>\n            <div class=\"al-i\"><div class=\"al-d\" style=\"background:var(--blue)\"></div>Normal</div>\n          </div>\n          <div class=\"alc-metrics\">\n            <div class=\"alc-m\"><div class=\"alc-mv green\">94.2%</div><div class=\"alc-ml\">Cumplimiento SLA</div></div>\n            <div class=\"alc-m\"><div class=\"alc-mv blue\">247</div><div class=\"alc-ml\">Solicitudes activas</div></div>\n            <div class=\"alc-m\"><div class=\"alc-mv amber\">12</div><div class=\"alc-ml\">Vencen hoy</div></div>\n          </div>\n          <div class=\"alc-foot\">✓ Ley 21.180 · 847 expedientes digitales generados este mes</div>\n        </div>\n      </div>", "t4": "<div class=\"screen\">\n        <div class=\"sc-bar\"><div class=\"sc-dots\"><div class=\"sc-dot\" style=\"background:#ff5f57\"></div><div class=\"sc-dot\" style=\"background:#ffbd2e\"></div><div class=\"sc-dot\" style=\"background:#28c840\"></div></div><div class=\"sc-url\">munia.cl · panel de administración municipal</div></div>\n        <div class=\"sc-body\">\n          <div style=\"font-size:11px;font-weight:600;color:var(--text);margin-bottom:10px\">Configuración · Sin código, sin proveedor</div>\n          <!-- Config sections -->\n          <div style=\"display:flex;flex-direction:column;gap:7px\">\n            <div style=\"background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:9px;padding:9px 11px\">\n              <div style=\"font-size:9px;font-family:'DM Mono',monospace;color:var(--blue-light);letter-spacing:1px;text-transform:uppercase;margin-bottom:5px\">Categorías de trámite activas</div>\n              <div style=\"display:flex;flex-direction:column;gap:3px\">\n                <div style=\"display:flex;align-items:center;justify-content:space-between;font-size:10px;color:var(--text)\"><span>🔧 Obras y Mantención <span style=\"color:var(--muted)\">(12 subcategorías)</span></span><span style=\"color:#34D399;font-size:9px;font-family:'DM Mono',monospace\">✓ Activo</span></div>\n                <div style=\"display:flex;align-items:center;justify-content:space-between;font-size:10px;color:var(--text)\"><span>🌿 Aseo y Ornato <span style=\"color:var(--muted)\">(8 subcategorías)</span></span><span style=\"color:#34D399;font-size:9px;font-family:'DM Mono',monospace\">✓ Activo</span></div>\n                <div style=\"display:flex;align-items:center;justify-content:space-between;font-size:10px;color:var(--text)\"><span>📋 Permisos y Patentes <span style=\"color:var(--muted)\">(6 subcategorías)</span></span><span style=\"color:#34D399;font-size:9px;font-family:'DM Mono',monospace\">✓ Activo</span></div>\n                <div style=\"display:flex;align-items:center;justify-content:space-between;font-size:10px;color:var(--muted)\"><span>+ Agregar nueva categoría</span><span style=\"color:var(--blue);font-size:9px;cursor:pointer\">→</span></div>\n              </div>\n            </div>\n            <div style=\"background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:9px;padding:9px 11px\">\n              <div style=\"font-size:9px;font-family:'DM Mono',monospace;color:var(--blue-light);letter-spacing:1px;text-transform:uppercase;margin-bottom:5px\">Reglas de asignación automática</div>\n              <div style=\"font-size:10px;color:var(--muted);line-height:1.6\">Obras + Sector Norte → <span style=\"color:var(--text)\">Dir. Obras · Equipo Norte</span></div>\n              <div style=\"font-size:10px;color:var(--muted);line-height:1.6\">Aseo + cualquier sector → <span style=\"color:var(--text)\">Dir. Aseo · rotación automática</span></div>\n              <div style=\"font-size:10px;color:var(--muted);line-height:1.6\">Permisos + urgente → <span style=\"color:var(--text)\">Dir. SECPLA · prioridad alta</span></div>\n            </div>\n            <div style=\"background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:9px;padding:9px 11px\">\n              <div style=\"font-size:9px;font-family:'DM Mono',monospace;color:var(--blue-light);letter-spacing:1px;text-transform:uppercase;margin-bottom:5px\">SLA configurado por tipo</div>\n              <div style=\"display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px\">\n                <div style=\"text-align:center;background:rgba(52,211,153,.06);border:1px solid rgba(52,211,153,.2);border-radius:6px;padding:5px\"><div style=\"font-size:13px;font-weight:700;color:#34D399\">48h</div><div style=\"font-size:8px;color:var(--muted);font-family:'DM Mono',monospace\">Urgente</div></div>\n                <div style=\"text-align:center;background:rgba(33,150,243,.06);border:1px solid rgba(33,150,243,.2);border-radius:6px;padding:5px\"><div style=\"font-size:13px;font-weight:700;color:var(--blue-light)\">5d</div><div style=\"font-size:8px;color:var(--muted);font-family:'DM Mono',monospace\">Normal</div></div>\n                <div style=\"text-align:center;background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.2);border-radius:6px;padding:5px\"><div style=\"font-size:13px;font-weight:700;color:#FCD34D\">15d</div><div style=\"font-size:8px;color:var(--muted);font-family:'DM Mono',monospace\">Estándar</div></div>\n              </div>\n            </div>\n            <div style=\"background:rgba(33,150,243,.06);border:1px solid rgba(33,150,243,.15);border-radius:8px;padding:7px 10px;font-size:9px;color:var(--blue-light);font-family:'DM Mono',monospace;text-align:center\">\n              ✓ Todos los cambios se aplican en producción de forma inmediata\n            </div>\n          </div>\n        </div>\n      </div>"};
+function mockHTML(tid,cap){return '<div class="mock"><div class="mock-wrap">'+(SCREENS[tid]||'')+'</div>'+(cap?'<div class="mock-cap">'+cap+'</div>':'')+'</div>';}
+let SLIDES=["<div class=\"slide cover\">\n  <div class=\"logo\"><svg class=\"mark\" viewBox=\"0 0 100 100\"><rect width=\"100\" height=\"100\" rx=\"22\" fill=\"#1B9BFE\"/><g fill=\"none\" stroke=\"#fff\" stroke-width=\"5\" stroke-linejoin=\"round\" stroke-linecap=\"round\"><circle cx=\"50\" cy=\"16\" r=\"3.4\" stroke-width=\"3.4\"/><line x1=\"50\" y1=\"19.4\" x2=\"50\" y2=\"29\"/><path d=\"M22 47 L50 28 L78 47\" stroke-width=\"5.5\"/><line x1=\"20\" y1=\"52\" x2=\"80\" y2=\"52\" stroke-width=\"6.5\"/></g><g fill=\"none\" stroke=\"#fff\" stroke-width=\"5\" stroke-linejoin=\"round\"><rect x=\"27\" y=\"55\" width=\"46\" height=\"30\" rx=\"2\"/></g><g fill=\"#fff\"><rect x=\"30\" y=\"63\" width=\"6\" height=\"22\" rx=\"1\"/><rect x=\"47\" y=\"63\" width=\"6\" height=\"22\" rx=\"1\"/><rect x=\"64\" y=\"63\" width=\"6\" height=\"22\" rx=\"1\"/></g></svg><span class=\"wm\">Mun<span class=\"ia\">IA</span></span></div>\n  <div class=\"big\">Cuando el municipio<br>responde, <span class=\"accent\">la gente </span>confía.</div>\n  <div class=\"sub\">MunIA convierte su municipio en una organización que atiende, registra y demuestra — operacional desde la primera semana, sin servidores propios.</div>\n  <div class=\"law-banner\">⚠ Ley 21.180 obliga a 345 municipios de Chile a digitalizarse antes de 2027 — el plazo ya corre</div>\n  <div class=\"for\">PREPARADO PARA LA MUNICIPALIDAD DE [COMUNA]</div>\n</div>", "<div class=\"slide\">\n  <div class=\"eyebrow\"><span class=\"sn\"></span> · Lo que cambia con MunIA</div>\n  <h2 class=\"t\">Resultados concretos, <span class=\"accent\">no promesas de vitrina.</span></h2>\n  <div class=\"metrics\">\n    <div class=\"metric\"><div class=\"num\">+60%</div><div class=\"lbl\">reducción en tiempo de resolución de solicitudes</div></div>\n    <div class=\"metric\"><div class=\"num\">−80%</div><div class=\"lbl\">menos llamadas de seguimiento cuando el vecino rastrea su caso</div></div>\n    <div class=\"metric\"><div class=\"num\">24/7</div><div class=\"lbl\">atención ciudadana sin costo adicional de personal</div></div>\n    <div class=\"metric\"><div class=\"num\">3 días</div><div class=\"lbl\">para estar operacional · sin servidores, sin instalación</div></div>\n  </div>\n  <p class=\"kick\">Cada cifra es un dolor operacional que desaparece — y un vecino que deja de quedar sin respuesta.</p>\n</div>", "<div class=\"slide\">\n  <div class=\"eyebrow\"><span class=\"sn\">El diagnóstico</span> · La atención ciudadana opera al límite</div>\n  <h2 class=\"t\">No es un problema de voluntad ni de personal. Es un problema de <span class=\"accent\">herramienta.</span></h2>\n  <div class=\"diag\">\n    <div class=\"diag-card\"><div class=\"big\">40<sub>%</sub></div><h4>Las solicitudes se pierden antes de llegar</h4><p>Papel, correo y WhatsApp informal. Sin registro central: se anotan, se derivan y desaparecen en el ruido.</p></div>\n    <div class=\"diag-card\"><div class=\"big\">3<sub>meses</sub></div><h4>El sistema no se adapta a la operación real</h4><p>Cambiar un flujo o una asignación requiere un ticket al proveedor. Espera habitual: tres meses.</p></div>\n    <div class=\"diag-card\"><div class=\"big\">0</div><h4>Cero datos para decidir mejor</h4><p>¿Cuántas solicitudes llegaron? ¿Cuántas en plazo? ¿Qué sectores acumulan problemas? El dato no existe.</p></div>\n  </div>\n  <p class=\"kick\">Tiene un costo operacional que se paga con ineficiencia, retraso y desconfianza ciudadana.</p>\n</div>", "<div class=\"slide\">\n  <div class=\"eyebrow\"><span class=\"sn\">El costo de operar así</span> · Cada día sin datos es una decisión a ciegas</div>\n  <div class=\"two\">\n    <div class=\"col-text\">\n      <h2 class=\"t\">El funcionario destina hasta el <span class=\"accent\">40% de su jornada</span> respondiendo llamadas — en vez de resolver casos.</h2>\n      <div class=\"ba\">\n        <div class=\"ba-row before\"><span class=\"ba-tag\">Sin sistema</span><span class=\"ba-text\">El funcionario es el cuello de botella. Cada solicitud perdida genera otro vecino que llama de nuevo — <b>y otro, y otro</b>. La jefatura reasigna por intuición; el alcalde gestiona sin evidencia.</span></div>\n        <div class=\"ba-row after\"><span class=\"ba-tag\">Con MunIA</span><span class=\"ba-text\">El seguimiento, la asignación y las alertas son <b>automáticos</b>. El funcionario se libera para lo que importa: atender bien.</span></div>\n      </div>\n      <p class=\"footnote\">✦ La operación eficiente cumple además, de forma automática, con las Leyes 21.180, 21.719 y 21.663. La digitalización es el resultado natural — no el objetivo de venta.</p>\n    </div>\n    <div class=\"col-visual\"><svg viewBox=\"0 0 460 480\" xmlns=\"http://www.w3.org/2000/svg\">\n    <rect x=\"40\" y=\"30\" width=\"380\" height=\"420\" rx=\"16\" fill=\"#0D1117\" stroke=\"rgba(120,160,210,.22)\"/>\n    <rect x=\"40\" y=\"30\" width=\"380\" height=\"34\" rx=\"16\" fill=\"#080B12\"/><rect x=\"40\" y=\"48\" width=\"380\" height=\"16\" fill=\"#080B12\"/>\n    <circle cx=\"58\" cy=\"47\" r=\"4\" fill=\"#5e7693\"/><circle cx=\"72\" cy=\"47\" r=\"4\" fill=\"#5e7693\"/><circle cx=\"86\" cy=\"47\" r=\"4\" fill=\"#5e7693\"/>\n    <text x=\"406\" y=\"52\" text-anchor=\"end\" font-family=\"DM Mono,monospace\" font-size=\"10\" fill=\"#5e7693\">realidad · hoy</text>\n    <rect x=\"70\" y=\"96\" width=\"110\" height=\"36\" rx=\"9\" fill=\"#111827\" stroke=\"rgba(120,160,210,.22)\"/><text x=\"125\" y=\"119\" text-anchor=\"middle\" font-family=\"Inter\" font-size=\"12\" fill=\"#8B9DC3\">WhatsApp</text><rect x=\"186\" y=\"96\" width=\"110\" height=\"36\" rx=\"9\" fill=\"#111827\" stroke=\"rgba(120,160,210,.22)\"/><text x=\"241\" y=\"119\" text-anchor=\"middle\" font-family=\"Inter\" font-size=\"12\" fill=\"#8B9DC3\">Correo</text><rect x=\"302\" y=\"96\" width=\"110\" height=\"36\" rx=\"9\" fill=\"#111827\" stroke=\"rgba(120,160,210,.22)\"/><text x=\"357\" y=\"119\" text-anchor=\"middle\" font-family=\"Inter\" font-size=\"12\" fill=\"#8B9DC3\">Papel</text>\n    <path d=\"M125 132 C 125 165, 230 175, 230 205\" stroke=\"#5e7693\" stroke-width=\"1.4\" stroke-dasharray=\"4 4\" fill=\"none\"/><path d=\"M241 132 C 241 165, 230 175, 230 205\" stroke=\"#5e7693\" stroke-width=\"1.4\" stroke-dasharray=\"4 4\" fill=\"none\"/><path d=\"M357 132 C 357 165, 230 175, 230 205\" stroke=\"#5e7693\" stroke-width=\"1.4\" stroke-dasharray=\"4 4\" fill=\"none\"/>\n    <rect x=\"95\" y=\"205\" width=\"270\" height=\"96\" rx=\"12\" fill=\"rgba(239,68,68,.05)\" stroke=\"rgba(239,68,68,.25)\" stroke-dasharray=\"6 5\"/>\n    <text x=\"230\" y=\"246\" text-anchor=\"middle\" font-family=\"Inter\" font-size=\"15\" font-weight=\"700\" fill=\"#ff8a8a\">Sin registro central</text>\n    <text x=\"230\" y=\"270\" text-anchor=\"middle\" font-family=\"Inter\" font-size=\"12\" fill=\"#8B9DC3\">El funcionario no sabe qué tiene pendiente.</text>\n    <text x=\"230\" y=\"288\" text-anchor=\"middle\" font-family=\"Inter\" font-size=\"12\" fill=\"#8B9DC3\">El vecino no sabe qué pasó.</text>\n    <text x=\"230\" y=\"366\" text-anchor=\"middle\" font-family=\"Inter\" font-size=\"48\" font-weight=\"900\" fill=\"#EF4444\">40%</text>\n    <text x=\"230\" y=\"394\" text-anchor=\"middle\" font-family=\"Inter\" font-size=\"12\" fill=\"#8B9DC3\">opera con papel, correo y WhatsApp informal</text>\n    </svg></div>\n  </div>\n</div>", "<div class=\"slide\">\n  <div class=\"eyebrow\"><span class=\"sn\">Casos de uso reales</span> · Cinco personas, un mismo problema</div>\n  <div class=\"two\">\n    <div class=\"col-text\">\n      <h1 class=\"t\">Cinco personas. Un mismo problema. <span class=\"accent\">Una sola plataforma.</span></h1>\n      <p class=\"lead\">Esto ocurre hoy, todos los días, en cualquier municipio chileno. Cada persona gana algo concreto. Nada es abstracto.</p>\n      <div class=\"pills\">\n        <span class=\"pill\">🏘️ El vecino</span><span class=\"pill\">👩‍💼 El funcionario</span><span class=\"pill\">📊 La jefatura</span><span class=\"pill\">🏛️ El alcalde</span><span class=\"pill\">⚙️ El administrador</span>\n      </div>\n    </div>\n    <div class=\"col-visual\"><svg viewBox=\"0 0 460 500\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"160\" y=\"210\" width=\"140\" height=\"80\" rx=\"16\" fill=\"#0D1117\" stroke=\"#2196F3\" stroke-width=\"1.5\"/><text x=\"230\" y=\"245\" text-anchor=\"middle\" font-family=\"Inter\" font-size=\"20\" font-weight=\"800\" fill=\"#fff\">Mun<tspan fill=\"#42A5F5\">IA</tspan></text><text x=\"230\" y=\"268\" text-anchor=\"middle\" font-family=\"DM Mono,monospace\" font-size=\"9\" fill=\"#8B9DC3\" letter-spacing=\"1\">PLATAFORMA</text><circle cx=\"230\" cy=\"250\" r=\"120\" fill=\"none\" stroke=\"#2196F3\" stroke-width=\"1\" opacity=\"0.1\"/><circle cx=\"230\" cy=\"250\" r=\"160\" fill=\"none\" stroke=\"#2196F3\" stroke-width=\"1\" opacity=\"0.06\"/><line x1=\"60\" y1=\"95\" x2=\"230\" y2=\"250\" stroke=\"#42A5F5\" stroke-width=\"1.4\" opacity=\"0.35\" stroke-dasharray=\"5 4\"/><rect x=\"2\" y=\"65\" width=\"116\" height=\"60\" rx=\"14\" fill=\"#111827\" stroke=\"rgba(120,160,210,.22)\"/><text x=\"60\" y=\"93\" text-anchor=\"middle\" font-size=\"22\">🏘️</text><text x=\"60\" y=\"115\" text-anchor=\"middle\" font-family=\"Inter\" font-size=\"13\" font-weight=\"600\" fill=\"#F0F4FF\">El vecino</text><line x1=\"400\" y1=\"95\" x2=\"230\" y2=\"250\" stroke=\"#42A5F5\" stroke-width=\"1.4\" opacity=\"0.35\" stroke-dasharray=\"5 4\"/><rect x=\"342\" y=\"65\" width=\"116\" height=\"60\" rx=\"14\" fill=\"#111827\" stroke=\"rgba(120,160,210,.22)\"/><text x=\"400\" y=\"93\" text-anchor=\"middle\" font-size=\"22\">👩‍💼</text><text x=\"400\" y=\"115\" text-anchor=\"middle\" font-family=\"Inter\" font-size=\"13\" font-weight=\"600\" fill=\"#F0F4FF\">Su equipo</text><line x1=\"230\" y1=\"430\" x2=\"230\" y2=\"250\" stroke=\"#42A5F5\" stroke-width=\"1.4\" opacity=\"0.35\" stroke-dasharray=\"5 4\"/><rect x=\"172\" y=\"400\" width=\"116\" height=\"60\" rx=\"14\" fill=\"#111827\" stroke=\"rgba(120,160,210,.22)\"/><text x=\"230\" y=\"428\" text-anchor=\"middle\" font-size=\"22\">🏛️</text><text x=\"230\" y=\"450\" text-anchor=\"middle\" font-family=\"Inter\" font-size=\"13\" font-weight=\"600\" fill=\"#F0F4FF\">Usted</text></svg></div>\n  </div>\n</div>", "<div class=\"slide\">\n  <div class=\"eyebrow\"><span class=\"sn\">Caso 1 · el vecino</span> · 🏘️ El vecino que lleva semanas esperando</div>\n  <div class=\"two\">\n    <div class=\"col-text\">\n      <div class=\"persona\"><span class=\"face\">🏘️</span><div><div class=\"pwho\">67 años · Sector rural · Contribuyente activo</div></div></div>\n      <h2 class=\"t\">De invisible a <span class=\"accent\">atendido en 4 minutos.</span></h2>\n      <div class=\"ba\">\n        <div class=\"ba-row before\"><span class=\"ba-tag\">Hoy</span><span class=\"ba-text\">Tres semanas esperando que revisen su pozo negro. Llamó, fue en persona, volvió a llamar — <b>no había registro</b> de su solicitud.</span></div>\n        <div class=\"ba-row after\"><span class=\"ba-tag\">Con MunIA</span><span class=\"ba-text\">Un domingo a las 9 PM, desde su celular, ingresa en 4 minutos, adjunta una foto y recibe un código. En 48h coordinan la visita. <b>Nunca volvió a preguntar.</b></span></div>\n      </div>\n    </div>\n    <div class=\"col-visual has-mock\"><!--MOCK:t0:Portal ciudadano · ingreso real de solicitud--></div>\n  </div>\n</div>", "<div class=\"slide\">\n  <div class=\"eyebrow\"><span class=\"sn\">Caso 2 · el funcionario</span> · 👩‍💼 La funcionaria que trabaja a pesar del sistema</div>\n  <div class=\"two\">\n    <div class=\"col-text\">\n      <div class=\"persona\"><span class=\"face\">👩‍💼</span><div><div class=\"pwho\">11 años en el municipio · Dirección de Obras</div></div></div>\n      <h2 class=\"t\">Del Excel personal a una <span class=\"accent\">bandeja que no pierde nada.</span></h2>\n      <div class=\"ba\">\n        <div class=\"ba-row before\"><span class=\"ba-tag\">Hoy</span><span class=\"ba-text\">47 solicitudes en un Excel propio para que no se pierdan. 40% del día respondiendo \"¿qué pasó con mi caso?\". <b>No sabe cuántos casos vencidos tiene.</b></span></div>\n        <div class=\"ba-row after\"><span class=\"ba-tag\">Con MunIA</span><span class=\"ba-text\">Abre su bandeja: 12 casos, 3 con alerta de vencimiento, 2 esperando firma. Todo ordenado. Cuando el director pregunta, <b>responde con datos exactos en 30 segundos.</b></span></div>\n      </div>\n    </div>\n    <div class=\"col-visual has-mock\"><!--MOCK:t1:Bandeja del funcionario · sistema MunIA--></div>\n  </div>\n</div>", "<div class=\"slide\">\n  <div class=\"eyebrow\"><span class=\"sn\">Caso 3 · la jefatura</span> · 📊 El director que decide a ciegas</div>\n  <div class=\"two\">\n    <div class=\"col-text\">\n      <div class=\"persona\"><span class=\"face\">📊</span><div><div class=\"pwho\">8 funcionarios a cargo · Dirección de Obras</div></div></div>\n      <h2 class=\"t\">De preguntar uno a uno a <span class=\"accent\">ver todo el equipo en tiempo real.</span></h2>\n      <div class=\"ba\">\n        <div class=\"ba-row before\"><span class=\"ba-tag\">Hoy</span><span class=\"ba-text\">Para saber el estado pregunta caso por caso. No sabe quién está sobrecargado. Reasigna por intuición e <b>improvisa</b> cuando el alcalde pregunta.</span></div>\n        <div class=\"ba-row after\"><span class=\"ba-tag\">Con MunIA</span><span class=\"ba-text\">Ve la carga de cada funcionario, los vencidos, los que requieren su firma. Reasigna al de menor carga <b>en un clic</b>. Responde con datos, sin improvisar.</span></div>\n      </div>\n    </div>\n    <div class=\"col-visual has-mock\"><!--MOCK:t2:Panel de supervisión · dirección--></div>\n  </div>\n</div>", "<div class=\"slide\">\n  <div class=\"eyebrow\"><span class=\"sn\">Caso 4 · el alcalde</span> · 🏛️ El alcalde que no puede demostrar lo que hace</div>\n  <div class=\"two\">\n    <div class=\"col-text\">\n      <div class=\"persona\"><span class=\"face\">🏛️</span><div><div class=\"pwho\">Máxima autoridad comunal · Responsable ante la ley</div></div></div>\n      <h2 class=\"t\">De gestionar a ciegas a <span class=\"accent\">gobernar con el mapa.</span></h2>\n      <div class=\"ba\">\n        <div class=\"ba-row before\"><span class=\"ba-tag\">Hoy</span><span class=\"ba-text\">¿Cuántas solicitudes recibió el mes pasado? ¿Cuántas en plazo? La mayoría no sabe. Ante la fiscalización de la Ley 21.180, <b>no hay expediente que mostrar</b>. Gestiona bien, pero no puede probarlo.</span></div>\n        <div class=\"ba-row after\"><span class=\"ba-tag\">Con MunIA</span><span class=\"ba-text\">El mapa muestra que el sector norte triplica las solicitudes. Cada caso con fecha, responsable y resolución. <b>Por primera vez, puede demostrar que su municipio responde.</b></span></div>\n      </div>\n    </div>\n    <div class=\"col-visual has-mock\"><!--MOCK:t3:Panel ejecutivo · alcaldía--></div>\n  </div>\n</div>", "<div class=\"slide\">\n  <div class=\"eyebrow\"><span class=\"sn\">Caso 5 · el administrador</span> · ⚙️ El administrador que depende del proveedor</div>\n  <div class=\"two\">\n    <div class=\"col-text\">\n      <div class=\"persona\"><span class=\"face\">⚙️</span><div><div class=\"pwho\">Encargado TI o Secretaría Municipal</div></div></div>\n      <h2 class=\"t\">Soberanía operacional: el sistema <span class=\"accent\">le pertenece al municipio.</span></h2>\n      <div class=\"ba\">\n        <div class=\"ba-row before\"><span class=\"ba-tag\">Hoy</span><span class=\"ba-text\">Cambiar un tipo de trámite, un plazo o una regla exige llamar al proveedor y esperar. A veces semanas, a veces meses. <b>El sistema no le pertenece al municipio.</b></span></div>\n        <div class=\"ba-row after\"><span class=\"ba-tag\">Con MunIA</span><span class=\"ba-text\">Agrega categorías, ajusta SLA, crea sectores y reasigna flujos desde el navegador. <b>Sin código, sin proveedor, sin ticket.</b> Los cambios aplican en producción al instante.</span></div>\n      </div>\n    </div>\n    <div class=\"col-visual has-mock\"><!--MOCK:t4:Configuración sin código · administrador--></div>\n  </div>\n</div>", "<div class=\"slide\">\n  <div class=\"eyebrow\"><span class=\"sn\">La plataforma</span> · Cada módulo resuelve un problema concreto</div>\n  <h2 class=\"t\">No hay funcionalidades de vitrina. Todo está diseñado para <span class=\"accent\">el municipio real.</span></h2>\n  <div class=\"mods\">\n    <div class=\"mod\"><div class=\"mi\">🤖</div><h4>Bot IA Conversacional 24/7</h4><p>Responde, abre solicitudes y permite seguimiento sin que ningún funcionario esté disponible. Aprende los trámites del municipio vía RAG.</p><div class=\"tags\"><span class=\"tg\">IA contextual</span><span class=\"tg\">RAG</span></div></div>\n    <div class=\"mod\"><div class=\"mi\">🌐</div><h4>Portal Ciudadano Multicanal</h4><p>Web, bot y ventanilla presencial en una sola bandeja. Comprobante QR para atención en persona.</p><div class=\"tags\"><span class=\"tg\">Web · Bot · Presencial</span></div></div>\n    <div class=\"mod\"><div class=\"mi\">🔐</div><h4>Gestión por Roles</h4><p>El funcionario ve su bandeja, la jefatura su equipo, el alcalde el municipio entero. Cada nivel, su información.</p><div class=\"tags\"><span class=\"tg\">Roles · SLA</span></div></div>\n    <div class=\"mod\"><div class=\"mi\">⚙️</div><h4>Flujos BPMN sin Código</h4><p>El municipio diseña y modifica sus trámites con editor visual. Si el proceso cambia hoy, el sistema cambia hoy.</p><div class=\"tags\"><span class=\"tg\">Low-code</span><span class=\"tg\">Soberanía</span></div></div>\n    <div class=\"mod\"><div class=\"mi\">📊</div><h4>Dashboard en Tiempo Real</h4><p>KPIs al instante, mapa de calor geoespacial por sector y reportes OIRS formato CPLT exportables.</p><div class=\"tags\"><span class=\"tg\">Tiempo real</span><span class=\"tg\">Mapa comunal</span></div></div>\n    <div class=\"mod\"><div class=\"mi\">🛡️</div><h4>Cumplimiento Integrado</h4><p>MFA, auditoría exportable, gestión de incidentes ANCI, expediente electrónico. Para las tres leyes desde el día uno.</p><div class=\"tags\"><span class=\"tg\">21.180·719·663</span></div></div>\n  </div>\n</div>", "<div class=\"slide\">\n  <div class=\"eyebrow\"><span class=\"sn\">Flujo operacional</span> · De la solicitud a la resolución</div>\n  <h2 class=\"t\">De la solicitud a la resolución. <span class=\"accent\">Sin que nada se pierda.</span></h2>\n  <div class=\"steps\">\n    <div class=\"step\"><div class=\"n\">01</div><h4>El vecino solicita</h4><p>Por web, bot o ventanilla. Recibe código QR al instante. Disponible 24 horas.</p><span class=\"arr\">→</span></div>\n    <div class=\"step\"><div class=\"n\">02</div><h4>Clasificación y asignación automática</h4><p>La IA clasifica. El sistema asigna al área y funcionario correcto. SLA activado de inmediato.</p><span class=\"arr\">→</span></div>\n    <div class=\"step\"><div class=\"n\">03</div><h4>El funcionario gestiona</h4><p>Trabaja desde su bandeja con historial completo. Alertas automáticas antes de cada vencimiento.</p><span class=\"arr\">→</span></div>\n    <div class=\"step\"><div class=\"n\">04</div><h4>El municipio demuestra</h4><p>Expediente completo de cada caso. El vecino recibe respuesta. El alcalde tiene evidencia. La ley queda cubierta.</p></div>\n  </div>\n</div>", "<div class=\"slide\">\n  <div class=\"eyebrow\"><span class=\"sn\">Marco legal</span> · No es una opción. Es una obligación. Y el plazo ya corre</div>\n  <h2 class=\"t\">Los municipios que actúen hoy llegan <span class=\"accent\">adelantados a 2027.</span> Los que esperen, expuestos.</h2>\n  <div class=\"laws\">\n    <div class=\"law\"><div class=\"code\">LEY 21.180</div><h4>Transformación Digital del Estado</h4><p>Trámites electrónicos, notificación digital, expediente con trazabilidad y Archivo Nacional Electrónico.</p></div>\n    <div class=\"law\"><div class=\"code\">LEY 21.719</div><h4>Protección de Datos Personales</h4><p>Acceso, corrección, eliminación y oposición del vecino sobre sus datos. La ley exige evidencia, no intención.</p></div>\n    <div class=\"law\"><div class=\"code\">LEY 21.663</div><h4>Ciberseguridad del Estado</h4><p>Estándares mínimos, reporte de incidentes a la ANCI y controles de acceso robustos. Los municipios están en el alcance directo.</p></div>\n  </div>\n  <div class=\"tag-incl\">✓ El municipio que adopte MunIA hoy llega al 2027 con evidencia concreta — sin consultores, sin desarrollo a medida</div>\n</div>", "<div class=\"slide\">\n  <div class=\"eyebrow\"><span class=\"sn\">Planes y precios</span> · Accesible para el municipio que hoy dice que no puede</div>\n  <h2 class=\"t\" style=\"max-width:26ch\">Sin licencia de entrada. Sin instalación. <span class=\"accent\">El municipio suscribe y opera.</span></h2>\n  <div class=\"plans\">\n    <div class=\"plan\"><div class=\"pn\">Inicio</div><div class=\"scope\">Hasta 3 trámites</div><div class=\"price\">USD 500<span>/mes</span></div><div class=\"clp\">≈ $470.000 CLP</div><ul><li>Portal web multicanal</li><li>Bot IA 24/7</li><li>Gestión con SLA</li><li>Dashboard base</li><li>Onboarding incluido</li></ul></div>\n    <div class=\"plan feat\"><div class=\"star\">Más elegido</div><div class=\"pn\">Esencial</div><div class=\"scope\">4 a 10 trámites</div><div class=\"price\">USD 1.000<span>/mes</span></div><div class=\"clp\">≈ $940.000 CLP</div><ul><li>Todo lo de Inicio</li><li>Flujos BPMN sin código</li><li>Mapa de calor</li><li>MFA + auditoría</li><li>Notificaciones al vecino</li></ul></div>\n    <div class=\"plan\"><div class=\"pn\">Operacional</div><div class=\"scope\">10 a 25 trámites</div><div class=\"price\">USD 1.500<span>/mes</span></div><div class=\"clp\">≈ $1.410.000 CLP</div><ul><li>Todo lo de Esencial</li><li>App móvil offline terreno</li><li>Reportes OIRS CPLT</li><li>Integración PISEE y Reg. Civil</li><li>Gestión incidentes ANCI</li></ul></div>\n    <div class=\"plan\"><div class=\"pn\">Pleno</div><div class=\"scope\">+25 trámites</div><div class=\"price\">USD 2.000<span>/mes</span></div><div class=\"clp\">≈ $1.880.000 CLP</div><ul><li>Todo lo de Operacional</li><li>Analítica predictiva</li><li>API integraciones</li><li>Soporte dedicado</li><li>Licencia multi-oficina</li></ul></div>\n  </div>\n  <p class=\"price-foot\">🎯 <b>Empieza con 3 trámites y escala a tu ritmo.</b> Operacional en 3 días, sin servidores ni equipo técnico interno. Descuento con compromiso anual. Elegible para fondos SUBDERE, CORFO y licencias centralizadas vía AMUCH / AChM.</p>\n</div>", "<div class=\"slide\">\n  <div class=\"eyebrow\"><span class=\"sn\">Antes de decir que sí</span> · Las dudas más comunes — respondidas sin rodeos</div>\n  <h2 class=\"t\">Lo que alcaldes, directores y encargados de TI <span class=\"accent\">siempre preguntan.</span></h2>\n  <div class=\"objs\">\n    <div class=\"obj\"><div class=\"q\">¿Necesitamos equipo técnico propio?</div><p>No. 100% en la nube de Google, acceso por navegador. El onboarding lo hacemos nosotros.</p></div>\n    <div class=\"obj\"><div class=\"q\">¿Reemplaza los sistemas que ya tenemos?</div><p>No reemplaza — complementa. No toca el ERP de finanzas ni patentes. Funciona en paralelo, sin integración obligatoria.</p></div>\n    <div class=\"obj\"><div class=\"q\">¿Los datos están seguros y separados?</div><p>Sí. Multi-tenant con aislamiento total por arquitectura. Cifrado en tránsito y reposo sobre Google Cloud.</p></div>\n    <div class=\"obj\"><div class=\"q\">¿Cómo se financia con presupuesto restringido?</div><p>Desde USD 500/mes. Elegible para fondos SUBDERE y CORFO, y licencias centralizadas vía AMUCH / AChM.</p></div>\n  </div>\n  <p class=\"footnote\">El set completo de 22 preguntas (implementación, operación, técnico, costos, marco legal) está disponible como anexo.</p>\n</div>", "<div class=\"slide\">\n  <div class=\"eyebrow\"><span class=\"sn\">El primer paso</span> · Tu municipio puede responder mejor desde esta semana</div>\n  <div class=\"two\">\n    <div class=\"col-text\">\n      <h2 class=\"t\">El piloto es <span class=\"accent\">sin costo.</span> La implementación toma 3 días.</h2>\n      <p class=\"lead\">El vecino nota la diferencia desde la primera semana. El alcalde tiene datos antes de fin de mes.</p>\n      <div class=\"cta-grid\">\n        <div class=\"cta-card\"><div class=\"ic\">🎯</div><h4>Piloto sin costo</h4><p>Primeros municipios. Sobre su operación real, con un KPI acordado.</p></div>\n        <div class=\"cta-card\"><div class=\"ic\">⏱</div><h4>Respuesta en 48 horas</h4><p>Sin contratos de largo plazo obligatorios.</p></div>\n      </div>\n    </div>\n    <div class=\"col-visual\"><svg viewBox=\"0 0 460 480\" xmlns=\"http://www.w3.org/2000/svg\">\n    <ellipse cx=\"230\" cy=\"120\" rx=\"100\" ry=\"44\" fill=\"#080B12\" stroke=\"#2196F3\" stroke-width=\"1.5\"/>\n    <text x=\"230\" y=\"116\" text-anchor=\"middle\" font-family=\"Inter\" font-size=\"13\" font-weight=\"700\" fill=\"#42A5F5\">Google Cloud</text>\n    <text x=\"230\" y=\"136\" text-anchor=\"middle\" font-family=\"Inter\" font-size=\"11\" fill=\"#8B9DC3\">alta disponibilidad</text>\n    <line x1=\"230\" y1=\"164\" x2=\"230\" y2=\"200\" stroke=\"#42A5F5\" stroke-width=\"1.5\" stroke-dasharray=\"5 4\"/>\n    <rect x=\"150\" y=\"200\" width=\"160\" height=\"96\" rx=\"12\" fill=\"#111827\" stroke=\"rgba(120,160,210,.22)\"/><rect x=\"150\" y=\"200\" width=\"160\" height=\"22\" rx=\"12\" fill=\"#080B12\"/><rect x=\"150\" y=\"211\" width=\"160\" height=\"11\" fill=\"#080B12\"/>\n    <circle cx=\"164\" cy=\"211\" r=\"3\" fill=\"#5e7693\"/><circle cx=\"174\" cy=\"211\" r=\"3\" fill=\"#5e7693\"/>\n    <text x=\"230\" y=\"258\" text-anchor=\"middle\" font-size=\"26\">🌐</text><text x=\"230\" y=\"284\" text-anchor=\"middle\" font-family=\"Inter\" font-size=\"11\" fill=\"#8B9DC3\">Solo un navegador</text>\n    <g opacity=\"0.5\"><rect x=\"64\" y=\"326\" width=\"150\" height=\"44\" rx=\"10\" fill=\"none\" stroke=\"#EF4444\" stroke-width=\"1.5\"/><text x=\"139\" y=\"353\" text-anchor=\"middle\" font-family=\"Inter\" font-size=\"12\" fill=\"#ff8a8a\">Sin servidores propios</text><line x1=\"64\" y1=\"326\" x2=\"214\" y2=\"370\" stroke=\"#EF4444\" stroke-width=\"1.5\"/></g>\n    <rect x=\"246\" y=\"326\" width=\"150\" height=\"44\" rx=\"10\" fill=\"rgba(16,185,129,.08)\" stroke=\"rgba(16,185,129,.25)\"/><text x=\"321\" y=\"347\" text-anchor=\"middle\" font-family=\"Inter\" font-size=\"18\" font-weight=\"900\" fill=\"#10B981\">3 días</text><text x=\"321\" y=\"363\" text-anchor=\"middle\" font-family=\"Inter\" font-size=\"10\" fill=\"#8B9DC3\">operacional</text>\n    <rect x=\"64\" y=\"390\" width=\"332\" height=\"54\" rx=\"12\" fill=\"#080B12\" stroke=\"rgba(120,160,210,.22)\"/><text x=\"82\" y=\"415\" font-family=\"Inter\" font-size=\"12\" fill=\"#8B9DC3\">🔒 Datos de su comuna</text><text x=\"378\" y=\"415\" text-anchor=\"end\" font-family=\"Inter\" font-size=\"12\" font-weight=\"700\" fill=\"#F0F4FF\">aislados por arquitectura</text><text x=\"82\" y=\"434\" font-family=\"Inter\" font-size=\"10\" fill=\"#5e7693\">Multi-tenant · ningún municipio ve los datos de otro</text>\n    </svg></div>\n  </div>\n</div>", "<div class=\"slide cover\">\n  <div class=\"logo\"><svg class=\"mark\" viewBox=\"0 0 100 100\"><rect width=\"100\" height=\"100\" rx=\"22\" fill=\"#1B9BFE\"/><g fill=\"none\" stroke=\"#fff\" stroke-width=\"5\" stroke-linejoin=\"round\" stroke-linecap=\"round\"><circle cx=\"50\" cy=\"16\" r=\"3.4\" stroke-width=\"3.4\"/><line x1=\"50\" y1=\"19.4\" x2=\"50\" y2=\"29\"/><path d=\"M22 47 L50 28 L78 47\" stroke-width=\"5.5\"/><line x1=\"20\" y1=\"52\" x2=\"80\" y2=\"52\" stroke-width=\"6.5\"/></g><g fill=\"none\" stroke=\"#fff\" stroke-width=\"5\" stroke-linejoin=\"round\"><rect x=\"27\" y=\"55\" width=\"46\" height=\"30\" rx=\"2\"/></g><g fill=\"#fff\"><rect x=\"30\" y=\"63\" width=\"6\" height=\"22\" rx=\"1\"/><rect x=\"47\" y=\"63\" width=\"6\" height=\"22\" rx=\"1\"/><rect x=\"64\" y=\"63\" width=\"6\" height=\"22\" rx=\"1\"/></g></svg><span class=\"wm\">Mun<span class=\"ia\">IA</span></span></div>\n  <div class=\"big\" style=\"font-size:clamp(32px,5.4vw,76px)\">Cuando el municipio responde,<br><span class=\"accent\">la gente </span>confía.</div>\n  <div class=\"sub\">Su municipio puede responder mejor desde esta semana.</div>\n  <div class=\"for\">contacto@munia.cl · Una iniciativa ALTKimia · Chile 2026</div>\n</div>", "<div class=\"slide divider\">\n  <div class=\"eyebrow\"><span class=\"sn\">Material de respaldo</span> · Anexo técnico — solo si lo consultan</div>\n  <h2 class=\"t\" style=\"max-width:24ch\">Profundidad disponible <span class=\"accent\">a demanda.</span></h2>\n  <p class=\"lead\" style=\"margin-left:auto;margin-right:auto\">Active estos contenidos si el jefe de TI o el administrador piden detalle. No forman parte del relato principal.</p>\n  <div class=\"anexo-list\">\n    <div class=\"anexo-item\"><div class=\"ax\">A1</div><h4>Arquitectura multi-tenant</h4><p>Aislamiento por municipio, acceso por roles, Google Cloud, backups y cifrado.</p></div>\n    <div class=\"anexo-item\"><div class=\"ax\">A2</div><h4>Nodo PISEE en detalle</h4><p>mTLS, estructura JSON, trazabilidad. Qué está construido y qué es roadmap.</p></div>\n    <div class=\"anexo-item\"><div class=\"ax\">A3</div><h4>Motor BPMN low-code</h4><p>Configurar un trámite sin programar; biblioteca de flujos validados que acelera el onboarding.</p></div>\n    <div class=\"anexo-item\"><div class=\"ax\">A4</div><h4>FAQ completa + pricing por clúster</h4><p>22 preguntas y cofinanciamiento SUBDERE / CORFO / AMUCH para comunas tipo 4 y 5.</p></div>\n  </div>\n</div>"];
+SLIDES=SLIDES.map(function(s){return s.replace(/<!--MOCK:(t\d):([^>]*?)-->/g,function(_,tid,cap){return mockHTML(tid,cap);});});
+
+const deck=document.getElementById('deck');
+deck.innerHTML=SLIDES.join('');
+const slideEls=[...deck.children];
+let cur=0;const total=slideEls.length;
+const prevBtn=document.getElementById('prev'),nextBtn=document.getElementById('next');
+const counter=document.getElementById('counter'),progress=document.getElementById('progress'),hint=document.getElementById('hint');
+function render(){
+  slideEls.forEach((s,i)=>{s.classList.toggle('active',i===cur);s.classList.toggle('prev',i<cur);});
+  counter.textContent=`${String(cur+1).padStart(2,'0')} / ${String(total).padStart(2,'0')}`;
+  progress.style.width=((cur+1)/total*100)+'%';
+  prevBtn.disabled=cur===0;nextBtn.disabled=cur===total-1;
+}
+function go(n){cur=Math.max(0,Math.min(total-1,n));render();if(cur>0)hint.style.opacity='0';}
+nextBtn.onclick=()=>go(cur+1);prevBtn.onclick=()=>go(cur-1);
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key===' '||e.key==='PageDown'){e.preventDefault();go(cur+1);}
+  if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();go(cur-1);}
+  if(e.key==='Home')go(0);if(e.key==='End')go(total-1);
+});
+let tx=0;
+document.addEventListener('touchstart',e=>tx=e.touches[0].clientX,{passive:true});
+document.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx;if(Math.abs(dx)>50)go(cur+(dx<0?1:-1));},{passive:true});
+render();
+</script>
+</body>
+</html>

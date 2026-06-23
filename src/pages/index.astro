@@ -1,0 +1,931 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+---
+<Layout title="MunIA — Cuando el municipio responde, la gente confía.">
+<Nav />
+<!-- URGENCY BAR -->
+<div class="urg">
+  <span class="urg-pill">⚠ Ley 21.180</span>
+  <span>Chile obliga a <strong>345 municipios</strong> a digitalizarse antes de <strong>2027</strong> — el plazo ya corre</span>
+  <a href="#compliance">¿Qué exige la ley? →</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="container hero-inner">
+    <div>
+      <div class="hero-live-badge"><div class="live-dot"></div>Servicio operacional · Municipios activos</div>
+      <h1 class="hero-title">
+        Cuando el municipio<br>
+        <span class="t-blue">responde,</span><br>
+        la gente <span style="color:#fff">confía.</span>
+      </h1>
+      <p class="hero-sub">
+        MunIA convierte tu municipio en una organización que atiende, registra y demuestra. <strong>IA conversacional, trazabilidad total y cumplimiento normativo</strong> — operacional desde la primera semana, sin servidores propios.
+      </p>
+      <div class="hero-actions">
+        <a href="#contacto" class="btn-p">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          Ver Demo en Vivo
+        </a>
+        <a href="#casos" class="btn-g-dark">Casos de uso reales →</a>
+      </div>
+      <div class="hero-proof">
+        <div class="proof-item"><div class="proof-dot"></div>Solicitudes ciudadanas gestionadas con <strong>trazabilidad total</strong> desde el primer día</div>
+        <div class="proof-item"><div class="proof-dot"></div>Funcionarios que saben exactamente <strong>qué tienen pendiente y cuándo vence</strong></div>
+        <div class="proof-item"><div class="proof-dot"></div>El alcalde con <strong>datos reales de gestión</strong> antes de fin del primer mes</div>
+      </div>
+    </div>
+
+    <!-- DASHBOARD -->
+    <div class="db-wrap" style="position:relative">
+      <div class="db-main">
+        <div class="db-bar">
+          <div class="db-dots"><div class="db-dot" style="background:#ff5f57"></div><div class="db-dot" style="background:#ffbd2e"></div><div class="db-dot" style="background:#28c840"></div></div>
+          <div class="db-url"><div class="db-live-ind"></div>munia.cl · dashboard operacional</div>
+        </div>
+        <div class="db-body">
+          <div class="db-row-h"><div class="db-h-txt">Panel de Gestión Ciudadana</div><div class="db-live-tag">● EN VIVO</div></div>
+          <div class="kpi-grid">
+            <div class="kpi"><div class="kpi-n blue">247</div><div class="kpi-l">Activas</div></div>
+            <div class="kpi"><div class="kpi-n green">94.2%</div><div class="kpi-l">SLA OK</div></div>
+            <div class="kpi"><div class="kpi-n">1.8d</div><div class="kpi-l">Promedio</div></div>
+            <div class="kpi"><div class="kpi-n amber">12</div><div class="kpi-l">Vencen hoy</div></div>
+          </div>
+          <div class="chart-pair">
+            <div class="mini-chart">
+              <div class="mc-label">Solicitudes / semana</div>
+              <div class="bars"><div class="bar" style="height:50%"></div><div class="bar" style="height:70%"></div><div class="bar" style="height:45%"></div><div class="bar" style="height:82%"></div><div class="bar" style="height:65%"></div><div class="bar hi" style="height:92%"></div></div>
+            </div>
+            <div class="mini-chart">
+              <div class="mc-label">Cumplimiento SLA · 30d</div>
+              <div class="bars"><div class="bar gr" style="height:75%"></div><div class="bar gr" style="height:80%"></div><div class="bar gr" style="height:88%"></div><div class="bar gr hi" style="height:92%"></div><div class="bar gr hi" style="height:90%"></div><div class="bar gr hi" style="height:94%"></div></div>
+            </div>
+          </div>
+          <div class="tkt-list">
+            <div class="tkt"><div class="tkt-line" style="background:#10B981"></div><div class="tkt-info"><div class="tkt-name">#4821 · Revisión pozo negro · Sector El Sauce</div><div class="tkt-meta">Obras · Asignado automáticamente · Hace 2h</div></div><span class="tkt-badge tb-green">Resuelto</span></div>
+            <div class="tkt"><div class="tkt-line" style="background:var(--blue)"></div><div class="tkt-info"><div class="tkt-name">#4820 · Luminaria apagada · Av. Principal 450</div><div class="tkt-meta">Infraestructura · En proceso · Hace 5h</div></div><span class="tkt-badge tb-blue">En proceso</span></div>
+            <div class="tkt"><div class="tkt-line" style="background:var(--amber)"></div><div class="tkt-info"><div class="tkt-name">#4815 · Micro basural · Calle Sur s/n</div><div class="tkt-meta">Aseo · ⚡ Vence en 4 horas</div></div><span class="tkt-badge tb-amber">Urgente</span></div>
+          </div>
+        </div>
+      </div>
+      <!-- bot float -->
+      <div class="bot-float">
+        <div class="bot-float-bar"><div class="bot-float-bar-dot"></div>munia · asistente 24/7</div>
+        <div class="bot-body">
+          <div class="bot-msg bot-l">Hola, ¿en qué le ayudo?</div>
+          <div class="bot-msg bot-r">Estado de mi solicitud</div>
+          <div class="bot-msg bot-l">Su caso #4821 fue <strong>resuelto</strong> ✓</div>
+          <div class="bot-typing"><div class="bt-dot"></div><div class="bt-dot"></div><div class="bt-dot"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stats-inner container">
+    <div><div class="s-val">+60%</div><div class="s-lbl">Reducción en tiempo de resolución de solicitudes ciudadanas</div></div>
+    <div><div class="s-val">-80%</div><div class="s-lbl">Menos llamadas de seguimiento cuando el vecino puede rastrear su caso en tiempo real</div></div>
+    <div><div class="s-val">24/7</div><div class="s-lbl">Atención ciudadana activa sin costo adicional de personal ni horas extra</div></div>
+    <div><div class="s-val">3 días</div><div class="s-lbl">Para estar operacional. Sin servidores. Sin instalación. Sin consultora.</div></div>
+  </div>
+</div>
+
+<!-- PROBLEM -->
+<section class="prob-sec sec reveal" id="problema">
+  <div class="container">
+    <div class="ey ey-blue"><div class="ey-dot"></div>El diagnóstico</div>
+    <h2 class="sh ink">La atención ciudadana municipal<br>opera al límite todos los días.</h2>
+    <p class="sub ink">No es un problema de voluntad ni de personal. Es un problema de herramienta. Y tiene un costo operacional que se paga con ineficiencia, retraso y desconfianza ciudadana.</p>
+    <div class="prob-grid">
+      <div class="prob-card reveal rd1">
+        <div class="prob-top"><div class="prob-big">40<span>%</span></div></div>
+        <div class="prob-body">
+          <h3>Las solicitudes se pierden antes de llegar</h3>
+          <p>Cuatro de cada diez municipios opera con papel, correo y WhatsApp informal. No hay registro centralizado. Las solicitudes se anotan, se derivan y desaparecen en el ruido. El funcionario no sabe qué tiene pendiente. El vecino no sabe qué pasó. Y nadie puede demostrar nada al final del día.</p>
+        </div>
+      </div>
+      <div class="prob-card reveal rd2">
+        <div class="prob-top"><div class="prob-big">3<span>meses</span></div></div>
+        <div class="prob-body">
+          <h3>El sistema no se adapta a la operación real</h3>
+          <p>Cambiar un flujo de aprobación, ajustar la asignación por sector, modificar los pasos de un trámite — todo requiere un ticket formal al proveedor. Tiempo de espera habitual: tres meses. El municipio queda atrapado en procesos que ya no reflejan cómo trabaja ni lo que el vecino necesita.</p>
+        </div>
+      </div>
+      <div class="prob-card reveal rd3">
+        <div class="prob-top"><div class="prob-big">0</div></div>
+        <div class="prob-body">
+          <h3>Cero datos para tomar mejores decisiones</h3>
+          <p>¿Cuántas solicitudes llegaron este mes? ¿Cuántas se resolvieron en plazo? ¿Qué sectores acumulan más problemas? ¿Qué dirección tiene más rezago? La mayoría de los municipios no tiene respuesta para ninguna de estas preguntas — porque el dato simplemente no existe en ningún sistema.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- COSTO REAL + PLUS LEGAL -->
+    <div style="background:var(--paper2);border:1.5px solid var(--border-light);border-radius:16px;padding:2rem;margin-top:2rem" class="reveal">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:start">
+        <div>
+          <div class="ey ey-blue" style="margin-bottom:.75rem"><div class="ey-dot"></div>El costo real de operar así</div>
+          <h3 style="font-size:20px;font-weight:700;color:var(--ink);letter-spacing:-.5px;line-height:1.3;margin-bottom:1rem">Cada solicitud perdida es un vecino frustrado. Cada día sin datos es una decisión tomada a ciegas.</h3>
+          <p style="font-size:14px;color:var(--muted-ink);line-height:1.75">El funcionario destina hasta el 40% de su jornada respondiendo llamadas de seguimiento — tiempo que podría estar resolviendo casos. La jefatura reasigna por intuición. El alcalde gestiona sin evidencia. El municipio produce resultados muy por debajo de su capacidad real. MunIA invierte esa ecuación.</p>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:.75rem">
+          <div style="background:#fff;border:1px solid var(--border-light);border-left:3px solid var(--red);border-radius:0 10px 10px 0;padding:1rem 1.25rem">
+            <div style="font-size:12px;font-weight:600;color:var(--ink);margin-bottom:.25rem">Sin sistema: el funcionario como cuello de botella</div>
+            <div style="font-size:13px;color:var(--muted-ink);line-height:1.6">Cada caso requiere seguimiento manual. Cada llamada interrumpe la gestión. Cada solicitud perdida genera otro vecino que llama de nuevo — y otro — y otro.</div>
+          </div>
+          <div style="background:#fff;border:1px solid var(--border-light);border-left:3px solid var(--green);border-radius:0 10px 10px 0;padding:1rem 1.25rem">
+            <div style="font-size:12px;font-weight:600;color:var(--ink);margin-bottom:.25rem">Con MunIA: el sistema trabaja, el funcionario resuelve</div>
+            <div style="font-size:13px;color:var(--muted-ink);line-height:1.6">El seguimiento es automático. La asignación es automática. Las alertas son automáticas. El funcionario se libera para lo que realmente importa: atender bien.</div>
+          </div>
+          <div style="background:#fff;border:1px solid var(--border-light);border-left:3px solid var(--blue);border-radius:0 10px 10px 0;padding:1rem 1.25rem">
+            <div style="font-size:12px;font-weight:700;color:var(--blue-dark);margin-bottom:.25rem">✦ Plus adicional: cumplimiento normativo incluido</div>
+            <div style="font-size:13px;color:var(--muted-ink);line-height:1.6">La operación eficiente que MunIA genera también cumple automáticamente con las Leyes 21.180, 21.719 y 21.663. La digitalización es el resultado natural — no el objetivo de venta.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- USE CASES -->
+<section class="uc-sec sec" id="casos">
+  <div class="container">
+    <div class="ey ey-blue reveal"><div class="ey-dot"></div>Casos de uso reales</div>
+    <h2 class="sh ink reveal">Cinco personas. Un mismo problema.<br>Una sola plataforma.</h2>
+    <p class="sub ink reveal">Esto ocurre hoy, todos los días, en cualquier municipio chileno. Cada persona gana algo concreto. Nada es abstracto.</p>
+
+    <div class="uc-tabs" style="margin-top:2rem">
+      <button class="uc-tab active" onclick="showTab(0)">🏘️ El vecino que espera</button>
+      <button class="uc-tab" onclick="showTab(1)">👩‍💼 El funcionario desbordado</button>
+      <button class="uc-tab" onclick="showTab(2)">📊 La jefatura a ciegas</button>
+      <button class="uc-tab" onclick="showTab(3)">🏛️ El alcalde sin datos</button>
+      <button class="uc-tab" onclick="showTab(4)">⚙️ El administrador municipal</button>
+    </div>
+
+    <!-- TAB 0 -->
+    <div class="uc-content active" id="t0">
+      <div>
+        <div class="uc-persona">
+          <div class="uc-av" style="background:#EDE9FE">🏘️</div>
+          <div><div class="uc-pname">El vecino que lleva semanas esperando</div><div class="uc-prole">67 años · Sector rural · Contribuyente activo</div></div>
+        </div>
+        <div class="uc-before">
+          <div class="uc-bl">✗ La realidad de hoy</div>
+          <p>Lleva tres semanas esperando que el municipio revise su pozo negro. Llamó una vez — le dijeron que anotaban. Fue en persona — esperó hora y media y le dijeron que lo derivarían a Obras. Llamó por tercera vez — no había registro de su solicitud. Pagó contribuciones toda su vida. Hoy se siente invisible.</p>
+        </div>
+        <div class="uc-after">
+          <div class="uc-al">✓ Con MunIA</div>
+          <p>Un domingo a las 9 PM, desde su celular, ingresa la solicitud en cuatro minutos, adjunta una foto y recibe un código de seguimiento. Al día siguiente, el caso ya fue clasificado y asignado. En 48 horas recibe una llamada para coordinar la visita. Nunca volvió a preguntar. No necesitó.</p>
+        </div>
+        <div class="uc-results">
+          <div class="uc-ri"><div class="uc-chk">✓</div>Canal disponible 24/7 desde cualquier dispositivo</div>
+          <div class="uc-ri"><div class="uc-chk">✓</div>Código de seguimiento en tiempo real, sin llamar</div>
+          <div class="uc-ri"><div class="uc-chk">✓</div>Notificación automática al resolver el caso</div>
+          <div class="uc-ri"><div class="uc-chk">✓</div>Bot IA responde consultas a cualquier hora</div>
+        </div>
+      </div>
+      <div class="screen">
+        <div class="sc-bar"><div class="sc-dots"><div class="sc-dot" style="background:#ff5f57"></div><div class="sc-dot" style="background:#ffbd2e"></div><div class="sc-dot" style="background:#28c840"></div></div><div class="sc-url">munia.cl · nueva solicitud ciudadana</div></div>
+        <div class="sc-body" style="padding:0">
+          <div class="portal-top"><div class="portal-top-name">🏛️ Municipalidad · Portal Ciudadano</div><div class="portal-top-sub">Atención disponible las 24 horas, todos los días</div></div>
+          <div style="padding:13px">
+            <div class="p-welcome">Bienvenido/a. ¿En qué podemos ayudarle hoy?</div>
+            <div class="p-field"><div class="p-fl">Tipo de solicitud</div><div class="p-fv">🔧 Obras y Mantención — Revisión pozo negro</div></div>
+            <div class="p-field"><div class="p-fl">Descripción del problema</div><div class="p-fv">Pozo negro con riesgo de desborde, afecta a vecinos colindantes...</div></div>
+            <div class="p-field"><div class="p-fl">Ubicación exacta</div><div class="p-fv">📍 Camino sector rural, km 3 — adjunto foto</div></div>
+            <div class="p-field"><div class="p-fl">Archivo adjunto</div><div class="p-fv">📷 foto_problema.jpg · 2.3 MB ✓</div></div>
+            <div class="p-confirm">
+              <div class="p-code">#4821</div>
+              <div class="p-code-sub">Solicitud ingresada · Asignada a Obras · SLA activo: 48 horas</div>
+              <div style="font-size:9px;color:var(--muted);margin-top:4px;font-family:'DM Mono',monospace">Seguimiento: munia.cl/caso/4821</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 1 -->
+    <div class="uc-content" id="t1">
+      <div>
+        <div class="uc-persona">
+          <div class="uc-av" style="background:#DCFCE7">👩‍💼</div>
+          <div><div class="uc-pname">La funcionaria que trabaja a pesar del sistema</div><div class="uc-prole">11 años en el municipio · Dirección de Obras</div></div>
+        </div>
+        <div class="uc-before">
+          <div class="uc-bl">✗ La realidad de hoy</div>
+          <p>Mantiene 47 solicitudes en un Excel personal porque si no se le pierden. Pasa el 40% del día respondiendo llamadas de vecinos que preguntan "¿qué pasó con mi caso?". El martes pasado su director le preguntó cuántos casos vencidos tenía. No supo responder. No porque sea mala funcionaria — sino porque ese dato no existe en ningún lugar.</p>
+        </div>
+        <div class="uc-after">
+          <div class="uc-al">✓ Con MunIA</div>
+          <p>Llega al trabajo y abre su bandeja: 12 casos asignados, 3 con alerta de vencimiento esta semana, 2 esperando firma de jefatura. Todo ordenado. Cuando llega un vecino a ventanilla, registra la solicitud en 2 minutos y entrega comprobante con QR. Cuando su director pregunta, abre el dashboard y responde con datos exactos. En 30 segundos.</p>
+        </div>
+        <div class="uc-results">
+          <div class="uc-ri"><div class="uc-chk">✓</div>Bandeja propia — solo ve lo que le corresponde</div>
+          <div class="uc-ri"><div class="uc-chk">✓</div>Alertas automáticas antes de que venza cada plazo</div>
+          <div class="uc-ri"><div class="uc-chk">✓</div>Historial completo de cada caso — nada se pierde</div>
+          <div class="uc-ri"><div class="uc-chk">✓</div>Comprobante con QR para ventanilla presencial</div>
+        </div>
+      </div>
+      <div class="screen">
+        <div class="sc-bar"><div class="sc-dots"><div class="sc-dot" style="background:#ff5f57"></div><div class="sc-dot" style="background:#ffbd2e"></div><div class="sc-dot" style="background:#28c840"></div></div><div class="sc-url">munia.cl · bandeja del funcionario</div></div>
+        <div class="sc-body">
+          <div class="fn-layout">
+            <div class="fn-nav">
+              <div class="fn-ni act"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></div>
+              <div class="fn-ni"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/></svg></div>
+              <div class="fn-ni"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+            </div>
+            <div class="fn-main">
+              <div class="fn-top">
+                <div class="fn-top-h">Mi bandeja · 12 casos</div>
+                <span class="fn-sla sla-warn" style="font-size:9px;padding:1px 7px">3 urgentes</span>
+              </div>
+              <div class="fn-card">
+                <div class="fn-r1"><div class="fn-num">#4821</div><div class="fn-tit">Revisión pozo negro · Sector rural km 3</div><span class="fn-sla sla-ok">48h OK</span></div>
+                <div class="fn-r2"><span class="fn-tag">Obras · Alta prioridad</span><div class="fn-ass"><div class="fn-av">F</div>Mío</div></div>
+              </div>
+              <div class="fn-card">
+                <div class="fn-r1"><div class="fn-num">#4820</div><div class="fn-tit">Luminaria apagada · Av. Principal 450</div><span class="fn-sla sla-warn">2h restantes</span></div>
+                <div class="fn-r2"><span class="fn-tag">Infraestructura · Media</span><div class="fn-ass"><div class="fn-av">F</div>Mío</div></div>
+              </div>
+              <div class="fn-card">
+                <div class="fn-r1"><div class="fn-num">#4815</div><div class="fn-tit">Micro basural · Calle Sur s/n</div><span class="fn-sla sla-late">Vencido</span></div>
+                <div class="fn-r2"><span class="fn-tag">Aseo · Requiere aprobación jefatura</span><div class="fn-ass"><div class="fn-av" style="background:#DC2626">F</div>Mío</div></div>
+              </div>
+              <div style="font-size:9px;color:var(--muted);text-align:center;padding:4px;font-family:'DM Mono',monospace">+ 9 casos más · Ver todos →</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 2 -->
+    <div class="uc-content" id="t2">
+      <div>
+        <div class="uc-persona">
+          <div class="uc-av" style="background:#FEF3C7">📊</div>
+          <div><div class="uc-pname">El director que toma decisiones a ciegas</div><div class="uc-prole">8 funcionarios a cargo · Dirección de Obras</div></div>
+        </div>
+        <div class="uc-before">
+          <div class="uc-bl">✗ La realidad de hoy</div>
+          <p>Para saber el estado de los casos tiene que preguntar uno a uno. No sabe qué funcionario tiene sobrecarga y cuál tiene capacidad. Cuando llega una solicitud urgente, reasigna por intuición. Cuando el alcalde le pregunta cuántos casos están vencidos, improvisa una respuesta. No porque sea mal directivo — sino porque ninguna herramienta le da esa visión.</p>
+        </div>
+        <div class="uc-after">
+          <div class="uc-al">✓ Con MunIA</div>
+          <p>Abre el panel de su dirección y ve en tiempo real la carga de cada funcionario, los casos vencidos, los que requieren su aprobación. Una solicitud urgente llega mal asignada — la reasigna al funcionario con menor carga en un clic. El alcalde pregunta — responde con datos exactos, sin improvisar.</p>
+        </div>
+        <div class="uc-results">
+          <div class="uc-ri"><div class="uc-chk">✓</div>Visión completa del equipo sin preguntar</div>
+          <div class="uc-ri"><div class="uc-chk">✓</div>Reasignación y balanceo de carga con un clic</div>
+          <div class="uc-ri"><div class="uc-chk">✓</div>Aprobación formal integrada al flujo del caso</div>
+          <div class="uc-ri"><div class="uc-chk">✓</div>Alertas cuando un caso vence en su dirección</div>
+        </div>
+      </div>
+      <div class="screen">
+        <div class="sc-bar"><div class="sc-dots"><div class="sc-dot" style="background:#ff5f57"></div><div class="sc-dot" style="background:#ffbd2e"></div><div class="sc-dot" style="background:#28c840"></div></div><div class="sc-url">munia.cl · panel de supervisión · dirección obras</div></div>
+        <div class="sc-body">
+          <div style="font-size:11px;font-weight:600;color:var(--text);margin-bottom:8px">Dirección de Obras · Visión en tiempo real</div>
+          <div class="jf-kpis">
+            <div class="jf-k"><div class="jf-kv blue">47</div><div class="jf-kl">Casos activos</div></div>
+            <div class="jf-k"><div class="jf-kv red">8</div><div class="jf-kl">Vencidos esta semana</div></div>
+            <div class="jf-k"><div class="jf-kv green">91%</div><div class="jf-kl">Cumplimiento SLA</div></div>
+            <div class="jf-k"><div class="jf-kv amber">3</div><div class="jf-kl">Esperan mi firma</div></div>
+          </div>
+          <div style="font-size:8px;font-family:'DM Mono',monospace;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:5px">Carga por funcionario</div>
+          <table class="jf-table">
+            <tr><th>Funcionario</th><th>Activos</th><th>Vencidos</th><th>Carga</th></tr>
+            <tr><td>Funcionario A</td><td>12</td><td>1</td><td><div class="jf-bar-w"><div class="jf-bar" style="width:80%;background:#10B981"></div></div></td></tr>
+            <tr><td>Funcionario B</td><td>12</td><td>2</td><td><div class="jf-bar-w"><div class="jf-bar" style="width:80%"></div></div></td></tr>
+            <tr><td>Funcionario C</td><td>7</td><td>3</td><td><div class="jf-bar-w"><div class="jf-bar" style="width:47%;background:#F59E0B"></div></div></td></tr>
+            <tr><td>Funcionario D</td><td>16</td><td>2</td><td><div class="jf-bar-w"><div class="jf-bar" style="width:100%;background:#EF4444"></div></div></td></tr>
+          </table>
+          <div class="jf-alert">⚡ Funcionario D tiene sobrecarga. Reasignar 4 casos → <span style="font-weight:600;cursor:pointer">Ver opciones →</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 3 -->
+    <div class="uc-content" id="t3">
+      <div>
+        <div class="uc-persona">
+          <div class="uc-av" style="background:#DBEAFE">🏛️</div>
+          <div><div class="uc-pname">El alcalde que no puede demostrar lo que hace</div><div class="uc-prole">Máxima autoridad comunal · Responsable ante la ley</div></div>
+        </div>
+        <div class="uc-before">
+          <div class="uc-bl">✗ La realidad de hoy</div>
+          <p>¿Cuántas solicitudes recibió su municipio el mes pasado? ¿Cuántas fueron respondidas en plazo? ¿Cuántas desaparecieron? La mayoría no sabe. Y cuando llega la fiscalización de la Ley 21.180, no hay expediente que mostrar. Gestiona bien, pero no puede probarlo. En política local, eso tiene un costo enorme.</p>
+        </div>
+        <div class="uc-after">
+          <div class="uc-al">✓ Con MunIA</div>
+          <p>Abre el panel ejecutivo y ve en tiempo real cómo funciona su municipio. El mapa muestra dónde se concentran los problemas comunales — el sector norte triplica las solicitudes del resto. Cuando llega la fiscalización, hay expediente digital de cada caso con fecha, responsable y resolución. Por primera vez, puede demostrar que su municipio responde.</p>
+        </div>
+        <div class="uc-results">
+          <div class="uc-ri"><div class="uc-chk">✓</div>Datos reales de gestión ciudadana por primera vez</div>
+          <div class="uc-ri"><div class="uc-chk">✓</div>Mapa de calor territorial para priorizar inversión</div>
+          <div class="uc-ri"><div class="uc-chk">✓</div>Expediente digital ante cualquier fiscalización</div>
+          <div class="uc-ri"><div class="uc-chk">✓</div>Cumplimiento normativo concreto y demostrable</div>
+        </div>
+      </div>
+      <div class="screen">
+        <div class="sc-bar"><div class="sc-dots"><div class="sc-dot" style="background:#ff5f57"></div><div class="sc-dot" style="background:#ffbd2e"></div><div class="sc-dot" style="background:#28c840"></div></div><div class="sc-url">munia.cl · panel ejecutivo · alcaldía</div></div>
+        <div class="sc-body">
+          <div style="font-size:11px;font-weight:600;color:var(--text);margin-bottom:8px">Vista Ejecutiva · Gestión Comunal</div>
+          <div class="alc-map">
+            <div class="alc-map-bg"></div>
+            <div class="cluster" style="width:28px;height:28px;top:35%;left:45%;background:rgba(239,68,68,.75)">47</div>
+            <div class="cluster" style="width:22px;height:22px;top:22%;left:65%;background:rgba(245,158,11,.75)">23</div>
+            <div class="cluster" style="width:18px;height:18px;top:60%;left:30%;background:rgba(33,150,243,.75)">18</div>
+            <div class="cluster" style="width:15px;height:15px;top:55%;left:70%;background:rgba(33,150,243,.7)">12</div>
+            <div style="position:absolute;top:5px;left:7px;font-size:8px;color:var(--muted);font-family:'DM Mono',monospace">MAPA DE CALOR · SOLICITUDES ACTIVAS</div>
+          </div>
+          <div class="alc-legend">
+            <div class="al-i"><div class="al-d" style="background:#EF4444"></div>Alta demanda</div>
+            <div class="al-i"><div class="al-d" style="background:#F59E0B"></div>Media</div>
+            <div class="al-i"><div class="al-d" style="background:var(--blue)"></div>Normal</div>
+          </div>
+          <div class="alc-metrics">
+            <div class="alc-m"><div class="alc-mv green">94.2%</div><div class="alc-ml">Cumplimiento SLA</div></div>
+            <div class="alc-m"><div class="alc-mv blue">247</div><div class="alc-ml">Solicitudes activas</div></div>
+            <div class="alc-m"><div class="alc-mv amber">12</div><div class="alc-ml">Vencen hoy</div></div>
+          </div>
+          <div class="alc-foot">✓ Ley 21.180 · 847 expedientes digitales generados este mes</div>
+        </div>
+      </div>
+    </div>
+    <!-- TAB 4: ADMINISTRADOR -->
+    <div class="uc-content" id="t4">
+      <div>
+        <div class="uc-persona">
+          <div class="uc-av" style="background:#F0FDF4">⚙️</div>
+          <div><div class="uc-pname">El administrador que configura sin depender de nadie</div><div class="uc-prole">Encargado TI o Secretaría Municipal · Gestiona la plataforma</div></div>
+        </div>
+        <div class="uc-before">
+          <div class="uc-bl">✗ La realidad de hoy</div>
+          <p>Cada vez que el municipio necesita cambiar un tipo de solicitud, agregar un nuevo departamento, modificar un plazo o ajustar las reglas de asignación, tiene que llamar al proveedor, abrir un ticket y esperar. A veces semanas. A veces meses. La operación queda congelada en un proceso desactualizado porque el sistema no le pertenece al municipio — le pertenece al proveedor.</p>
+        </div>
+        <div class="uc-after">
+          <div class="uc-al">✓ Con MunIA</div>
+          <p>El administrador entra al panel de configuración y en minutos agrega una nueva categoría de trámite, ajusta el SLA de un tipo de solicitud, crea un sector geográfico nuevo o reasigna flujos de trabajo. Todo desde el navegador. Sin código. Sin proveedor. Sin ticket. Sin espera. El municipio tiene soberanía operacional real sobre su sistema.</p>
+        </div>
+        <div class="uc-results">
+          <div class="uc-ri"><div class="uc-chk">✓</div>Categorías y subcategorías de trámites editables sin código</div>
+          <div class="uc-ri"><div class="uc-chk">✓</div>Reglas de asignación automática por área, sector y tipo</div>
+          <div class="uc-ri"><div class="uc-chk">✓</div>SLA configurable por tipo de solicitud y urgencia</div>
+          <div class="uc-ri"><div class="uc-chk">✓</div>Gestión de usuarios, roles y permisos sin soporte externo</div>
+          <div class="uc-ri"><div class="uc-chk">✓</div>Base de conocimiento del bot actualizable desde el panel</div>
+        </div>
+      </div>
+      <div class="screen">
+        <div class="sc-bar"><div class="sc-dots"><div class="sc-dot" style="background:#ff5f57"></div><div class="sc-dot" style="background:#ffbd2e"></div><div class="sc-dot" style="background:#28c840"></div></div><div class="sc-url">munia.cl · panel de administración municipal</div></div>
+        <div class="sc-body">
+          <div style="font-size:11px;font-weight:600;color:var(--text);margin-bottom:10px">Configuración · Sin código, sin proveedor</div>
+          <!-- Config sections -->
+          <div style="display:flex;flex-direction:column;gap:7px">
+            <div style="background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:9px;padding:9px 11px">
+              <div style="font-size:9px;font-family:'DM Mono',monospace;color:var(--blue-light);letter-spacing:1px;text-transform:uppercase;margin-bottom:5px">Categorías de trámite activas</div>
+              <div style="display:flex;flex-direction:column;gap:3px">
+                <div style="display:flex;align-items:center;justify-content:space-between;font-size:10px;color:var(--text)"><span>🔧 Obras y Mantención <span style="color:var(--muted)">(12 subcategorías)</span></span><span style="color:#34D399;font-size:9px;font-family:'DM Mono',monospace">✓ Activo</span></div>
+                <div style="display:flex;align-items:center;justify-content:space-between;font-size:10px;color:var(--text)"><span>🌿 Aseo y Ornato <span style="color:var(--muted)">(8 subcategorías)</span></span><span style="color:#34D399;font-size:9px;font-family:'DM Mono',monospace">✓ Activo</span></div>
+                <div style="display:flex;align-items:center;justify-content:space-between;font-size:10px;color:var(--text)"><span>📋 Permisos y Patentes <span style="color:var(--muted)">(6 subcategorías)</span></span><span style="color:#34D399;font-size:9px;font-family:'DM Mono',monospace">✓ Activo</span></div>
+                <div style="display:flex;align-items:center;justify-content:space-between;font-size:10px;color:var(--muted)"><span>+ Agregar nueva categoría</span><span style="color:var(--blue);font-size:9px;cursor:pointer">→</span></div>
+              </div>
+            </div>
+            <div style="background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:9px;padding:9px 11px">
+              <div style="font-size:9px;font-family:'DM Mono',monospace;color:var(--blue-light);letter-spacing:1px;text-transform:uppercase;margin-bottom:5px">Reglas de asignación automática</div>
+              <div style="font-size:10px;color:var(--muted);line-height:1.6">Obras + Sector Norte → <span style="color:var(--text)">Dir. Obras · Equipo Norte</span></div>
+              <div style="font-size:10px;color:var(--muted);line-height:1.6">Aseo + cualquier sector → <span style="color:var(--text)">Dir. Aseo · rotación automática</span></div>
+              <div style="font-size:10px;color:var(--muted);line-height:1.6">Permisos + urgente → <span style="color:var(--text)">Dir. SECPLA · prioridad alta</span></div>
+            </div>
+            <div style="background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:9px;padding:9px 11px">
+              <div style="font-size:9px;font-family:'DM Mono',monospace;color:var(--blue-light);letter-spacing:1px;text-transform:uppercase;margin-bottom:5px">SLA configurado por tipo</div>
+              <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px">
+                <div style="text-align:center;background:rgba(52,211,153,.06);border:1px solid rgba(52,211,153,.2);border-radius:6px;padding:5px"><div style="font-size:13px;font-weight:700;color:#34D399">48h</div><div style="font-size:8px;color:var(--muted);font-family:'DM Mono',monospace">Urgente</div></div>
+                <div style="text-align:center;background:rgba(33,150,243,.06);border:1px solid rgba(33,150,243,.2);border-radius:6px;padding:5px"><div style="font-size:13px;font-weight:700;color:var(--blue-light)">5d</div><div style="font-size:8px;color:var(--muted);font-family:'DM Mono',monospace">Normal</div></div>
+                <div style="text-align:center;background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.2);border-radius:6px;padding:5px"><div style="font-size:13px;font-weight:700;color:#FCD34D">15d</div><div style="font-size:8px;color:var(--muted);font-family:'DM Mono',monospace">Estándar</div></div>
+              </div>
+            </div>
+            <div style="background:rgba(33,150,243,.06);border:1px solid rgba(33,150,243,.15);border-radius:8px;padding:7px 10px;font-size:9px;color:var(--blue-light);font-family:'DM Mono',monospace;text-align:center">
+              ✓ Todos los cambios se aplican en producción de forma inmediata
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="feat-sec sec" id="plataforma">
+  <div class="container">
+    <div class="ey ey-light reveal"><div class="ey-dot"></div>La plataforma</div>
+    <h2 class="sh light reveal">Cada módulo resuelve<br>un problema concreto.</h2>
+    <p class="sub light reveal">No hay funcionalidades de vitrina. Todo está diseñado para el municipio real.</p>
+    <div class="feat-grid reveal" style="margin-top:2.5rem">
+      <div class="feat-item">
+        <div class="feat-ico"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div>
+        <h3>Bot IA Conversacional 24/7</h3>
+        <p>Habla como una persona, entiende como un experto en los procesos del municipio. Responde preguntas, abre solicitudes y permite seguimiento — sin que ningún funcionario esté disponible. Aprende los trámites del municipio específico mediante RAG.</p>
+        <div class="feat-tags"><span class="ftag">IA contextual</span><span class="ftag">RAG</span><span class="ftag">Sin costo de personal</span></div>
+      </div>
+      <div class="feat-item">
+        <div class="feat-ico"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+        <h3>Portal Ciudadano Multicanal</h3>
+        <p>Web, bot y ventanilla presencial convergen en una sola bandeja operacional. El vecino elige cómo contactar. El funcionario gestiona desde el mismo lugar. Comprobante QR para atención en persona.</p>
+        <div class="feat-tags"><span class="ftag">Web · Bot · Presencial</span><span class="ftag">QR + seguimiento</span></div>
+      </div>
+      <div class="feat-item">
+        <div class="feat-ico"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div>
+        <h3>Gestión por Roles</h3>
+        <p>El funcionario ve solo su bandeja. La jefatura ve todo su equipo. El alcalde ve el municipio entero. Cada nivel tiene la información que necesita, sin ruido ni confusión. Acceso granular desde el navegador, sin instalación.</p>
+        <div class="feat-tags"><span class="ftag">Roles y permisos</span><span class="ftag">SLA automático</span></div>
+      </div>
+      <div class="feat-item">
+        <div class="feat-ico"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg></div>
+        <h3>Flujos BPMN sin Código</h3>
+        <p>El propio municipio diseña y modifica sus trámites con un editor visual. Si el proceso cambia hoy, el sistema cambia hoy. Sin ticket al proveedor. Sin espera de meses. Sin depender de consultores externos para cada ajuste operacional.</p>
+        <div class="feat-tags"><span class="ftag">Low-code</span><span class="ftag">Soberanía operacional</span></div>
+      </div>
+      <div class="feat-item">
+        <div class="feat-ico"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+        <h3>Dashboard en Tiempo Real</h3>
+        <p>KPIs operacionales actualizados al instante. Mapa de calor geoespacial que muestra dónde se concentran las solicitudes por sector comunal. Reportes OIRS en formato CPLT exportables con un clic.</p>
+        <div class="feat-tags"><span class="ftag">Tiempo real</span><span class="ftag">Mapa comunal</span><span class="ftag">OIRS CPLT</span></div>
+      </div>
+      <div class="feat-item">
+        <div class="feat-ico"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <h3>Cumplimiento Normativo Integrado</h3>
+        <p>MFA para roles privilegiados. Registro de auditoría exportable. Gestión de incidentes con notificación ANCI. Cierre automático de sesiones. Expediente electrónico con consentimiento. Diseñado para las tres leyes desde el primer día.</p>
+        <div class="feat-tags"><span class="ftag">MFA · Auditoría</span><span class="ftag">Leyes 21.180·719·663</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW -->
+<section class="how-sec sec-sm reveal">
+  <div class="container">
+    <div class="ey ey-light"><div class="ey-dot"></div>Flujo operacional</div>
+    <h2 class="sh light">De la solicitud a la resolución.<br>Sin que nada se pierda.</h2>
+    <div class="how-grid" style="margin-top:2.5rem">
+      <div class="how-step">
+        <div class="how-n">01</div>
+        <h3>El vecino solicita</h3>
+        <p>Por web, bot o ventanilla. Recibe código QR al instante. Sin formularios complejos. Disponible las 24 horas.</p>
+        <div class="how-arr"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
+      </div>
+      <div class="how-step">
+        <div class="how-n">02</div>
+        <h3>Clasificación y asignación automática</h3>
+        <p>La IA clasifica el caso. El sistema lo asigna al área y funcionario correcto según las reglas del municipio. SLA activado de inmediato.</p>
+        <div class="how-arr"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
+      </div>
+      <div class="how-step">
+        <div class="how-n">03</div>
+        <h3>El funcionario gestiona</h3>
+        <p>Trabaja desde su bandeja con historial completo. Las alertas automáticas avisan antes de que venza cada plazo.</p>
+        <div class="how-arr"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
+      </div>
+      <div class="how-step">
+        <div class="how-n">04</div>
+        <h3>El municipio demuestra</h3>
+        <p>Expediente completo de cada caso. El vecino recibe respuesta. El alcalde tiene evidencia. La ley queda cubierta.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPLIANCE -->
+<section class="comp-sec sec reveal" id="compliance">
+  <div class="container">
+    <div class="ey ey-blue"><div class="ey-dot"></div>Marco legal</div>
+    <h2 class="sh ink">No es una opción cumplir la ley.<br>Es una obligación. Y el plazo ya corre.</h2>
+    <p class="sub ink">Los municipios que actúen hoy llegarán adelantados a 2027. Los que esperen llegarán expuestos.</p>
+    <div class="comp-grid">
+      <div>
+        <div class="law-card">
+          <div class="lc-head"><div class="lc-badge">LEY 21.180</div><h3>Transformación Digital del Estado</h3></div>
+          <div class="lc-body"><p>Obliga a ofrecer trámites electrónicos, notificar por medios digitales y eliminar el papel como soporte de actos administrativos. Los municipios están dentro del alcance. Incluye obligación de Archivo Nacional Electrónico con trazabilidad completa.</p></div>
+        </div>
+        <div class="law-card">
+          <div class="lc-head"><div class="lc-badge">LEY 21.719</div><h3>Protección de Datos Personales</h3></div>
+          <div class="lc-body"><p>Actualiza los derechos del vecino sobre sus datos: acceso, corrección, eliminación y oposición. Los municipios deben implementar mecanismos concretos — no basta con la intención, la ley exige evidencia de cumplimiento operacional.</p></div>
+        </div>
+        <div class="law-card">
+          <div class="lc-head"><div class="lc-badge">LEY 21.663</div><h3>Ciberseguridad del Estado</h3></div>
+          <div class="lc-body"><p>Estándares mínimos de seguridad para sistemas de información del Estado. Obligación de reportar incidentes a la ANCI y mantener controles de acceso robustos. Los municipios son organismos del Estado bajo el alcance directo de esta ley.</p></div>
+        </div>
+        <a href="#contacto" class="btn-p" style="margin-top:.5rem">Verificar cumplimiento de mi municipio →</a>
+      </div>
+      <div>
+        <div class="comp-feats">
+          <div class="cf"><div class="cf-ico"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></div><div><div class="cf-h">Autenticación doble factor (MFA)</div><div class="cf-p">Para administradores y jefaturas. Cumplimiento directo de controles de acceso exigidos por Ley 21.663.</div></div></div>
+          <div class="cf"><div class="cf-ico"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><line x1="16" y1="13" x2="8" y2="13"/></svg></div><div><div class="cf-h">Registro de auditoría completo y exportable</div><div class="cf-p">Quién accedió, qué modificó, cuándo. Exportable para fiscalizaciones del CPLT y la ANCI. Trazabilidad total.</div></div></div>
+          <div class="cf"><div class="cf-ico"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div><div class="cf-h">Gestión activa de incidentes de seguridad</div><div class="cf-p">Alertas ante eventos que comprometan datos ciudadanos. Notificación automática a la ANCI cuando corresponde.</div></div></div>
+          <div class="cf"><div class="cf-ico"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div><div><div class="cf-h">Expediente electrónico con consentimiento</div><div class="cf-p">Cada solicitud genera un expediente digital con registro de consentimiento. Cumplimiento del Archivo Nacional Electrónico.</div></div></div>
+          <div class="cf"><div class="cf-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div><div><div class="cf-h">Cierre automático de sesiones inactivas</div><div class="cf-p">Elimina el riesgo de equipos desatendidos con acceso abierto. Estándar mínimo de Ley 21.663.</div></div></div>
+        </div>
+        <div class="comp-cta-box">
+          <p><strong>El municipio que adopte MunIA hoy</strong> llega al 2027 con evidencia concreta de cumplimiento — sin contratar consultores, sin desarrollar nada a medida, sin esperar que el Estado resuelva por ellos.</p>
+          <a href="#contacto" class="btn-p" style="font-size:13px;padding:10px 22px">Empezar el piloto sin costo →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="price-sec sec reveal" id="precios">
+  <div class="container">
+    <div class="ey ey-blue"><div class="ey-dot"></div>Planes y precios</div>
+    <h2 class="sh ink">Accesible para el municipio<br>que hoy dice que no puede.</h2>
+    <p class="sub ink">Sin licencia de entrada. Sin instalación. Sin consultora externa. El municipio suscribe, configura sus trámites y empieza a operar.</p>
+    <div class="price-grid">
+      <div class="pc">
+        <div class="pc-plan">Inicio</div><div class="pc-scope">Hasta 3 trámites</div>
+        <div class="pc-price"><sup>USD </sup>500<sub>/mes</sub></div><div class="pc-clp">≈ $470.000 CLP al mes</div>
+        <div class="pc-div"></div>
+        <ul class="pc-list"><li>Portal web ciudadano multicanal</li><li>Bot IA conversacional 24/7</li><li>Gestión de solicitudes con SLA</li><li>Dashboard analítico base</li><li>Configuración sin código</li><li>Onboarding incluido</li></ul>
+        <a href="#contacto" class="pc-btn pc-bo">Comenzar →</a>
+      </div>
+      <div class="pc feat">
+        <div class="pc-badge">★ Más elegido</div>
+        <div class="pc-plan">Esencial</div><div class="pc-scope">4 a 10 trámites</div>
+        <div class="pc-price"><sup>USD </sup>1.000<sub>/mes</sub></div><div class="pc-clp">≈ $940.000 CLP al mes</div>
+        <div class="pc-div"></div>
+        <ul class="pc-list"><li>Todo lo del plan Inicio</li><li>Flujos BPMN sin código</li><li>Mapa de calor geoespacial</li><li>Aprobaciones de jefatura en flujo</li><li>MFA para roles privilegiados</li><li>Registro de auditoría exportable</li><li>Notificaciones automáticas al vecino</li></ul>
+        <a href="#contacto" class="pc-btn pc-bp">Comenzar →</a>
+      </div>
+      <div class="pc">
+        <div class="pc-plan">Operacional</div><div class="pc-scope">10 a 25 trámites</div>
+        <div class="pc-price"><sup>USD </sup>1.500<sub>/mes</sub></div><div class="pc-clp">≈ $1.410.000 CLP al mes</div>
+        <div class="pc-div"></div>
+        <ul class="pc-list"><li>Todo lo del plan Esencial</li><li>App móvil offline para terreno</li><li>Reportes OIRS formato CPLT</li><li>Integración PiSEE y Registro Civil</li><li>SLA personalizado por trámite</li><li>Gestión de incidentes ANCI</li></ul>
+        <a href="#contacto" class="pc-btn pc-bo">Comenzar →</a>
+      </div>
+      <div class="pc">
+        <div class="pc-plan">Pleno</div><div class="pc-scope">+25 trámites</div>
+        <div class="pc-price"><sup>USD </sup>2.000<sub>/mes</sub></div><div class="pc-clp">≈ $1.880.000 CLP al mes</div>
+        <div class="pc-div"></div>
+        <ul class="pc-list"><li>Todo lo del plan Operacional</li><li>Analítica predictiva territorial</li><li>API para integraciones externas</li><li>Soporte prioritario dedicado</li><li>Cumplimiento normativo completo</li><li>Licencia multi-oficina municipal</li></ul>
+        <a href="#contacto" class="pc-btn pc-bo">Contactar →</a>
+      </div>
+    </div>
+    <div class="price-note">
+      🎯 <strong>Empieza con 3 trámites y escala a tu ritmo.</strong> Cada nuevo trámite digitalizado amplía el impacto sin cambiar de plataforma. Operacional en 3 días, infraestructura en la nube — sin servidores propios ni equipo técnico interno. Descuento disponible con compromiso anual. <a href="#contacto">Conversemos sobre tu municipio →</a>
+    </div>
+  </div>
+</section>
+
+
+<!-- FAQs -->
+<section style="background:#fff;padding:6rem 2rem" id="faqs">
+  <div class="container">
+    <div class="ey ey-blue reveal"><div class="ey-dot"></div>Preguntas frecuentes</div>
+    <h2 class="sh ink reveal">Todo lo que necesitas saber<br>antes de decir que sí.</h2>
+    <p class="sub ink reveal" style="margin-bottom:3rem">Las dudas más comunes de alcaldes, directores y encargados de TI — respondidas sin rodeos.</p>
+
+    <!-- CATEGORY TABS -->
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:2.5rem" class="reveal" id="faq-cats">
+      <button class="faq-cat active" onclick="filterFaq('all')">Todas</button>
+      <button class="faq-cat" onclick="filterFaq('implementacion')">Implementación</button>
+      <button class="faq-cat" onclick="filterFaq('operacion')">Operación</button>
+      <button class="faq-cat" onclick="filterFaq('tecnico')">Técnico</button>
+      <button class="faq-cat" onclick="filterFaq('costos')">Costos y contratos</button>
+      <button class="faq-cat" onclick="filterFaq('legal')">Marco legal</button>
+    </div>
+
+    <div id="faq-list" style="display:flex;flex-direction:column;gap:10px;max-width:860px">
+
+      <!-- IMPLEMENTACIÓN -->
+      <div class="faq-item" data-cat="implementacion">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span>¿Cuánto tiempo tarda en estar operacional?</span>
+          <div class="faq-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </button>
+        <div class="faq-a">
+          <p>Tres días hábiles desde la firma del contrato. El primer día configuramos el municipio en la plataforma y activamos los primeros trámites. El segundo día entrenamos a los administradores y funcionarios clave. El tercer día el portal ciudadano y el bot ya están activos y recibiendo solicitudes. No hay instalación de servidores, no hay integración con sistemas legacy obligatoria, no hay proyecto de meses.</p>
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="implementacion">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span>¿Necesitamos equipo técnico propio para implementar MunIA?</span>
+          <div class="faq-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </button>
+        <div class="faq-a">
+          <p>No. MunIA opera 100% en la nube sobre infraestructura de Google. El municipio accede desde el navegador — sin instalar nada, sin configurar servidores, sin depender del encargado de TI para operar el día a día. El onboarding lo hacemos nosotros. El administrador municipal solo necesita un computador y conexión a internet.</p>
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="implementacion">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span>¿MunIA reemplaza los sistemas que ya tenemos?</span>
+          <div class="faq-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </button>
+        <div class="faq-a">
+          <p>No reemplaza — complementa. MunIA es la capa de atención ciudadana que cubre lo que los sistemas financieros y administrativos no hacen: recibir solicitudes, asignarlas, trazarlas y responderlas. No toca ni reemplaza el ERP de finanzas, el sistema de patentes ni el de contabilidad. Funciona en paralelo, sin integración obligatoria con los sistemas actuales para empezar.</p>
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="implementacion">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span>¿Cómo se capacita al equipo del municipio?</span>
+          <div class="faq-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </button>
+        <div class="faq-a">
+          <p>La capacitación está incluida en el onboarding. Hacemos sesiones diferenciadas por rol: una para administradores (configuración de la plataforma), otra para jefaturas (supervisión y reportes) y otra para funcionarios de ventanilla y gestión (operación del día a día). Todas son online, duran entre 60 y 90 minutos, y quedan grabadas para nuevos funcionarios que se incorporen después. La plataforma está diseñada para ser intuitiva — la curva de aprendizaje es de días, no de meses.</p>
+        </div>
+      </div>
+
+      <!-- OPERACIÓN -->
+      <div class="faq-item" data-cat="operacion">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span>¿Qué pasa con las solicitudes que llegan fuera del horario de oficina?</span>
+          <div class="faq-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </button>
+        <div class="faq-a">
+          <p>Quedan registradas automáticamente en el sistema. El bot conversacional está disponible las 24 horas y puede recibir solicitudes nuevas, responder consultas frecuentes y confirmar el estado de casos existentes — sin que ningún funcionario esté disponible. Al día siguiente, cuando el equipo llega al trabajo, todas las solicitudes nocturnas ya están en las bandejas correspondientes, con prioridad y SLA activos.</p>
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="operacion">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span>¿Cómo sabe el sistema a quién asignar cada solicitud?</span>
+          <div class="faq-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </button>
+        <div class="faq-a">
+          <p>El administrador del municipio configura las reglas de asignación: qué tipo de solicitud va a qué dirección, qué sector geográfico corresponde a qué equipo, qué nivel de urgencia activa qué prioridad. Una vez configuradas, la asignación es automática. Si una solicitud no encaja en ninguna regla, va a una bandeja de supervisión para asignación manual por la jefatura. Las reglas se pueden modificar en cualquier momento desde el panel de administración, sin necesidad de soporte técnico.</p>
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="operacion">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span>¿Qué ocurre cuando un caso vence sin resolución?</span>
+          <div class="faq-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </button>
+        <div class="faq-a">
+          <p>El sistema emite alertas escalonadas: primero al funcionario asignado cuando el SLA está próximo a vencer, luego a la jefatura si no hubo acción. Los casos vencidos quedan marcados visualmente en el dashboard y en las bandejas individuales. La jefatura puede ver en tiempo real cuántos casos están en riesgo, filtrar por área o por funcionario, y reasignar con un clic. El objetivo no es castigar — es evitar que el caso desaparezca sin respuesta.</p>
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="operacion">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span>¿El vecino puede hacer seguimiento sin crear una cuenta?</span>
+          <div class="faq-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </button>
+        <div class="faq-a">
+          <p>Sí. Al ingresar una solicitud, el vecino recibe un código único de seguimiento. Con ese código puede consultar el estado desde el portal web o preguntarle directamente al bot — sin registro previo, sin crear cuenta, sin contraseña. El objetivo es que el acceso sea lo más simple posible para cualquier tipo de ciudadano, independientemente de su nivel de familiaridad con la tecnología.</p>
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="operacion">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span>¿Cómo se maneja la atención presencial en ventanilla?</span>
+          <div class="faq-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </button>
+        <div class="faq-a">
+          <p>El funcionario de ventanilla ingresa la solicitud en el sistema mientras conversa con el vecino — tarda menos de dos minutos. Al finalizar, imprime o muestra un comprobante con código QR que el vecino se lleva consigo. Con ese QR puede hacer seguimiento desde su teléfono sin necesitar nada más. El caso queda en el mismo sistema que los que llegan por web o bot — no hay bandejas separadas ni doble gestión.</p>
+        </div>
+      </div>
+
+      <!-- TÉCNICO -->
+      <div class="faq-item" data-cat="tecnico">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span>¿Los datos de nuestro municipio están seguros y separados de otros?</span>
+          <div class="faq-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </button>
+        <div class="faq-a">
+          <p>Sí, con separación técnica garantizada por arquitectura. MunIA es multi-tenant con aislamiento total: cada municipio opera en un entorno completamente separado. Los datos de una municipalidad nunca son accesibles desde otra — ni técnica ni operacionalmente. La infraestructura corre sobre Google Cloud, con alta disponibilidad, backups automáticos y cifrado de datos en tránsito y en reposo.</p>
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="tecnico">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span>¿Qué pasa si el sistema tiene una caída o falla técnica?</span>
+          <div class="faq-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </button>
+        <div class="faq-a">
+          <p>La plataforma opera sobre infraestructura cloud con alta disponibilidad y redundancia. Las actualizaciones y mejoras se despliegan sin interrumpir la operación — el municipio siempre trabaja con la versión más actualizada sin ventanas de mantenimiento. En caso de incidente, el equipo técnico de MunIA tiene protocolos de respuesta y comunicación activa con el municipio afectado.</p>
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="tecnico">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span>¿Se puede integrar con los sistemas que ya tenemos?</span>
+          <div class="faq-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </button>
+        <div class="faq-a">
+          <p>No es obligatorio para empezar, pero sí es posible. MunIA tiene una arquitectura abierta con API disponible en los planes superiores. Las integraciones planificadas incluyen ClaveÚnica (identidad digital del Estado), Registro Civil, PiSEE y firma electrónica simple y avanzada. Para los municipios que usan CAS-Chile u otros ERPs, la integración de datos puede configurarse a nivel de exportaciones y reportes sin necesidad de conectar sistemas en tiempo real.</p>
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="tecnico">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span>¿Funciona bien en municipios con conectividad limitada o sectores rurales?</span>
+          <div class="faq-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </button>
+        <div class="faq-a">
+          <p>Sí. El portal web está optimizado para conexiones lentas y funciona desde cualquier dispositivo con navegador — incluidos teléfonos de gama básica. Para funcionarios que trabajan en terreno con conectividad intermitente, el plan Operacional incluye la app móvil offline-first: registra la información localmente y la sincroniza con el sistema cuando recupera conexión. El vecino rural siempre tiene acceso por ventanilla presencial como canal alternativo.</p>
+        </div>
+      </div>
+
+      <!-- COSTOS -->
+      <div class="faq-item" data-cat="costos">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span>¿Qué significa exactamente "trámite" para el cobro?</span>
+          <div class="faq-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </button>
+        <div class="faq-a">
+          <p>Un trámite es una categoría de solicitud configurada en el sistema — por ejemplo: "revisión de luminaria", "retiro de escombros", "permiso de ocupación de vereda" o "consulta social". Cada categoría puede tener subcategorías, flujos de aprobación propios, SLA diferenciado y reglas de asignación específicas. El número de solicitudes procesadas no afecta el precio — el cobro es por trámites configurados, no por volumen de casos. Un municipio puede procesar 5 o 5.000 solicitudes del mismo trámite sin costo adicional.</p>
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="costos">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span>¿Hay costos ocultos de implementación, soporte o actualizaciones?</span>
+          <div class="faq-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </button>
+        <div class="faq-a">
+          <p>No. El onboarding y la capacitación inicial están incluidos en todos los planes. Las actualizaciones de la plataforma son automáticas y sin costo adicional — el municipio siempre tiene la versión más reciente. El soporte técnico está incluido en la suscripción mensual. No hay cobro por número de usuarios, por volumen de solicitudes ni por ajustes de configuración que el propio administrador municipal pueda hacer desde el panel.</p>
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="costos">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span>¿Cómo se financia MunIA en municipios con presupuesto restringido?</span>
+          <div class="faq-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </button>
+        <div class="faq-a">
+          <p>El plan Inicio parte en USD 500 mensuales — un valor diseñado para ser accesible incluso para municipios de menor tamaño. Además, la plataforma es elegible para financiamiento a través de fondos SUBDERE, CORFO y programas de modernización municipal. Para municipios que postulan en conjunto a través de asociaciones como AMUCH o AChM, existe la posibilidad de licencias centralizadas con condiciones especiales. Conversemos — hay más de una forma de llegar al número.</p>
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="costos">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span>¿Qué pasa si necesitamos cancelar la suscripción?</span>
+          <div class="faq-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </button>
+        <div class="faq-a">
+          <p>No hay penalidades de salida en los contratos mensuales. Si el municipio decide no continuar, exportamos todos los datos — solicitudes, expedientes, histórico completo — en formatos estándar (CSV, PDF) para que queden en poder del municipio. Los datos siempre son del municipio, no de MunIA. Para contratos anuales con descuento, las condiciones de término anticipado se definen en el contrato y son transparentes desde el inicio.</p>
+        </div>
+      </div>
+
+      <!-- LEGAL -->
+      <div class="faq-item" data-cat="legal">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span>¿Cómo ayuda MunIA a cumplir con la Ley 21.180?</span>
+          <div class="faq-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </button>
+        <div class="faq-a">
+          <p>La Ley 21.180 exige que los municipios ofrezcan trámites en formato electrónico, notifiquen por medios digitales y generen expedientes electrónicos con trazabilidad. MunIA cumple los tres requisitos de forma automática: el portal web es el canal electrónico, las notificaciones al vecino son automáticas, y cada solicitud genera un expediente digital completo con historial de acciones. Al usar MunIA, el municipio avanza en su cumplimiento sin ningún proyecto adicional.</p>
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="legal">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span>¿Cómo protege MunIA los datos personales de los vecinos?</span>
+          <div class="faq-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </button>
+        <div class="faq-a">
+          <p>En línea con la Ley 21.719, MunIA incluye: registro de consentimiento al crear cada solicitud, capacidad de revocación del consentimiento, acceso del ciudadano a sus propios datos y posibilidad de solicitar su eliminación. Los datos están cifrados en tránsito y en reposo. El municipio actúa como responsable del tratamiento y MunIA como encargado — con un contrato de tratamiento de datos incluido en la suscripción.</p>
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="legal">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span>¿Cumple con los requisitos de ciberseguridad del Estado?</span>
+          <div class="faq-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </button>
+        <div class="faq-a">
+          <p>Sí. MunIA incluye los controles mínimos exigidos por la Ley 21.663: autenticación de doble factor para roles privilegiados, cierre automático de sesiones inactivas, registro de auditoría completo de todos los accesos y modificaciones, y un protocolo de gestión de incidentes de seguridad con notificación a la ANCI cuando corresponde. Estos controles no son add-ons opcionales — están incorporados en la plataforma de base.</p>
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="legal">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span>¿El municipio puede demostrar el cumplimiento ante una fiscalización?</span>
+          <div class="faq-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </button>
+        <div class="faq-a">
+          <p>Sí, y ese es uno de los valores más concretos de la plataforma. El dashboard incluye un panel de auditoría con filtros avanzados exportable en CSV, PDF y Excel. El municipio puede generar en minutos un reporte que muestre: cuántas solicitudes recibió en un período, cuántas respondió en plazo, quién fue el responsable de cada caso, y el expediente completo de cada solicitud. Ante el CPLT o la ANCI, ese reporte es la evidencia.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- BOTTOM CTA -->
+    <div style="margin-top:3rem;padding:2rem;background:var(--paper2);border:1.5px solid var(--border-light);border-radius:16px;display:flex;align-items:center;justify-content:space-between;gap:2rem;flex-wrap:wrap" class="reveal">
+      <div>
+        <div style="font-size:16px;font-weight:600;color:var(--ink);letter-spacing:-.3px;margin-bottom:.3rem">¿Tienes una pregunta que no está aquí?</div>
+        <div style="font-size:14px;color:var(--muted-ink)">Conversamos en 30 minutos. Sin presentaciones de ventas. Solo respuestas.</div>
+      </div>
+      <a href="#contacto" class="btn-p">Hacer mi pregunta →</a>
+    </div>
+  </div>
+</section>
+
+
+<!-- CTA -->
+<section class="cta-sec" id="contacto">
+  <div class="cta-inner reveal">
+    <div class="ey ey-light" style="justify-content:center"><div class="ey-dot"></div>El primer paso</div>
+    <h2 class="cta-title">Tu municipio puede responder mejor<br>desde esta semana.</h2>
+    <p class="cta-sub">El piloto es sin costo. La implementación toma 3 días. El vecino nota la diferencia desde la primera semana. El alcalde tiene datos antes de fin de mes.</p>
+    <div class="cta-btns">
+      <a href="mailto:contacto@munia.cl" class="btn-w">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 01.22 1.18 2 2 0 012.22 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.16 6.16l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        Agendar Demo Ahora
+      </a>
+      <a href="mailto:contacto@munia.cl?subject=Solicitud propuesta MunIA" class="btn-g-dark" style="color:rgba(255,255,255,.8);border-color:rgba(255,255,255,.25)">Solicitar propuesta →</a>
+    </div>
+    <div class="cta-gs">
+      <div class="cta-g"><div class="cta-gchk">✓</div>Piloto sin costo · primeros municipios</div>
+      <div class="cta-g"><div class="cta-gchk">✓</div>Operacional en 3 días</div>
+      <div class="cta-g"><div class="cta-gchk">✓</div>Sin contratos de largo plazo obligatorios</div>
+      <div class="cta-g"><div class="cta-gchk">✓</div>Respuesta en 48 horas</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-inner container">
+    <div class="foot-brand"><div class="nav-ico" style="width:28px;height:28px;border-radius:7px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="3.4" r="1.1" stroke-width="1.3"/><line x1="12" y1="4.5" x2="12" y2="7"/><path d="M5 11 L12 6.5 L19 11" stroke-width="1.8"/><line x1="4.5" y1="12.3" x2="19.5" y2="12.3" stroke-width="2"/><rect x="6.5" y="13.2" width="11" height="7.5" rx="0.6"/><line x1="9" y1="15" x2="9" y2="20.7"/><line x1="12" y1="15" x2="12" y2="20.7"/><line x1="15" y1="15" x2="15" y2="20.7"/></svg></div><div class="foot-name"><span>Mun</span>IA</div></div>
+    <div class="foot-copy mono">contacto@munia.cl · Chile 2026</div>
+    <div class="foot-tags"><span class="foot-tag">GovTech</span><span class="foot-tag">SaaS B2G</span><span class="foot-tag">IA Municipal</span><span class="foot-tag">Chile · LATAM</span></div>
+    <div class="foot-legal">
+      <a href="/legal/privacidad">Política de Privacidad</a>
+      <a href="/legal/sgsi">Seguridad de la Información</a>
+    </div>
+    <div class="foot-powered">Potenciado por <strong>ALTKimia</strong></div>
+  </div>
+</footer>
+
+<script is:inline>
+function showTab(i) {
+  document.querySelectorAll('.uc-tab').forEach((t,j)=>t.classList.toggle('active',j===i));
+  document.querySelectorAll('.uc-content').forEach((c,j)=>{
+    c.classList.toggle('active',j===i);
+    c.style.display = j===i ? '' : 'none';
+  });
+}
+document.querySelectorAll('.uc-content').forEach((c,i)=>{ if(!c.classList.contains('active')) c.style.display='none'; });
+
+function toggleFaq(btn) {
+  const item = btn.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+  if(!isOpen) item.classList.add('open');
+}
+
+function filterFaq(cat) {
+  document.querySelectorAll('.faq-cat').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+  document.querySelectorAll('.faq-item').forEach(item => {
+    if(cat === 'all' || item.dataset.cat === cat) {
+      item.classList.remove('hidden');
+    } else {
+      item.classList.add('hidden');
+      item.classList.remove('open');
+    }
+  });
+}
+
+const io = new IntersectionObserver((es)=>es.forEach((e,i)=>{ if(e.isIntersecting) setTimeout(()=>e.target.classList.add('in'),i*55); }),{threshold:.07,rootMargin:'0px 0px -28px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+window.addEventListener('scroll',()=>{ document.querySelector('nav').style.boxShadow = window.scrollY>30?'0 4px 24px rgba(0,0,0,.25)':'none'; });
+</script>
+
+<div class="deck-overlay" id="ovMun"><button class="deck-close" onclick="closeDeck('mun')">✕</button><iframe id="ifMun" title="Presentación Clientes" src="/decks/clientes.html"></iframe></div>
+<div class="deck-overlay" id="ovInv"><button class="deck-close" onclick="closeDeck('inv')">✕</button><iframe id="ifInv" title="Presentación Inversionistas"></iframe></div>
+<div class="login-gate" id="loginGate"><div class="login-card">
+<div class="login-logo"><span class="wm">Mun<i>IA</i></span></div>
+<div class="login-sub" id="loginSub">Acceso · Presentación</div>
+<div class="login-field"><label>Usuario</label><input id="luser" type="email" autocomplete="username" placeholder="correo@altkimia.com"></div>
+<div class="login-field"><label>Contraseña</label><input id="lpass" type="password" autocomplete="current-password" placeholder="********" onkeydown="if(event.key==='Enter')tryLogin()"></div>
+<button class="login-btn" onclick="tryLogin()">Ingresar</button>
+<div class="login-err" id="lerr"></div>
+<button class="login-cancel" onclick="closeLogin()">Cancelar</button>
+<div class="login-note">Acceso restringido. Capa de cortesía para presentación, no un sistema de seguridad.</div>
+</div></div>
+<script id="deck-injector-js" is:inline>
+let _pendingDeck=null;
+function lockScroll(on){document.body.style.overflow=on?'hidden':'';}
+function openDeck(w){document.getElementById(w==='mun'?'ovMun':'ovInv').classList.add('open');lockScroll(true);}
+function closeDeck(w){document.getElementById(w==='mun'?'ovMun':'ovInv').classList.remove('open');lockScroll(false);}
+function openLogin(which){_pendingDeck=which;var s=document.getElementById('loginSub');if(s)s.textContent='Acceso · '+(which==='inv'?'Presentación Inversionistas':'Presentación Clientes');document.getElementById('lerr').textContent='';document.getElementById('loginGate').classList.add('open');lockScroll(true);setTimeout(function(){document.getElementById('luser').focus();},50);}
+function closeLogin(){document.getElementById('loginGate').classList.remove('open');lockScroll(false);document.getElementById('luser').value='';document.getElementById('lpass').value='';_pendingDeck=null;}
+var _U="avillalobos@altkimia.com";
+var _P="Bandida1970$$";
+function tryLogin(){var u=document.getElementById('luser').value.trim().toLowerCase();var p=document.getElementById('lpass').value;if(u===_U&&p===_P){document.getElementById('loginGate').classList.remove('open');if(_pendingDeck==='inv'){var ifr=document.getElementById('ifInv');if(!ifr.getAttribute('src'))ifr.setAttribute('src','/decks/inversionistas.html');document.getElementById('ovInv').classList.add('open');}else{document.getElementById('ovMun').classList.add('open');}document.getElementById('luser').value='';document.getElementById('lpass').value='';_pendingDeck=null;}else{document.getElementById('lerr').textContent='Credenciales incorrectas.';}}
+document.addEventListener('keydown',function(e){if(e.key==='Escape'){if(document.getElementById('ovMun').classList.contains('open'))closeDeck('mun');if(document.getElementById('ovInv').classList.contains('open'))closeDeck('inv');if(document.getElementById('loginGate').classList.contains('open'))closeLogin();}});
+</script>
+</Layout>
