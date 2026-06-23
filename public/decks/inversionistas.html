@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MunIA — Investor Deck (Pre-Seed)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy-900:#080B12;
+  --navy-800:#0D1117;
+  --navy-700:#111827;
+  --blue-500:#2196F3;
+  --blue-400:#42A5F5;
+  --blue-600:#1565C0;
+  --blue-pale:#E3F2FD;
+  --blue-glow:rgba(33,150,243,.35);
+  --ink:#F0F4FF;
+  --ink-dim:#8B9DC3;
+  --ink-faint:#5e7693;
+  --line:rgba(120,160,210,.16);
+  --line-strong:rgba(120,160,210,.30);
+  --green:#10B981;
+  --amber:#F59E0B;
+  --red:#EF4444;
+  --card:rgba(20,40,68,.5);
+  --card-solid:#101a2e;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  background:var(--navy-900);
+  color:var(--ink);
+  font-family:'Inter',sans-serif;
+  overflow:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+.mono{font-family:'DM Mono',monospace}
+
+#deck{position:fixed;inset:0;overflow:hidden}
+.slide{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;
+  padding:clamp(26px,4.2vh,60px) clamp(34px,5vw,84px);
+  opacity:0;visibility:hidden;transform:translateX(38px);
+  transition:opacity .5s ease, transform .5s ease, visibility .5s;
+  background:
+    radial-gradient(900px 500px at 85% -10%, rgba(33,150,243,.10), transparent 60%),
+    radial-gradient(700px 600px at -5% 110%, rgba(21,101,192,.12), transparent 55%),
+    var(--navy-900);
+}
+.slide.active{opacity:1;visibility:visible;transform:translateX(0)}
+.slide.prev{transform:translateX(-38px)}
+
+/* section marker (mirrors landing eyebrows) */
+.eyebrow{font-family:'DM Mono',monospace;font-size:clamp(10px,1.1vw,13px);
+  letter-spacing:.22em;text-transform:uppercase;color:var(--blue-400);
+  display:flex;align-items:center;gap:10px;margin-bottom:clamp(10px,1.8vh,20px)}
+.eyebrow::before{content:"";width:24px;height:1px;background:var(--blue-400);opacity:.7}
+.eyebrow .sn{color:var(--ink-faint)}
+
+h1.t{font-size:clamp(28px,4.4vw,60px);font-weight:800;line-height:1.02;letter-spacing:-.02em;max-width:18ch}
+h2.t{font-size:clamp(23px,3.3vw,44px);font-weight:800;line-height:1.06;letter-spacing:-.02em;max-width:22ch}
+.accent{color:var(--blue-400)}
+.lead{font-size:clamp(15px,1.5vw,20px);color:var(--ink-dim);line-height:1.5;max-width:60ch;margin-top:clamp(10px,1.7vh,18px)}
+.kick{margin-top:auto;font-style:italic;color:var(--ink);font-size:clamp(14px,1.45vw,19px);font-weight:500;opacity:.92}
+
+.two{display:grid;grid-template-columns:1.04fr .96fr;gap:clamp(26px,4vw,60px);flex:1;align-items:center}
+.col-text{display:flex;flex-direction:column;justify-content:center;min-width:0}
+.col-visual{display:flex;align-items:center;justify-content:center;min-width:0;height:100%}
+.col-visual svg{width:100%;height:auto;max-height:76vh;filter:drop-shadow(0 24px 50px rgba(0,0,0,.45))}
+
+/* hero metrics (mirrors landing +60/-80/24-7/3d) */
+.metrics{display:flex;gap:clamp(14px,2.2vw,34px);flex-wrap:wrap;margin-top:clamp(16px,2.6vh,30px)}
+.metric{flex:1;min-width:130px}
+.metric .num{font-size:clamp(30px,4.4vw,58px);font-weight:900;line-height:1;letter-spacing:-.03em;
+  background:linear-gradient(135deg,#fff 10%,var(--blue-400));-webkit-background-clip:text;background-clip:text;color:transparent}
+.metric .lbl{font-size:clamp(11px,1.15vw,14px);color:var(--ink-dim);margin-top:8px;line-height:1.35;max-width:24ch}
+
+/* diagnosis 3-up (40% / 3 meses / 0) */
+.diag{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:clamp(16px,2.6vh,28px)}
+.diag-card{padding:20px;border-radius:14px;background:var(--card);border:1px solid var(--line)}
+.diag-card .big{font-size:clamp(30px,3.6vw,50px);font-weight:900;letter-spacing:-.03em;color:var(--red);line-height:1}
+.diag-card .big sub{font-size:.42em;font-weight:600;color:var(--ink-dim);letter-spacing:0}
+.diag-card h4{font-size:clamp(13px,1.35vw,17px);margin:12px 0 7px;font-weight:700;line-height:1.2}
+.diag-card p{font-size:clamp(12px,1.2vw,14px);color:var(--ink-dim);line-height:1.45}
+
+/* before/after */
+.ba{display:flex;flex-direction:column;gap:13px;margin-top:clamp(12px,2.2vh,24px)}
+.ba-row{display:flex;gap:14px;align-items:flex-start;padding:14px 16px;border-radius:12px;border:1px solid var(--line)}
+.ba-row.before{background:rgba(239,68,68,.06);border-color:rgba(239,68,68,.18)}
+.ba-row.after{background:rgba(16,185,129,.07);border-color:rgba(16,185,129,.2)}
+.ba-tag{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  padding:4px 9px;border-radius:6px;white-space:nowrap;font-weight:500;margin-top:1px}
+.ba-row.before .ba-tag{background:rgba(239,68,68,.16);color:#ff8a8a}
+.ba-row.after .ba-tag{background:rgba(16,185,129,.16);color:#4fe0a8}
+.ba-text{font-size:clamp(13px,1.32vw,16px);color:var(--ink-dim);line-height:1.45}
+.ba-text b{color:var(--ink);font-weight:600}
+
+/* persona chip */
+.persona{display:flex;align-items:center;gap:14px;margin-bottom:clamp(8px,1.6vh,16px)}
+.persona .face{font-size:clamp(28px,3.4vw,44px);line-height:1}
+.persona .pwho{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.1em;color:var(--ink-faint);text-transform:uppercase}
+
+/* modules grid (plataforma) */
+.mods{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:clamp(16px,2.6vh,28px)}
+.mod{padding:18px;border-radius:14px;background:var(--card);border:1px solid var(--line)}
+.mod .mi{font-size:20px;margin-bottom:10px}
+.mod h4{font-size:clamp(13px,1.35vw,17px);font-weight:700;margin-bottom:6px;line-height:1.15}
+.mod p{font-size:clamp(11px,1.12vw,13px);color:var(--ink-dim);line-height:1.4}
+.mod .tags{margin-top:9px;display:flex;flex-wrap:wrap;gap:5px}
+.mod .tg{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.04em;padding:3px 7px;border-radius:5px;
+  background:rgba(33,150,243,.1);color:var(--blue-400)}
+
+/* flow steps */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:clamp(18px,3vh,32px)}
+.step{padding:18px 16px;border-radius:14px;background:var(--card);border:1px solid var(--line);position:relative}
+.step .n{font-family:'DM Mono',monospace;font-size:13px;color:var(--blue-400);letter-spacing:.06em;font-weight:500}
+.step h4{font-size:clamp(13px,1.4vw,18px);margin:11px 0 7px;font-weight:700;line-height:1.15}
+.step p{font-size:clamp(11px,1.12vw,13px);color:var(--ink-dim);line-height:1.4}
+.step .arr{position:absolute;right:-11px;top:50%;transform:translateY(-50%);color:var(--blue-400);font-size:16px;z-index:2}
+.step:last-child .arr{display:none}
+
+/* laws */
+.laws{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:clamp(16px,2.6vh,28px)}
+.law{padding:18px 20px;border-radius:14px;background:var(--card);border:1px solid var(--line)}
+.law .code{font-family:'DM Mono',monospace;font-size:13px;color:var(--blue-400);letter-spacing:.08em}
+.law h4{font-size:clamp(13px,1.35vw,17px);margin:8px 0 7px;font-weight:700;line-height:1.2}
+.law p{font-size:clamp(12px,1.18vw,14px);color:var(--ink-dim);line-height:1.42}
+
+.tag-incl{display:inline-flex;align-items:center;gap:8px;margin-top:clamp(14px,2.4vh,24px);
+  font-family:'DM Mono',monospace;font-size:13px;color:var(--green);padding:9px 15px;border-radius:8px;
+  background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.22)}
+
+/* pricing */
+.plans{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:clamp(16px,2.6vh,26px)}
+.plan{padding:18px;border-radius:16px;background:var(--card);border:1px solid var(--line);position:relative;display:flex;flex-direction:column}
+.plan.feat{border-color:var(--blue-500);background:rgba(33,150,243,.07)}
+.plan .star{position:absolute;top:-10px;left:50%;transform:translateX(-50%);font-family:'DM Mono',monospace;
+  font-size:9px;letter-spacing:.1em;background:var(--blue-500);color:#fff;padding:3px 10px;border-radius:999px;text-transform:uppercase}
+.plan .pn{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.1em;color:var(--blue-400);text-transform:uppercase}
+.plan .scope{font-size:11px;color:var(--ink-faint);margin:4px 0 12px}
+.plan .price{font-size:clamp(20px,2.3vw,30px);font-weight:900;letter-spacing:-.02em}
+.plan .price span{font-size:13px;font-weight:500;color:var(--ink-dim)}
+.plan .clp{font-family:'DM Mono',monospace;font-size:10px;color:var(--ink-faint);margin-top:4px}
+.plan ul{list-style:none;margin-top:13px;display:flex;flex-direction:column;gap:6px}
+.plan li{font-size:clamp(10px,1.05vw,12px);color:var(--ink-dim);line-height:1.35;padding-left:16px;position:relative}
+.plan li::before{content:"✓";position:absolute;left:0;color:var(--green);font-weight:700}
+.price-foot{margin-top:clamp(14px,2.2vh,22px);font-size:clamp(13px,1.35vw,17px);color:var(--ink-dim);line-height:1.5;max-width:80ch}
+.price-foot b{color:var(--ink);font-weight:600}
+
+/* objections (condensed FAQ) */
+.objs{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:clamp(16px,2.6vh,26px)}
+.obj{padding:16px 18px;border-radius:13px;background:var(--card);border:1px solid var(--line)}
+.obj .q{font-size:clamp(13px,1.32vw,16px);font-weight:700;margin-bottom:7px;color:var(--ink)}
+.obj .q::before{content:"“";color:var(--blue-400);font-weight:800;margin-right:3px}
+.obj .q::after{content:"”";color:var(--blue-400);font-weight:800;margin-left:2px}
+.obj p{font-size:clamp(11px,1.15vw,14px);color:var(--ink-dim);line-height:1.45}
+
+/* pills */
+.pills{display:flex;flex-wrap:wrap;gap:10px;margin-top:clamp(14px,2.4vh,24px)}
+.pill{font-family:'DM Mono',monospace;font-size:12px;letter-spacing:.04em;padding:9px 15px;border-radius:999px;
+  border:1px solid var(--line-strong);color:var(--ink-dim);background:rgba(16,32,54,.5)}
+.pill b{color:var(--blue-400);font-weight:500}
+
+/* cta */
+.cta-grid{display:flex;gap:16px;margin-top:clamp(18px,3vh,30px);flex-wrap:wrap}
+.cta-card{flex:1;min-width:180px;padding:20px 22px;border-radius:16px;background:var(--card);border:1px solid var(--line)}
+.cta-card .ic{font-size:22px;margin-bottom:10px}
+.cta-card h4{font-size:clamp(14px,1.45vw,18px);margin-bottom:7px;font-weight:700}
+.cta-card p{font-size:clamp(11px,1.2vw,14px);color:var(--ink-dim);line-height:1.45}
+
+.footnote{font-family:'DM Mono',monospace;font-size:11px;color:var(--ink-faint);margin-top:13px;letter-spacing:.02em}
+.footnote.illus{color:var(--amber);opacity:.85}
+
+/* progress + nav */
+#progress{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--blue-600),var(--blue-400));
+  z-index:50;transition:width .4s ease;box-shadow:0 0 12px var(--blue-glow)}
+#nav{position:fixed;bottom:22px;right:32px;display:flex;align-items:center;gap:14px;z-index:50}
+.navbtn{width:40px;height:40px;border-radius:50%;border:1px solid var(--line-strong);background:rgba(16,24,40,.7);
+  color:var(--ink);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;backdrop-filter:blur(8px);transition:.2s}
+.navbtn:hover{background:var(--blue-600);border-color:var(--blue-500)}
+.navbtn:disabled{opacity:.3;cursor:default}
+#counter{font-family:'DM Mono',monospace;font-size:13px;color:var(--ink-dim);letter-spacing:.1em;min-width:54px;text-align:center}
+#brandmark{position:fixed;bottom:24px;left:32px;z-index:50;display:flex;align-items:center;gap:10px;
+  font-family:'DM Mono',monospace;font-size:12px;letter-spacing:.12em;color:var(--ink-faint)}
+#brandmark .dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green)}
+#hint{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:50;font-family:'DM Mono',monospace;
+  font-size:11px;color:var(--ink-faint);letter-spacing:.08em;opacity:.7;transition:opacity .4s}
+
+/* logo + cover */
+.logo{display:flex;align-items:center;gap:12px}
+.logo .mark{width:46px;height:46px;flex:none}
+.logo .wm{font-weight:800;font-size:26px;letter-spacing:-.02em}
+.logo .wm .ia{color:var(--blue-400)}
+.cover{justify-content:center;align-items:flex-start}
+.cover .big{font-size:clamp(36px,6.4vw,96px);font-weight:900;line-height:.97;letter-spacing:-.03em;margin:clamp(18px,3.6vh,38px) 0 18px}
+.cover .sub{font-size:clamp(15px,1.85vw,25px);color:var(--ink-dim);max-width:40ch;line-height:1.4}
+.cover .for{margin-top:clamp(20px,3.6vh,40px);font-family:'DM Mono',monospace;font-size:clamp(12px,1.3vw,16px);
+  letter-spacing:.1em;color:var(--blue-400);padding:10px 16px;border:1px solid var(--line-strong);border-radius:10px;display:inline-block}
+.law-banner{margin-top:18px;font-family:'DM Mono',monospace;font-size:clamp(11px,1.2vw,14px);color:var(--amber);
+  display:flex;align-items:center;gap:9px}
+
+/* divider */
+.divider{justify-content:center;align-items:center;text-align:center;
+  background:radial-gradient(1000px 700px at 50% 50%,rgba(21,101,192,.16),transparent 60%),var(--navy-900)}
+.divider .eyebrow{justify-content:center}
+.divider .eyebrow::before{display:none}
+.anexo-list{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:30px;max-width:760px;text-align:left}
+.anexo-item{padding:16px 18px;border-radius:12px;background:var(--card);border:1px solid var(--line)}
+.anexo-item .ax{font-family:'DM Mono',monospace;font-size:12px;color:var(--blue-400)}
+.anexo-item h4{font-size:15px;margin:7px 0 5px;font-weight:700}
+.anexo-item p{font-size:13px;color:var(--ink-dim);line-height:1.4}
+
+@media (max-width:900px){
+  .two{grid-template-columns:1fr;gap:18px}
+  .col-visual{display:none}
+  .diag,.mods,.laws,.plans,.objs,.steps,.anexo-list{grid-template-columns:1fr}
+  h1.t,h2.t{max-width:none}
+}
+
+/* ===== REAL SYSTEM MOCKUPS ===== */
+.mock{--blue:#2196F3;--blue-dark:#1565C0;--blue-xdark:#0D47A1;--blue-light:#42A5F5;--blue-pale:#E3F2FD;--bg1:#080B12;--bg2:#0D1117;--bg3:#111827;--text:#F0F4FF;--muted:#8B9DC3;--border:#1E2D4A;--white:#fff;--green:#10B981;--green-dark:#059669;--amber:#F59E0B;--red:#EF4444;--radius:14px;color:var(--text);font-family:'Inter',sans-serif}
+.mock *{box-sizing:border-box}.mock svg{display:block}
+.mock .kpi-n.blue{color:var(--blue-light)}
+.mock .kpi-n.green{color:#34D399}
+.mock .kpi-n.amber{color:#FCD34D}
+.mock .screen{background:var(--bg1);border:1px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:0 20px 48px rgba(0,0,0,.3)}
+.mock .sc-bar{background:var(--bg2);border-bottom:1px solid var(--border);padding:9px 12px;display:flex;align-items:center;gap:8px}
+.mock .sc-dots{display:flex;gap:4px}
+.mock .sc-dot{width:9px;height:9px;border-radius:50%}
+.mock .sc-url{flex:1;background:rgba(255,255,255,.04);border-radius:5px;padding:4px 10px;font-size:9px;color:var(--muted);font-family:'DM Mono',monospace;text-align:center}
+.mock .sc-body{padding:14px}
+.mock .portal-top{background:var(--blue);border-radius:10px 10px 0 0;padding:12px 14px;margin:-14px -14px 12px}
+.mock .portal-top-name{font-size:13px;font-weight:600;color:#fff;margin-bottom:1px}
+.mock .portal-top-sub{font-size:10px;color:rgba(255,255,255,.8)}
+.mock .p-welcome{background:rgba(255,255,255,.06);border:1px solid var(--border);border-radius:8px;padding:9px 11px;margin-bottom:9px;font-size:11px;color:var(--text)}
+.mock .p-field{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:7px;padding:8px 10px;margin-bottom:6px}
+.mock .p-fl{font-size:9px;font-family:'DM Mono',monospace;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:2px}
+.mock .p-fv{font-size:11px;color:var(--text)}
+.mock .p-confirm{background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.25);border-radius:8px;padding:10px 12px;text-align:center;margin-top:8px}
+.mock .p-code{font-size:20px;font-weight:700;color:#34D399;letter-spacing:3px;font-family:'DM Mono',monospace}
+.mock .p-code-sub{font-size:9px;color:var(--muted);margin-top:3px;font-family:'DM Mono',monospace}
+.mock .fn-layout{display:grid;grid-template-columns:30px 1fr;gap:9px}
+.mock .fn-nav{display:flex;flex-direction:column;gap:4px}
+.mock .fn-ni{width:28px;height:28px;border-radius:6px;background:rgba(255,255,255,.04);display:flex;align-items:center;justify-content:center;cursor:pointer}
+.mock .fn-ni.act{background:var(--blue)}
+.mock .fn-ni svg{width:12px;height:12px;stroke:var(--muted);fill:none;stroke-width:1.8;stroke-linecap:round}
+.mock .fn-ni.act svg{stroke:#fff}
+.mock .fn-main{display:flex;flex-direction:column;gap:7px}
+.mock .fn-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:2px}
+.mock .fn-top-h{font-size:11px;font-weight:600;color:var(--text)}
+.mock .fn-card{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:8px;padding:8px 10px;display:flex;flex-direction:column;gap:4px}
+.mock .fn-r1{display:flex;align-items:center;gap:7px}
+.mock .fn-num{font-size:9px;font-family:'DM Mono',monospace;color:var(--muted);flex-shrink:0}
+.mock .fn-tit{font-size:11px;color:var(--text);font-weight:500;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mock .fn-sla{font-size:9px;font-family:'DM Mono',monospace;padding:2px 7px;border-radius:20px}
+.mock .sla-ok{background:rgba(16,185,129,.1);color:#34D399;border:1px solid rgba(16,185,129,.2)}
+.mock .sla-warn{background:rgba(245,158,11,.1);color:#FCD34D;border:1px solid rgba(245,158,11,.2)}
+.mock .sla-late{background:rgba(239,68,68,.1);color:#FCA5A5;border:1px solid rgba(239,68,68,.2)}
+.mock .fn-r2{display:flex;gap:8px;align-items:center}
+.mock .fn-tag{font-size:9px;color:var(--muted);font-family:'DM Mono',monospace}
+.mock .fn-ass{display:flex;align-items:center;gap:4px;margin-left:auto;font-size:9px;color:var(--muted)}
+.mock .fn-av{width:14px;height:14px;border-radius:50%;background:var(--blue-dark);display:flex;align-items:center;justify-content:center;font-size:7px;color:#fff;font-weight:700}
+.mock .jf-kpis{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px}
+.mock .jf-k{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:8px;padding:8px 10px}
+.mock .jf-kv{font-size:20px;font-weight:700;letter-spacing:-1px;color:var(--white);line-height:1}
+.mock .jf-kv.blue{color:var(--blue-light)}
+.mock .jf-kv.green{color:#34D399}
+.mock .jf-kv.red{color:#FCA5A5}
+.mock .jf-kl{font-size:9px;font-family:'DM Mono',monospace;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
+.mock .jf-table{width:100%;border-collapse:collapse}
+.mock .jf-table th{font-size:8px;font-family:'DM Mono',monospace;color:var(--muted);text-transform:uppercase;letter-spacing:1px;padding:3px 5px;text-align:left;border-bottom:1px solid var(--border)}
+.mock .jf-table td{font-size:10px;color:var(--muted);padding:4px 5px;border-bottom:1px solid rgba(30,45,74,.4)}
+.mock .jf-table td:first-child{color:var(--text);font-weight:500}
+.mock .jf-bar-w{height:4px;background:var(--border);border-radius:2px;overflow:hidden;margin-top:2px}
+.mock .jf-bar{height:100%;border-radius:2px;background:var(--blue)}
+.mock .jf-alert{margin-top:7px;background:rgba(33,150,243,.08);border:1px solid rgba(33,150,243,.2);border-radius:7px;padding:6px 9px;font-size:9px;color:var(--blue-light);font-family:'DM Mono',monospace}
+.mock .alc-map{background:rgba(255,255,255,.02);border:1px solid var(--border);border-radius:9px;height:88px;position:relative;overflow:hidden;margin-bottom:7px}
+.mock .alc-map-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,rgba(33,150,243,.07),transparent 70%)}
+.mock .cluster{position:absolute;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;color:#fff;font-family:'DM Mono',monospace;transform:translate(-50%,-50%)}
+.mock .alc-legend{display:flex;gap:10px;margin-bottom:7px}
+.mock .al-i{display:flex;align-items:center;gap:4px;font-size:9px;color:var(--muted);font-family:'DM Mono',monospace}
+.mock .al-d{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.mock .alc-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:5px}
+.mock .alc-m{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:7px;padding:7px;text-align:center}
+.mock .alc-mv{font-size:17px;font-weight:700;letter-spacing:-1px;color:var(--white)}
+.mock .alc-mv.green{color:#34D399}
+.mock .alc-mv.amber{color:#FCD34D}
+.mock .alc-mv.blue{color:var(--blue-light)}
+.mock .alc-ml{font-size:8px;font-family:'DM Mono',monospace;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-top:2px;line-height:1.3}
+.mock .alc-foot{margin-top:7px;background:rgba(16,185,129,.07);border:1px solid rgba(16,185,129,.2);border-radius:7px;padding:6px 9px;font-size:9px;color:#34D399;font-family:'DM Mono',monospace}
+.mock-wrap{width:100%;max-width:520px;margin:0 auto;filter:drop-shadow(0 24px 55px rgba(0,0,0,.5))}
+.mock-wrap .screen{width:100%;border-radius:14px;overflow:hidden}
+.mock-cap{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.1em;color:var(--ink-faint);text-align:center;margin-top:14px;text-transform:uppercase}
+.mock{font-size:13px;line-height:1.4}
+.col-visual.has-mock{align-items:center;padding:8px 0}
+@media (min-width:1200px){.mock-wrap{max-width:540px}}
+@media (max-height:760px){.mock-wrap{max-width:445px}}
+
+/* ===== REAL SYSTEM MOCKUPS ===== */
+.mock{--blue:#2196F3;--blue-dark:#1565C0;--blue-xdark:#0D47A1;--blue-light:#42A5F5;--blue-pale:#E3F2FD;--bg1:#080B12;--bg2:#0D1117;--bg3:#111827;--text:#F0F4FF;--muted:#8B9DC3;--border:#1E2D4A;--white:#fff;--green:#10B981;--green-dark:#059669;--amber:#F59E0B;--red:#EF4444;--radius:14px;color:var(--text);font-family:'Inter',sans-serif}
+.mock *{box-sizing:border-box}.mock svg{display:block}
+.mock .kpi-n.blue{color:var(--blue-light)}
+.mock .kpi-n.green{color:#34D399}
+.mock .kpi-n.amber{color:#FCD34D}
+.mock .screen{background:var(--bg1);border:1px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:0 20px 48px rgba(0,0,0,.3)}
+.mock .sc-bar{background:var(--bg2);border-bottom:1px solid var(--border);padding:9px 12px;display:flex;align-items:center;gap:8px}
+.mock .sc-dots{display:flex;gap:4px}
+.mock .sc-dot{width:9px;height:9px;border-radius:50%}
+.mock .sc-url{flex:1;background:rgba(255,255,255,.04);border-radius:5px;padding:4px 10px;font-size:9px;color:var(--muted);font-family:'DM Mono',monospace;text-align:center}
+.mock .sc-body{padding:14px}
+.mock .portal-top{background:var(--blue);border-radius:10px 10px 0 0;padding:12px 14px;margin:-14px -14px 12px}
+.mock .portal-top-name{font-size:13px;font-weight:600;color:#fff;margin-bottom:1px}
+.mock .portal-top-sub{font-size:10px;color:rgba(255,255,255,.8)}
+.mock .p-welcome{background:rgba(255,255,255,.06);border:1px solid var(--border);border-radius:8px;padding:9px 11px;margin-bottom:9px;font-size:11px;color:var(--text)}
+.mock .p-field{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:7px;padding:8px 10px;margin-bottom:6px}
+.mock .p-fl{font-size:9px;font-family:'DM Mono',monospace;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:2px}
+.mock .p-fv{font-size:11px;color:var(--text)}
+.mock .p-confirm{background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.25);border-radius:8px;padding:10px 12px;text-align:center;margin-top:8px}
+.mock .p-code{font-size:20px;font-weight:700;color:#34D399;letter-spacing:3px;font-family:'DM Mono',monospace}
+.mock .p-code-sub{font-size:9px;color:var(--muted);margin-top:3px;font-family:'DM Mono',monospace}
+.mock .fn-layout{display:grid;grid-template-columns:30px 1fr;gap:9px}
+.mock .fn-nav{display:flex;flex-direction:column;gap:4px}
+.mock .fn-ni{width:28px;height:28px;border-radius:6px;background:rgba(255,255,255,.04);display:flex;align-items:center;justify-content:center;cursor:pointer}
+.mock .fn-ni.act{background:var(--blue)}
+.mock .fn-ni svg{width:12px;height:12px;stroke:var(--muted);fill:none;stroke-width:1.8;stroke-linecap:round}
+.mock .fn-ni.act svg{stroke:#fff}
+.mock .fn-main{display:flex;flex-direction:column;gap:7px}
+.mock .fn-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:2px}
+.mock .fn-top-h{font-size:11px;font-weight:600;color:var(--text)}
+.mock .fn-card{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:8px;padding:8px 10px;display:flex;flex-direction:column;gap:4px}
+.mock .fn-r1{display:flex;align-items:center;gap:7px}
+.mock .fn-num{font-size:9px;font-family:'DM Mono',monospace;color:var(--muted);flex-shrink:0}
+.mock .fn-tit{font-size:11px;color:var(--text);font-weight:500;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mock .fn-sla{font-size:9px;font-family:'DM Mono',monospace;padding:2px 7px;border-radius:20px}
+.mock .sla-ok{background:rgba(16,185,129,.1);color:#34D399;border:1px solid rgba(16,185,129,.2)}
+.mock .sla-warn{background:rgba(245,158,11,.1);color:#FCD34D;border:1px solid rgba(245,158,11,.2)}
+.mock .sla-late{background:rgba(239,68,68,.1);color:#FCA5A5;border:1px solid rgba(239,68,68,.2)}
+.mock .fn-r2{display:flex;gap:8px;align-items:center}
+.mock .fn-tag{font-size:9px;color:var(--muted);font-family:'DM Mono',monospace}
+.mock .fn-ass{display:flex;align-items:center;gap:4px;margin-left:auto;font-size:9px;color:var(--muted)}
+.mock .fn-av{width:14px;height:14px;border-radius:50%;background:var(--blue-dark);display:flex;align-items:center;justify-content:center;font-size:7px;color:#fff;font-weight:700}
+.mock .jf-kpis{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px}
+.mock .jf-k{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:8px;padding:8px 10px}
+.mock .jf-kv{font-size:20px;font-weight:700;letter-spacing:-1px;color:var(--white);line-height:1}
+.mock .jf-kv.blue{color:var(--blue-light)}
+.mock .jf-kv.green{color:#34D399}
+.mock .jf-kv.red{color:#FCA5A5}
+.mock .jf-kl{font-size:9px;font-family:'DM Mono',monospace;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
+.mock .jf-table{width:100%;border-collapse:collapse}
+.mock .jf-table th{font-size:8px;font-family:'DM Mono',monospace;color:var(--muted);text-transform:uppercase;letter-spacing:1px;padding:3px 5px;text-align:left;border-bottom:1px solid var(--border)}
+.mock .jf-table td{font-size:10px;color:var(--muted);padding:4px 5px;border-bottom:1px solid rgba(30,45,74,.4)}
+.mock .jf-table td:first-child{color:var(--text);font-weight:500}
+.mock .jf-bar-w{height:4px;background:var(--border);border-radius:2px;overflow:hidden;margin-top:2px}
+.mock .jf-bar{height:100%;border-radius:2px;background:var(--blue)}
+.mock .jf-alert{margin-top:7px;background:rgba(33,150,243,.08);border:1px solid rgba(33,150,243,.2);border-radius:7px;padding:6px 9px;font-size:9px;color:var(--blue-light);font-family:'DM Mono',monospace}
+.mock .alc-map{background:rgba(255,255,255,.02);border:1px solid var(--border);border-radius:9px;height:88px;position:relative;overflow:hidden;margin-bottom:7px}
+.mock .alc-map-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,rgba(33,150,243,.07),transparent 70%)}
+.mock .cluster{position:absolute;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;color:#fff;font-family:'DM Mono',monospace;transform:translate(-50%,-50%)}
+.mock .alc-legend{display:flex;gap:10px;margin-bottom:7px}
+.mock .al-i{display:flex;align-items:center;gap:4px;font-size:9px;color:var(--muted);font-family:'DM Mono',monospace}
+.mock .al-d{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.mock .alc-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:5px}
+.mock .alc-m{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:7px;padding:7px;text-align:center}
+.mock .alc-mv{font-size:17px;font-weight:700;letter-spacing:-1px;color:var(--white)}
+.mock .alc-mv.green{color:#34D399}
+.mock .alc-mv.amber{color:#FCD34D}
+.mock .alc-mv.blue{color:var(--blue-light)}
+.mock .alc-ml{font-size:8px;font-family:'DM Mono',monospace;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-top:2px;line-height:1.3}
+.mock .alc-foot{margin-top:7px;background:rgba(16,185,129,.07);border:1px solid rgba(16,185,129,.2);border-radius:7px;padding:6px 9px;font-size:9px;color:#34D399;font-family:'DM Mono',monospace}
+.mock-wrap{width:100%;max-width:500px;margin:0 auto;filter:drop-shadow(0 24px 55px rgba(0,0,0,.5))}
+.mock-wrap .screen{width:100%;border-radius:14px;overflow:hidden}
+.mock-cap{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.1em;color:var(--ink-faint);text-align:center;margin-top:14px;text-transform:uppercase}
+.mock{font-size:13px;line-height:1.4}
+.col-visual.has-mock{align-items:center;padding:8px 0}
+
+/* TAM/SAM/SOM concentric */
+.tssom{display:flex;gap:36px;align-items:center;margin-top:clamp(18px,3vh,30px);flex-wrap:wrap}
+.tssom-legend{display:flex;flex-direction:column;gap:16px;flex:1;min-width:240px}
+.tss-item{display:flex;gap:14px;align-items:flex-start}
+.tss-dot{width:16px;height:16px;border-radius:4px;margin-top:3px;flex:none}
+.tss-item h4{font-size:clamp(15px,1.7vw,21px);font-weight:800;letter-spacing:-.01em}
+.tss-item h4 span{font-family:'DM Mono',monospace;font-size:.7em;color:var(--blue-400);margin-left:8px;font-weight:500}
+.tss-item p{font-size:clamp(12px,1.2vw,14px);color:var(--ink-dim);line-height:1.4;margin-top:3px}
+
+/* metrics big */
+.bigmetrics{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:clamp(16px,2.6vh,28px)}
+.bm{padding:18px;border-radius:14px;background:var(--card);border:1px solid var(--line)}
+.bm .v{font-size:clamp(24px,3vw,40px);font-weight:900;letter-spacing:-.03em;line-height:1;
+  background:linear-gradient(135deg,#fff 10%,var(--blue-400));-webkit-background-clip:text;background-clip:text;color:transparent}
+.bm .k{font-size:clamp(11px,1.15vw,13px);color:var(--ink-dim);margin-top:9px;line-height:1.35}
+
+/* competition table */
+.compt{margin-top:clamp(14px,2.4vh,24px);border-radius:14px;overflow:hidden;border:1px solid var(--line-strong);width:100%}
+.compt-row{display:grid;grid-template-columns:1.3fr .8fr .8fr .8fr 1fr}
+.compt-row>div{padding:11px 14px;font-size:clamp(11px,1.18vw,14px);border-bottom:1px solid var(--line);display:flex;align-items:center}
+.compt-row:last-child>div{border-bottom:none}
+.compt-head>div{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;background:rgba(8,11,18,.6);color:var(--ink-faint);font-weight:500}
+.compt .name{color:var(--ink-dim);font-weight:600}
+.compt .mun{background:rgba(33,150,243,.06)}
+.compt .mun .name{color:var(--blue-400)}
+.yes{color:var(--green);font-weight:700}.no{color:var(--ink-faint)}.partial{color:var(--amber)}
+
+/* use of funds bars */
+.uof{display:flex;flex-direction:column;gap:14px;margin-top:clamp(16px,2.6vh,26px)}
+.uof-row{display:grid;grid-template-columns:170px 1fr 48px;gap:14px;align-items:center}
+.uof-lbl{font-size:clamp(12px,1.3vw,15px);color:var(--ink);font-weight:600}
+.uof-track{height:14px;border-radius:7px;background:rgba(120,160,210,.1);overflow:hidden}
+.uof-fill{height:100%;border-radius:7px;background:linear-gradient(90deg,var(--blue-600),var(--blue-400))}
+.uof-pct{font-family:'DM Mono',monospace;font-size:13px;color:var(--blue-400);text-align:right}
+
+/* traction list */
+.trac{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:clamp(16px,2.6vh,26px)}
+.trac-card{padding:18px 20px;border-radius:14px;background:var(--card);border:1px solid var(--line)}
+.trac-card .ic{font-size:20px;margin-bottom:9px}
+.trac-card h4{font-size:clamp(14px,1.45vw,18px);font-weight:700;margin-bottom:5px}
+.trac-card p{font-size:clamp(12px,1.2vw,14px);color:var(--ink-dim);line-height:1.4}
+
+/* team */
+.team{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:clamp(16px,2.6vh,26px)}
+.tm{padding:18px 20px;border-radius:14px;background:var(--card);border:1px solid var(--line)}
+.tm .role{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.1em;color:var(--blue-400);text-transform:uppercase}
+.tm h4{font-size:clamp(15px,1.6vw,19px);font-weight:700;margin:6px 0 6px}
+.tm p{font-size:clamp(12px,1.2vw,14px);color:var(--ink-dim);line-height:1.42}
+
+/* steps reuse from base already present? add minimal */
+.gtm{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:clamp(18px,3vh,30px)}
+.gtm-card{padding:20px;border-radius:14px;background:var(--card);border:1px solid var(--line);position:relative}
+.gtm-card .ph{font-family:'DM Mono',monospace;font-size:11px;color:var(--blue-400);letter-spacing:.08em}
+.gtm-card h4{font-size:clamp(14px,1.45vw,18px);margin:9px 0 7px;font-weight:700;line-height:1.18}
+.gtm-card p{font-size:clamp(12px,1.18vw,14px);color:var(--ink-dim);line-height:1.42}
+
+/* ask highlight */
+.ask-amt{font-size:clamp(40px,6.5vw,92px);font-weight:900;letter-spacing:-.03em;line-height:1;
+  background:linear-gradient(135deg,#fff 10%,var(--blue-400));-webkit-background-clip:text;background-clip:text;color:transparent;margin:clamp(8px,1.6vh,16px) 0}
+.ask-sub{font-size:clamp(15px,1.7vw,22px);color:var(--ink-dim);max-width:42ch;line-height:1.4}
+.ask-row{display:flex;gap:14px;margin-top:clamp(16px,2.6vh,28px);flex-wrap:wrap}
+.ask-chip{padding:14px 20px;border-radius:14px;background:var(--card);border:1px solid var(--line-strong)}
+.ask-chip .k{font-family:'DM Mono',monospace;font-size:11px;color:var(--ink-faint);letter-spacing:.08em;text-transform:uppercase}
+.ask-chip .v{font-size:clamp(16px,1.8vw,22px);font-weight:800;margin-top:5px}
+.ask-chip .v.accent{color:var(--blue-400)}
+
+.disc{font-family:'DM Mono',monospace;font-size:10px;color:var(--ink-faint);margin-top:13px;letter-spacing:.02em;opacity:.8}
+.disc.amber{color:var(--amber);opacity:.85}
+@media (max-width:900px){
+  .bigmetrics,.team,.trac,.gtm,.objs{grid-template-columns:1fr}
+  .compt-row{grid-template-columns:1fr}
+}
+
+</style>
+</head>
+<body>
+<div id="progress"></div>
+<div id="deck"></div>
+<div id="brandmark"><span class="dot"></span>MunIA · ALTKimia</div>
+<div id="hint">← → para navegar</div>
+<div id="nav"><button class="navbtn" id="prev">‹</button><span id="counter">01 / 15</span><button class="navbtn" id="next">›</button></div>
+<script>
+
+
+const SCREENS={"t0": "<div class=\"screen\">\n        <div class=\"sc-bar\"><div class=\"sc-dots\"><div class=\"sc-dot\" style=\"background:#ff5f57\"></div><div class=\"sc-dot\" style=\"background:#ffbd2e\"></div><div class=\"sc-dot\" style=\"background:#28c840\"></div></div><div class=\"sc-url\">munia.cl · nueva solicitud ciudadana</div></div>\n        <div class=\"sc-body\" style=\"padding:0\">\n          <div class=\"portal-top\"><div class=\"portal-top-name\">🏛️ Municipalidad · Portal Ciudadano</div><div class=\"portal-top-sub\">Atención disponible las 24 horas, todos los días</div></div>\n          <div style=\"padding:13px\">\n            <div class=\"p-welcome\">Bienvenido/a. ¿En qué podemos ayudarle hoy?</div>\n            <div class=\"p-field\"><div class=\"p-fl\">Tipo de solicitud</div><div class=\"p-fv\">🔧 Obras y Mantención — Revisión pozo negro</div></div>\n            <div class=\"p-field\"><div class=\"p-fl\">Descripción del problema</div><div class=\"p-fv\">Pozo negro con riesgo de desborde, afecta a vecinos colindantes...</div></div>\n            <div class=\"p-field\"><div class=\"p-fl\">Ubicación exacta</div><div class=\"p-fv\">📍 Camino sector rural, km 3 — adjunto foto</div></div>\n            <div class=\"p-field\"><div class=\"p-fl\">Archivo adjunto</div><div class=\"p-fv\">📷 foto_problema.jpg · 2.3 MB ✓</div></div>\n            <div class=\"p-confirm\">\n              <div class=\"p-code\">#4821</div>\n              <div class=\"p-code-sub\">Solicitud ingresada · Asignada a Obras · SLA activo: 48 horas</div>\n              <div style=\"font-size:9px;color:var(--muted);margin-top:4px;font-family:'DM Mono',monospace\">Seguimiento: munia.cl/caso/4821</div>\n            </div>\n          </div>\n        </div>\n      </div>", "t1": "<div class=\"screen\">\n        <div class=\"sc-bar\"><div class=\"sc-dots\"><div class=\"sc-dot\" style=\"background:#ff5f57\"></div><div class=\"sc-dot\" style=\"background:#ffbd2e\"></div><div class=\"sc-dot\" style=\"background:#28c840\"></div></div><div class=\"sc-url\">munia.cl · bandeja del funcionario</div></div>\n        <div class=\"sc-body\">\n          <div class=\"fn-layout\">\n            <div class=\"fn-nav\">\n              <div class=\"fn-ni act\"><svg viewBox=\"0 0 24 24\"><rect x=\"3\" y=\"3\" width=\"7\" height=\"7\"/><rect x=\"14\" y=\"3\" width=\"7\" height=\"7\"/><rect x=\"3\" y=\"14\" width=\"7\" height=\"7\"/><rect x=\"14\" y=\"14\" width=\"7\" height=\"7\"/></svg></div>\n              <div class=\"fn-ni\"><svg viewBox=\"0 0 24 24\"><path d=\"M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z\"/></svg></div>\n              <div class=\"fn-ni\"><svg viewBox=\"0 0 24 24\"><polyline points=\"22 12 18 12 15 21 9 3 6 12 2 12\"/></svg></div>\n            </div>\n            <div class=\"fn-main\">\n              <div class=\"fn-top\">\n                <div class=\"fn-top-h\">Mi bandeja · 12 casos</div>\n                <span class=\"fn-sla sla-warn\" style=\"font-size:9px;padding:1px 7px\">3 urgentes</span>\n              </div>\n              <div class=\"fn-card\">\n                <div class=\"fn-r1\"><div class=\"fn-num\">#4821</div><div class=\"fn-tit\">Revisión pozo negro · Sector rural km 3</div><span class=\"fn-sla sla-ok\">48h OK</span></div>\n                <div class=\"fn-r2\"><span class=\"fn-tag\">Obras · Alta prioridad</span><div class=\"fn-ass\"><div class=\"fn-av\">F</div>Mío</div></div>\n              </div>\n              <div class=\"fn-card\">\n                <div class=\"fn-r1\"><div class=\"fn-num\">#4820</div><div class=\"fn-tit\">Luminaria apagada · Av. Principal 450</div><span class=\"fn-sla sla-warn\">2h restantes</span></div>\n                <div class=\"fn-r2\"><span class=\"fn-tag\">Infraestructura · Media</span><div class=\"fn-ass\"><div class=\"fn-av\">F</div>Mío</div></div>\n              </div>\n              <div class=\"fn-card\">\n                <div class=\"fn-r1\"><div class=\"fn-num\">#4815</div><div class=\"fn-tit\">Micro basural · Calle Sur s/n</div><span class=\"fn-sla sla-late\">Vencido</span></div>\n                <div class=\"fn-r2\"><span class=\"fn-tag\">Aseo · Requiere aprobación jefatura</span><div class=\"fn-ass\"><div class=\"fn-av\" style=\"background:#DC2626\">F</div>Mío</div></div>\n              </div>\n              <div style=\"font-size:9px;color:var(--muted);text-align:center;padding:4px;font-family:'DM Mono',monospace\">+ 9 casos más · Ver todos →</div>\n            </div>\n          </div>\n        </div>\n      </div>", "t2": "<div class=\"screen\">\n        <div class=\"sc-bar\"><div class=\"sc-dots\"><div class=\"sc-dot\" style=\"background:#ff5f57\"></div><div class=\"sc-dot\" style=\"background:#ffbd2e\"></div><div class=\"sc-dot\" style=\"background:#28c840\"></div></div><div class=\"sc-url\">munia.cl · panel de supervisión · dirección obras</div></div>\n        <div class=\"sc-body\">\n          <div style=\"font-size:11px;font-weight:600;color:var(--text);margin-bottom:8px\">Dirección de Obras · Visión en tiempo real</div>\n          <div class=\"jf-kpis\">\n            <div class=\"jf-k\"><div class=\"jf-kv blue\">47</div><div class=\"jf-kl\">Casos activos</div></div>\n            <div class=\"jf-k\"><div class=\"jf-kv red\">8</div><div class=\"jf-kl\">Vencidos esta semana</div></div>\n            <div class=\"jf-k\"><div class=\"jf-kv green\">91%</div><div class=\"jf-kl\">Cumplimiento SLA</div></div>\n            <div class=\"jf-k\"><div class=\"jf-kv amber\">3</div><div class=\"jf-kl\">Esperan mi firma</div></div>\n          </div>\n          <div style=\"font-size:8px;font-family:'DM Mono',monospace;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:5px\">Carga por funcionario</div>\n          <table class=\"jf-table\">\n            <tr><th>Funcionario</th><th>Activos</th><th>Vencidos</th><th>Carga</th></tr>\n            <tr><td>Funcionario A</td><td>12</td><td>1</td><td><div class=\"jf-bar-w\"><div class=\"jf-bar\" style=\"width:80%;background:#10B981\"></div></div></td></tr>\n            <tr><td>Funcionario B</td><td>12</td><td>2</td><td><div class=\"jf-bar-w\"><div class=\"jf-bar\" style=\"width:80%\"></div></div></td></tr>\n            <tr><td>Funcionario C</td><td>7</td><td>3</td><td><div class=\"jf-bar-w\"><div class=\"jf-bar\" style=\"width:47%;background:#F59E0B\"></div></div></td></tr>\n            <tr><td>Funcionario D</td><td>16</td><td>2</td><td><div class=\"jf-bar-w\"><div class=\"jf-bar\" style=\"width:100%;background:#EF4444\"></div></div></td></tr>\n          </table>\n          <div class=\"jf-alert\">⚡ Funcionario D tiene sobrecarga. Reasignar 4 casos → <span style=\"font-weight:600;cursor:pointer\">Ver opciones →</span></div>\n        </div>\n      </div>", "t3": "<div class=\"screen\">\n        <div class=\"sc-bar\"><div class=\"sc-dots\"><div class=\"sc-dot\" style=\"background:#ff5f57\"></div><div class=\"sc-dot\" style=\"background:#ffbd2e\"></div><div class=\"sc-dot\" style=\"background:#28c840\"></div></div><div class=\"sc-url\">munia.cl · panel ejecutivo · alcaldía</div></div>\n        <div class=\"sc-body\">\n          <div style=\"font-size:11px;font-weight:600;color:var(--text);margin-bottom:8px\">Vista Ejecutiva · Gestión Comunal</div>\n          <div class=\"alc-map\">\n            <div class=\"alc-map-bg\"></div>\n            <div class=\"cluster\" style=\"width:28px;height:28px;top:35%;left:45%;background:rgba(239,68,68,.75)\">47</div>\n            <div class=\"cluster\" style=\"width:22px;height:22px;top:22%;left:65%;background:rgba(245,158,11,.75)\">23</div>\n            <div class=\"cluster\" style=\"width:18px;height:18px;top:60%;left:30%;background:rgba(33,150,243,.75)\">18</div>\n            <div class=\"cluster\" style=\"width:15px;height:15px;top:55%;left:70%;background:rgba(33,150,243,.7)\">12</div>\n            <div style=\"position:absolute;top:5px;left:7px;font-size:8px;color:var(--muted);font-family:'DM Mono',monospace\">MAPA DE CALOR · SOLICITUDES ACTIVAS</div>\n          </div>\n          <div class=\"alc-legend\">\n            <div class=\"al-i\"><div class=\"al-d\" style=\"background:#EF4444\"></div>Alta demanda</div>\n            <div class=\"al-i\"><div class=\"al-d\" style=\"background:#F59E0B\"></div>Media</div>\n            <div class=\"al-i\"><div class=\"al-d\" style=\"background:var(--blue)\"></div>Normal</div>\n          </div>\n          <div class=\"alc-metrics\">\n            <div class=\"alc-m\"><div class=\"alc-mv green\">94.2%</div><div class=\"alc-ml\">Cumplimiento SLA</div></div>\n            <div class=\"alc-m\"><div class=\"alc-mv blue\">247</div><div class=\"alc-ml\">Solicitudes activas</div></div>\n            <div class=\"alc-m\"><div class=\"alc-mv amber\">12</div><div class=\"alc-ml\">Vencen hoy</div></div>\n          </div>\n          <div class=\"alc-foot\">✓ Ley 21.180 · 847 expedientes digitales generados este mes</div>\n        </div>\n      </div>", "t4": "<div class=\"screen\">\n        <div class=\"sc-bar\"><div class=\"sc-dots\"><div class=\"sc-dot\" style=\"background:#ff5f57\"></div><div class=\"sc-dot\" style=\"background:#ffbd2e\"></div><div class=\"sc-dot\" style=\"background:#28c840\"></div></div><div class=\"sc-url\">munia.cl · panel de administración municipal</div></div>\n        <div class=\"sc-body\">\n          <div style=\"font-size:11px;font-weight:600;color:var(--text);margin-bottom:10px\">Configuración · Sin código, sin proveedor</div>\n          <!-- Config sections -->\n          <div style=\"display:flex;flex-direction:column;gap:7px\">\n            <div style=\"background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:9px;padding:9px 11px\">\n              <div style=\"font-size:9px;font-family:'DM Mono',monospace;color:var(--blue-light);letter-spacing:1px;text-transform:uppercase;margin-bottom:5px\">Categorías de trámite activas</div>\n              <div style=\"display:flex;flex-direction:column;gap:3px\">\n                <div style=\"display:flex;align-items:center;justify-content:space-between;font-size:10px;color:var(--text)\"><span>🔧 Obras y Mantención <span style=\"color:var(--muted)\">(12 subcategorías)</span></span><span style=\"color:#34D399;font-size:9px;font-family:'DM Mono',monospace\">✓ Activo</span></div>\n                <div style=\"display:flex;align-items:center;justify-content:space-between;font-size:10px;color:var(--text)\"><span>🌿 Aseo y Ornato <span style=\"color:var(--muted)\">(8 subcategorías)</span></span><span style=\"color:#34D399;font-size:9px;font-family:'DM Mono',monospace\">✓ Activo</span></div>\n                <div style=\"display:flex;align-items:center;justify-content:space-between;font-size:10px;color:var(--text)\"><span>📋 Permisos y Patentes <span style=\"color:var(--muted)\">(6 subcategorías)</span></span><span style=\"color:#34D399;font-size:9px;font-family:'DM Mono',monospace\">✓ Activo</span></div>\n                <div style=\"display:flex;align-items:center;justify-content:space-between;font-size:10px;color:var(--muted)\"><span>+ Agregar nueva categoría</span><span style=\"color:var(--blue);font-size:9px;cursor:pointer\">→</span></div>\n              </div>\n            </div>\n            <div style=\"background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:9px;padding:9px 11px\">\n              <div style=\"font-size:9px;font-family:'DM Mono',monospace;color:var(--blue-light);letter-spacing:1px;text-transform:uppercase;margin-bottom:5px\">Reglas de asignación automática</div>\n              <div style=\"font-size:10px;color:var(--muted);line-height:1.6\">Obras + Sector Norte → <span style=\"color:var(--text)\">Dir. Obras · Equipo Norte</span></div>\n              <div style=\"font-size:10px;color:var(--muted);line-height:1.6\">Aseo + cualquier sector → <span style=\"color:var(--text)\">Dir. Aseo · rotación automática</span></div>\n              <div style=\"font-size:10px;color:var(--muted);line-height:1.6\">Permisos + urgente → <span style=\"color:var(--text)\">Dir. SECPLA · prioridad alta</span></div>\n            </div>\n            <div style=\"background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:9px;padding:9px 11px\">\n              <div style=\"font-size:9px;font-family:'DM Mono',monospace;color:var(--blue-light);letter-spacing:1px;text-transform:uppercase;margin-bottom:5px\">SLA configurado por tipo</div>\n              <div style=\"display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px\">\n                <div style=\"text-align:center;background:rgba(52,211,153,.06);border:1px solid rgba(52,211,153,.2);border-radius:6px;padding:5px\"><div style=\"font-size:13px;font-weight:700;color:#34D399\">48h</div><div style=\"font-size:8px;color:var(--muted);font-family:'DM Mono',monospace\">Urgente</div></div>\n                <div style=\"text-align:center;background:rgba(33,150,243,.06);border:1px solid rgba(33,150,243,.2);border-radius:6px;padding:5px\"><div style=\"font-size:13px;font-weight:700;color:var(--blue-light)\">5d</div><div style=\"font-size:8px;color:var(--muted);font-family:'DM Mono',monospace\">Normal</div></div>\n                <div style=\"text-align:center;background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.2);border-radius:6px;padding:5px\"><div style=\"font-size:13px;font-weight:700;color:#FCD34D\">15d</div><div style=\"font-size:8px;color:var(--muted);font-family:'DM Mono',monospace\">Estándar</div></div>\n              </div>\n            </div>\n            <div style=\"background:rgba(33,150,243,.06);border:1px solid rgba(33,150,243,.15);border-radius:8px;padding:7px 10px;font-size:9px;color:var(--blue-light);font-family:'DM Mono',monospace;text-align:center\">\n              ✓ Todos los cambios se aplican en producción de forma inmediata\n            </div>\n          </div>\n        </div>\n      </div>"};
+function mockHTML(tid,cap){return '<div class="mock"><div class="mock-wrap">'+(SCREENS[tid]||'')+'</div>'+(cap?'<div class="mock-cap">'+cap+'</div>':'')+'</div>';}
+let SLIDES=["<div class=\"slide cover\"><div class=\"logo\"><svg class=\"mark\" viewBox=\"0 0 100 100\"><rect width=\"100\" height=\"100\" rx=\"22\" fill=\"#1B9BFE\"/><g fill=\"none\" stroke=\"#fff\" stroke-width=\"5\" stroke-linejoin=\"round\" stroke-linecap=\"round\"><circle cx=\"50\" cy=\"16\" r=\"3.4\" stroke-width=\"3.4\"/><line x1=\"50\" y1=\"19.4\" x2=\"50\" y2=\"29\"/><path d=\"M22 47 L50 28 L78 47\" stroke-width=\"5.5\"/><line x1=\"20\" y1=\"52\" x2=\"80\" y2=\"52\" stroke-width=\"6.5\"/></g><g fill=\"none\" stroke=\"#fff\" stroke-width=\"5\" stroke-linejoin=\"round\"><rect x=\"27\" y=\"55\" width=\"46\" height=\"30\" rx=\"2\"/></g><g fill=\"#fff\"><rect x=\"30\" y=\"63\" width=\"6\" height=\"22\" rx=\"1\"/><rect x=\"47\" y=\"63\" width=\"6\" height=\"22\" rx=\"1\"/><rect x=\"64\" y=\"63\" width=\"6\" height=\"22\" rx=\"1\"/></g></svg><span class=\"wm\">Mun<span class=\"ia\">IA</span></span></div>\n<div class=\"big\">El sistema operativo de la <span class=\"accent\">atención ciudadana municipal</span> en LATAM.</div>\n<div class=\"sub\">SaaS B2G con IA que digitaliza trámites municipales — en un mercado de 16.000 municipios forzados a modernizarse.</div>\n<div class=\"for\">RONDA PRE-SEED · 2026 · CONFIDENCIAL</div></div>", "<div class=\"slide\"><div class=\"eyebrow\"><span class=\"sn\">01</span> · El problema</div>\n<div class=\"two\"><div class=\"col-text\">\n<h2 class=\"t\">Los municipios deben digitalizarse — pero <span class=\"accent\">no tienen con qué.</span></h2>\n<div class=\"bigmetrics\">\n<div class=\"bm\"><div class=\"v\">40%</div><div class=\"k\">opera con papel, correo y planillas — sin gestión documental</div></div>\n<div class=\"bm\"><div class=\"v\">51%</div><div class=\"k\">declara no tener presupuesto para cumplir las 3 leyes con ERP tradicionales</div></div>\n<div class=\"bm\"><div class=\"v\">24%</div><div class=\"k\">de vecinos usa la web municipal pese al 94% de conectividad nacional</div></div>\n<div class=\"bm\"><div class=\"v\">2027</div><div class=\"k\">plazo legal de digitalización para 345 municipios en Chile</div></div>\n</div>\n<p class=\"disc\">Fuentes: País Digital 2025 · Fierro et al. 2026 · SUBDERE · Leyes 21.180 / 21.719 / 21.663</p>\n</div><div class=\"col-visual\"><svg viewBox=\"0 0 460 430\" xmlns=\"http://www.w3.org/2000/svg\">\n    <text x=\"60\" y=\"50\" font-family=\"DM Mono,monospace\" font-size=\"11\" fill=\"#5e7693\" letter-spacing=\"1\">CONVERGENCIA 2025–2027</text>\n    <circle cx=\"80\" cy=\"110\" r=\"9\" fill=\"#42A5F5\"/><text x=\"104\" y=\"104\" font-family=\"Inter\" font-size=\"15\" font-weight=\"700\" fill=\"#F0F4FF\">Mandato legal 2027</text><text x=\"104\" y=\"126\" font-family=\"Inter\" font-size=\"12\" fill=\"#8B9DC3\">345 municipios obligados por 3 leyes</text><line x1=\"80\" y1=\"119\" x2=\"80\" y2=\"161\" stroke=\"rgba(120,160,210,.22)\" stroke-width=\"2\"/><circle cx=\"80\" cy=\"200\" r=\"9\" fill=\"#42A5F5\"/><text x=\"104\" y=\"194\" font-family=\"Inter\" font-size=\"15\" font-weight=\"700\" fill=\"#F0F4FF\">51% sin presupuesto</text><text x=\"104\" y=\"216\" font-family=\"Inter\" font-size=\"12\" fill=\"#8B9DC3\">para ERP tradicionales costosos</text><line x1=\"80\" y1=\"209\" x2=\"80\" y2=\"251\" stroke=\"rgba(120,160,210,.22)\" stroke-width=\"2\"/><circle cx=\"80\" cy=\"290\" r=\"9\" fill=\"#42A5F5\"/><text x=\"104\" y=\"284\" font-family=\"Inter\" font-size=\"15\" font-weight=\"700\" fill=\"#F0F4FF\">IA madura + cloud</text><text x=\"104\" y=\"306\" font-family=\"Inter\" font-size=\"12\" fill=\"#8B9DC3\">costo marginal mínimo por municipio</text><line x1=\"80\" y1=\"299\" x2=\"80\" y2=\"341\" stroke=\"rgba(120,160,210,.22)\" stroke-width=\"2\"/><circle cx=\"80\" cy=\"380\" r=\"9\" fill=\"#42A5F5\"/><text x=\"104\" y=\"374\" font-family=\"Inter\" font-size=\"15\" font-weight=\"700\" fill=\"#F0F4FF\">Incumbentes rígidos</text><text x=\"104\" y=\"396\" font-family=\"Inter\" font-size=\"12\" fill=\"#8B9DC3\">documental/financiero, no atención ciudadana</text>\n    </svg></div></div></div>", "<div class=\"slide\"><div class=\"eyebrow\"><span class=\"sn\">02</span> · Por qué ahora</div>\n<h2 class=\"t\">Chile es el <span class=\"accent\">primer país de LATAM</span> en legislar la transformación digital municipal.</h2>\n<p class=\"lead\">Una ventana regulatoria irrepetible crea demanda forzada y con fecha. Quien capture el beachhead chileno tiene la plantilla para toda la región.</p>\n<div class=\"gtm\">\n<div class=\"gtm-card\"><div class=\"ph\">MANDATO</div><h4>Demanda con fecha</h4><p>Las leyes 21.180, 21.719 y 21.663 obligan a 345 municipios a digitalizarse para 2027. No es \"nice to have\": es ley.</p></div>\n<div class=\"gtm-card\"><div class=\"ph\">VACÍO</div><h4>Incumbentes mal posicionados</h4><p>Los líderes (Zecovery, CAS, Proexsi) son documentales o financieros, con flujos rígidos. Nadie domina atención ciudadana con IA.</p></div>\n<div class=\"gtm-card\"><div class=\"ph\">TECNOLOGÍA</div><h4>IA + cloud ya viables</h4><p>RAG y multi-tenant hacen el costo marginal por municipio casi cero. Lo que antes requería consultoría, hoy se configura solo.</p></div>\n</div></div>", "<div class=\"slide\"><div class=\"eyebrow\"><span class=\"sn\">03</span> · La solución</div>\n<div class=\"two\"><div class=\"col-text\">\n<h2 class=\"t\">MunIA: atención ciudadana, trazabilidad y flexibilidad <span class=\"accent\">en una sola plataforma.</span></h2>\n<p class=\"lead\">Un agente de IA con RAG entiende al vecino, levanta y clasifica tickets, y los asigna automáticamente. Cada municipio diseña sus trámites con un motor BPMN visual — sin programar.</p>\n<div class=\"pills\"><span class=\"pill\">🤖 <b>IA + RAG</b></span><span class=\"pill\">⚙️ <b>BPMN low-code</b></span><span class=\"pill\">📊 <b>Analítica territorial</b></span><span class=\"pill\">🔐 <b>Multi-tenant</b></span></div>\n</div><div class=\"col-visual has-mock\"><!--MOCK:t3:Plataforma en operación · panel ejecutivo--></div></div></div>", "<div class=\"slide\"><div class=\"eyebrow\"><span class=\"sn\">04</span> · El producto</div>\n<div class=\"two\"><div class=\"col-text\">\n<h2 class=\"t\">No es una maqueta. Es un <span class=\"accent\">MVP funcional</span> en pilotos reales.</h2>\n<p class=\"lead\">Frontend web operativo, backend en producción, bot de IA con RAG respondiendo y asignando tickets. App móvil offline y motor BPMN en desarrollo con el capital de esta ronda.</p>\n<div class=\"trac\">\n<div class=\"trac-card\"><div class=\"ic\">✅</div><h4>En producción</h4><p>Web + backend + bot IA con RAG clasificando y asignando tickets.</p></div>\n<div class=\"trac-card\"><div class=\"ic\">🔧</div><h4>En desarrollo</h4><p>Motor BPMN funcional, app móvil offline-first, alineación a las 3 leyes.</p></div>\n</div>\n<p class=\"disc amber\">Madurez actual: TRL 4 (validado en laboratorio) → objetivo TRL 7 con los pilotos firmados. Vendemos la curva, no un producto terminado.</p>\n</div><div class=\"col-visual has-mock\"><!--MOCK:t1:Bandeja operativa · gestión de tickets--></div></div></div>", "<div class=\"slide\"><div class=\"eyebrow\"><span class=\"sn\">05</span> · El mercado</div>\n<div class=\"two\"><div class=\"col-text\">\n<h2 class=\"t\">Chile es el <span class=\"accent\">beachhead.</span> LATAM es la tesis.</h2>\n<div class=\"tssom-legend\">\n<div class=\"tss-item\"><div class=\"tss-dot\" style=\"background:rgba(33,150,243,.35)\"></div><div><h4>TAM <span>USD 104M</span></h4><p>16.000 municipios en LATAM × USD 6.500/año (BID).</p></div></div>\n<div class=\"tss-item\"><div class=\"tss-dot\" style=\"background:rgba(33,150,243,.6)\"></div><div><h4>SAM <span>USD 9,1M</span></h4><p>Segmento alcanzable (~50% sin SaaS moderno): Chile + México priorizados.</p></div></div>\n<div class=\"tss-item\"><div class=\"tss-dot\" style=\"background:var(--blue-400)\"></div><div><h4>SOM <span>USD 325K</span></h4><p>50 municipios a 3 años. Penetración realista del beachhead chileno.</p></div></div>\n</div>\n<p class=\"disc\">ARPA USD 6.500/año (SaaS multi-tenant). Fuentes: BID, SUBDERE, censo municipal México.</p>\n</div><div class=\"col-visual\"><svg viewBox=\"0 0 460 460\" xmlns=\"http://www.w3.org/2000/svg\">\n    <circle cx=\"230\" cy=\"230\" r=\"200\" fill=\"rgba(33,150,243,.06)\" stroke=\"#2196F3\" stroke-width=\"1\" opacity=\"0.5\"/>\n    <circle cx=\"230\" cy=\"270\" r=\"120\" fill=\"rgba(33,150,243,.12)\" stroke=\"#2196F3\" stroke-width=\"1.2\" opacity=\"0.7\"/>\n    <circle cx=\"230\" cy=\"320\" r=\"56\" fill=\"rgba(33,150,243,.28)\" stroke=\"#42A5F5\" stroke-width=\"1.5\"/>\n    <text x=\"230\" y=\"60\" text-anchor=\"middle\" font-family=\"DM Mono,monospace\" font-size=\"12\" fill=\"#8B9DC3\" letter-spacing=\"1\">TAM</text>\n    <text x=\"230\" y=\"88\" text-anchor=\"middle\" font-family=\"Inter\" font-size=\"26\" font-weight=\"900\" fill=\"#fff\">USD 104M</text>\n    <text x=\"230\" y=\"200\" text-anchor=\"middle\" font-family=\"DM Mono,monospace\" font-size=\"11\" fill=\"#8B9DC3\" letter-spacing=\"1\">SAM</text>\n    <text x=\"230\" y=\"224\" text-anchor=\"middle\" font-family=\"Inter\" font-size=\"20\" font-weight=\"800\" fill=\"#fff\">USD 9,1M</text>\n    <text x=\"230\" y=\"316\" text-anchor=\"middle\" font-family=\"DM Mono,monospace\" font-size=\"10\" fill=\"#42A5F5\" letter-spacing=\"1\">SOM 3A</text>\n    <text x=\"230\" y=\"336\" text-anchor=\"middle\" font-family=\"Inter\" font-size=\"15\" font-weight=\"800\" fill=\"#fff\">USD 325K</text>\n    </svg></div></div></div>", "<div class=\"slide\"><div class=\"eyebrow\"><span class=\"sn\">06</span> · Modelo de negocio</div>\n<h2 class=\"t\">SaaS B2G por suscripción — <span class=\"accent\">ingresos recurrentes y predecibles.</span></h2>\n<p class=\"lead\">Cobro escalonado por número de trámites configurados. El municipio entra barato y escala a medida que digitaliza. Costo marginal por cliente mínimo gracias a multi-tenant.</p>\n<div class=\"bigmetrics\">\n<div class=\"bm\"><div class=\"v\">USD 6.500</div><div class=\"k\">ARPA anual estimado por municipio</div></div>\n<div class=\"bm\"><div class=\"v\">~USD 0</div><div class=\"k\">costo marginal por nuevo municipio (multi-tenant)</div></div>\n<div class=\"bm\"><div class=\"v\">Anual</div><div class=\"k\">contratos SaaS con descuento por compromiso</div></div>\n<div class=\"bm\"><div class=\"v\">↑ Switching</div><div class=\"k\">cada flujo BPMN configurado eleva el costo de cambio</div></div>\n</div>\n<div class=\"tag-incl\">★ Defensibilidad: cada municipio acumula flujos, datos y reglas que lo amarran — y cada flujo validado es plantilla exportable a LATAM</div></div>", "<div class=\"slide\"><div class=\"eyebrow\"><span class=\"sn\">07</span> · Competencia</div>\n<h2 class=\"t\">Los incumbentes resuelven <span class=\"accent\">otro problema.</span></h2>\n<div class=\"compt\">\n<div class=\"compt-row compt-head\"><div>Proveedor</div><div>Atención ciudadana</div><div>IA / RAG</div><div>BPMN no-code</div><div>Modelo</div></div>\n<div class=\"compt-row\"><div class=\"name\">Zecovery (Ze Ceropapel)</div><div class=\"no\">Documental</div><div class=\"no\">—</div><div class=\"no\">—</div><div>SaaS doc. (~20%)</div></div>\n<div class=\"compt-row\"><div class=\"name\">CAS-Chile</div><div class=\"partial\">Parcial</div><div class=\"no\">—</div><div class=\"no\">—</div><div>ERP (~15%)</div></div>\n<div class=\"compt-row\"><div class=\"name\">SIFIM (Estado)</div><div class=\"no\">Financiero</div><div class=\"no\">—</div><div class=\"no\">—</div><div>Gratis (~25%)</div></div>\n<div class=\"compt-row\"><div class=\"name\">MuniDigital / OS City</div><div class=\"partial\">Sí</div><div class=\"partial\">Parcial</div><div class=\"no\">—</div><div>Regional (AR/MX)</div></div>\n<div class=\"compt-row mun\"><div class=\"name\">MunIA</div><div class=\"yes\">Núcleo</div><div class=\"yes\">Sí</div><div class=\"yes\">Sí</div><div>SaaS B2G ágil</div></div>\n</div>\n<p class=\"disc\">El líder de mercado (SIFIM, gratis) cubre contabilidad y tesorería — no atención ciudadana. Ahí está el vacío que MunIA ocupa.</p></div>", "<div class=\"slide\"><div class=\"eyebrow\"><span class=\"sn\">08</span> · Tracción</div>\n<h2 class=\"t\">Validación real <span class=\"accent\">antes de levantar capital.</span></h2>\n<div class=\"trac\">\n<div class=\"trac-card\"><div class=\"ic\">📝</div><h4>2 cartas de intención firmadas</h4><p>Casablanca + segunda comuna, para pilotaje. 4 municipios más en negociación avanzada.</p></div>\n<div class=\"trac-card\"><div class=\"ic\">🤝</div><h4>Patrocinio Socialab</h4><p>Julián Ugarte articula la red GovTech. Mentoría y apoyo potencial de EIVA y LabGob.</p></div>\n<div class=\"trac-card\"><div class=\"ic\">🌎</div><h4>Primeros contactos en México</h4><p>Funcionarios municipales mexicanos — el segundo mercado de la tesis de expansión.</p></div>\n<div class=\"trac-card\"><div class=\"ic\">🏛️</div><h4>Start-Up Chile en proceso</h4><p>Postulación a grant equity-free, validación institucional del ecosistema chileno.</p></div>\n</div></div>", "<div class=\"slide\"><div class=\"eyebrow\"><span class=\"sn\">09</span> · Go-to-market</div>\n<h2 class=\"t\">Venta directa B2G, <span class=\"accent\">apalancada en redes y clústeres.</span></h2>\n<div class=\"gtm\">\n<div class=\"gtm-card\"><div class=\"ph\">AÑO 1 · CHILE</div><h4>Cerrar el beachhead</h4><p>Convertir las cartas de intención en contratos. 10 municipios pagando. Especialista en ventas B2G + redes de Socialab y LabGob.</p></div>\n<div class=\"gtm-card\"><div class=\"ph\">AÑO 2 · ESCALA</div><h4>Clústeres regionales</h4><p>Articulación con HUBs municipales y asociaciones (AMUCH, AChM) para licencias centralizadas. 25 municipios.</p></div>\n<div class=\"gtm-card\"><div class=\"ph\">AÑO 3 · LATAM</div><h4>Replicar en México</h4><p>Cada flujo BPMN validado en Chile es plantilla exportable. Entrada a México apalancando contactos existentes. 50 municipios.</p></div>\n</div>\n<div class=\"tag-incl\">★ CAC bajo: venta directa B2G sin marketing digital. Retención alta: contratos anuales + switching cost creciente</div></div>", "<div class=\"slide\"><div class=\"eyebrow\"><span class=\"sn\">10</span> · Proyecciones</div>\n<div class=\"two\"><div class=\"col-text\">\n<h2 class=\"t\">De 2 pilotos a <span class=\"accent\">50 municipios pagando</span> en 36 meses.</h2>\n<div class=\"bigmetrics\" style=\"grid-template-columns:repeat(2,1fr)\">\n<div class=\"bm\"><div class=\"v\">USD 5K</div><div class=\"k\">MRR objetivo al cierre de la ronda (10 municipios)</div></div>\n<div class=\"bm\"><div class=\"v\">USD 6.500</div><div class=\"k\">LTV anual por municipio</div></div>\n<div class=\"bm\"><div class=\"v\">USD 107</div><div class=\"k\">burn mensual actual — runway extendido</div></div>\n<div class=\"bm\"><div class=\"v\">TRL 4→7</div><div class=\"k\">salto de madurez tecnológica con la ronda</div></div>\n</div>\n<p class=\"disc amber\">Proyecciones del equipo fundador. Cifras a validar con la ejecución de los pilotos.</p>\n</div><div class=\"col-visual\"><svg viewBox=\"0 0 460 430\" xmlns=\"http://www.w3.org/2000/svg\">\n    <defs><linearGradient id=\"g\" x1=\"0\" y1=\"1\" x2=\"0\" y2=\"0\"><stop offset=\"0\" stop-color=\"#2196F3\"/><stop offset=\"1\" stop-color=\"#42A5F5\"/></linearGradient></defs>\n    <line x1=\"55\" y1=\"380\" x2=\"430\" y2=\"380\" stroke=\"rgba(120,160,210,.22)\" stroke-width=\"1\"/>\n    <rect x=\"70\" y=\"368\" width=\"70\" height=\"12\" rx=\"8\" fill=\"url(#g)\" opacity=\"0.5\"/><text x=\"105.0\" y=\"356\" text-anchor=\"middle\" font-family=\"Inter\" font-size=\"16\" font-weight=\"800\" fill=\"#fff\">2</text><text x=\"105.0\" y=\"402\" text-anchor=\"middle\" font-family=\"DM Mono,monospace\" font-size=\"11\" fill=\"#8B9DC3\">Hoy</text><rect x=\"180\" y=\"325\" width=\"70\" height=\"55\" rx=\"8\" fill=\"url(#g)\" opacity=\"0.66\"/><text x=\"215.0\" y=\"313\" text-anchor=\"middle\" font-family=\"Inter\" font-size=\"16\" font-weight=\"800\" fill=\"#fff\">10</text><text x=\"215.0\" y=\"402\" text-anchor=\"middle\" font-family=\"DM Mono,monospace\" font-size=\"11\" fill=\"#8B9DC3\">12m</text><rect x=\"290\" y=\"260\" width=\"70\" height=\"120\" rx=\"8\" fill=\"url(#g)\" opacity=\"0.8200000000000001\"/><text x=\"325.0\" y=\"248\" text-anchor=\"middle\" font-family=\"Inter\" font-size=\"16\" font-weight=\"800\" fill=\"#fff\">25</text><text x=\"325.0\" y=\"402\" text-anchor=\"middle\" font-family=\"DM Mono,monospace\" font-size=\"11\" fill=\"#8B9DC3\">24m</text><rect x=\"400\" y=\"180\" width=\"70\" height=\"200\" rx=\"8\" fill=\"url(#g)\" opacity=\"0.98\"/><text x=\"435.0\" y=\"168\" text-anchor=\"middle\" font-family=\"Inter\" font-size=\"16\" font-weight=\"800\" fill=\"#fff\">50</text><text x=\"435.0\" y=\"402\" text-anchor=\"middle\" font-family=\"DM Mono,monospace\" font-size=\"11\" fill=\"#8B9DC3\">36m</text>\n    <text x=\"70\" y=\"40\" font-family=\"DM Mono,monospace\" font-size=\"11\" fill=\"#5e7693\" letter-spacing=\"1\">MUNICIPIOS PAGANDO · PROYECCIÓN</text>\n    <text x=\"430\" y=\"40\" text-anchor=\"end\" font-family=\"Inter\" font-size=\"13\" font-weight=\"700\" fill=\"#10B981\">USD 325K ARR</text>\n    </svg></div></div></div>", "<div class=\"slide\"><div class=\"eyebrow\"><span class=\"sn\">11</span> · El equipo</div>\n<h2 class=\"t\">Perfil técnico-comercial con <span class=\"accent\">experiencia real en ejecución.</span></h2>\n<div class=\"team\">\n<div class=\"tm\"><div class=\"role\">CEO · Fundador</div><h4>Antonio Villalobos</h4><p>Ing. Civil Industrial. +30 años liderando innovación, transformación digital y modernización del Estado. Venture building en LATAM, estrategia comercial y articulación institucional.</p></div>\n<div class=\"tm\"><div class=\"role\">CTO · Cofundador</div><h4>Pablo Marambio</h4><p>Ing. Civil en Informática (UTFSM). Fullstack, IA aplicada y gestión de proyectos. Cofundador de Digitalismo; Product Owner de IA en Sentalent. Arquitectura del producto y del motor BPMN.</p></div>\n<div class=\"tm\"><div class=\"role\">Equipo técnico</div><h4>Desarrollo full-stack + IA</h4><p>MVP en producción, bot IA con RAG y mockups del motor BPMN ya construidos — aporte preexistente valorizable a la ronda.</p></div>\n<div class=\"tm\"><div class=\"role\">Respaldo</div><h4>Socialab · EIVA · LabGob</h4><p>Red GovTech, mentoría y acceso a clústeres municipales regionales.</p></div>\n</div></div>", "<div class=\"slide\"><div class=\"eyebrow\"><span class=\"sn\">12</span> · La ronda</div>\n<div class=\"two\"><div class=\"col-text\">\n<div class=\"ask-amt\">USD 150K</div>\n<div class=\"ask-sub\">Ronda pre-seed para convertir 2 cartas de intención en 10 municipios pagando y dejar montada la serie seed.</div>\n<div class=\"ask-row\">\n<div class=\"ask-chip\"><div class=\"k\">Runway</div><div class=\"v accent\">18 meses</div></div>\n<div class=\"ask-chip\"><div class=\"k\">Hito objetivo</div><div class=\"v\">USD 5K MRR · TRL 7</div></div>\n<div class=\"ask-chip\"><div class=\"k\">Instrumento</div><div class=\"v\">Nota convertible</div></div>\n</div>\n<p class=\"disc amber\">Monto, instrumento y valoración propuestos — sujetos a conversación con el inversionista.</p>\n</div><div class=\"col-text\">\n<div class=\"eyebrow\"><span class=\"sn\"></span> · Uso de fondos</div>\n<div class=\"uof\">\n<div class=\"uof-row\"><div class=\"uof-lbl\">Producto (BPMN, app móvil)</div><div class=\"uof-track\"><div class=\"uof-fill\" style=\"width:45%\"></div></div><div class=\"uof-pct\">45%</div></div>\n<div class=\"uof-row\"><div class=\"uof-lbl\">Go-to-market (ventas B2G)</div><div class=\"uof-track\"><div class=\"uof-fill\" style=\"width:30%\"></div></div><div class=\"uof-pct\">30%</div></div>\n<div class=\"uof-row\"><div class=\"uof-lbl\">Cumplimiento + IP</div><div class=\"uof-track\"><div class=\"uof-fill\" style=\"width:15%\"></div></div><div class=\"uof-pct\">15%</div></div>\n<div class=\"uof-row\"><div class=\"uof-lbl\">Operación</div><div class=\"uof-track\"><div class=\"uof-fill\" style=\"width:10%\"></div></div><div class=\"uof-pct\">10%</div></div>\n</div>\n</div></div></div>", "<div class=\"slide\"><div class=\"eyebrow\"><span class=\"sn\">13</span> · La visión</div>\n<h2 class=\"t\">El estándar de atención ciudadana municipal <span class=\"accent\">de Chile a toda LATAM.</span></h2>\n<p class=\"lead\">Cada flujo BPMN validado en un municipio chileno se convierte en plantilla exportable. A medida que crecemos, el onboarding se acelera y la biblioteca de procesos se vuelve un activo defensible — un foso que ningún ERP tradicional puede replicar.</p>\n<div class=\"gtm\">\n<div class=\"gtm-card\"><div class=\"ph\">2026–2027</div><h4>Dominar Chile</h4><p>Beachhead capturado bajo presión regulatoria. Referente GovTech nacional.</p></div>\n<div class=\"gtm-card\"><div class=\"ph\">2028</div><h4>Entrar a México</h4><p>2.469 municipios, mercado 7× Chile. Misma tesis, plantillas listas.</p></div>\n<div class=\"gtm-card\"><div class=\"ph\">2029+</div><h4>Plataforma LATAM</h4><p>Colombia y más. La capa de atención ciudadana inteligente de la región.</p></div>\n</div></div>", "<div class=\"slide cover\"><div class=\"logo\"><svg class=\"mark\" viewBox=\"0 0 100 100\"><rect width=\"100\" height=\"100\" rx=\"22\" fill=\"#1B9BFE\"/><g fill=\"none\" stroke=\"#fff\" stroke-width=\"5\" stroke-linejoin=\"round\" stroke-linecap=\"round\"><circle cx=\"50\" cy=\"16\" r=\"3.4\" stroke-width=\"3.4\"/><line x1=\"50\" y1=\"19.4\" x2=\"50\" y2=\"29\"/><path d=\"M22 47 L50 28 L78 47\" stroke-width=\"5.5\"/><line x1=\"20\" y1=\"52\" x2=\"80\" y2=\"52\" stroke-width=\"6.5\"/></g><g fill=\"none\" stroke=\"#fff\" stroke-width=\"5\" stroke-linejoin=\"round\"><rect x=\"27\" y=\"55\" width=\"46\" height=\"30\" rx=\"2\"/></g><g fill=\"#fff\"><rect x=\"30\" y=\"63\" width=\"6\" height=\"22\" rx=\"1\"/><rect x=\"47\" y=\"63\" width=\"6\" height=\"22\" rx=\"1\"/><rect x=\"64\" y=\"63\" width=\"6\" height=\"22\" rx=\"1\"/></g></svg><span class=\"wm\">Mun<span class=\"ia\">IA</span></span></div>\n<div class=\"big\" style=\"font-size:clamp(32px,5.4vw,76px)\">Invertir hoy es entrar <span class=\"accent\">antes del mandato de 2027.</span></div>\n<div class=\"sub\">La ventana regulatoria es ahora. El beachhead está abierto. El producto, en pilotos reales.</div>\n<div class=\"for\">contacto@munia.cl · Antonio Villalobos, CEO · Una iniciativa ALTKimia · 2026</div></div>"];
+SLIDES=SLIDES.map(function(s){return s.replace(/<!--MOCK:(t\d):([^>]*?)-->/g,function(_,tid,cap){return mockHTML(tid,cap);});});
+const deck=document.getElementById('deck');
+deck.innerHTML=SLIDES.join('');
+const slideEls=[...deck.children];
+let cur=0;const total=slideEls.length;
+const prevBtn=document.getElementById('prev'),nextBtn=document.getElementById('next');
+const counter=document.getElementById('counter'),progress=document.getElementById('progress'),hint=document.getElementById('hint');
+function render(){
+  slideEls.forEach((s,i)=>{s.classList.toggle('active',i===cur);s.classList.toggle('prev',i<cur);});
+  counter.textContent=`${String(cur+1).padStart(2,'0')} / ${String(total).padStart(2,'0')}`;
+  progress.style.width=((cur+1)/total*100)+'%';
+  prevBtn.disabled=cur===0;nextBtn.disabled=cur===total-1;
+}
+function go(n){cur=Math.max(0,Math.min(total-1,n));render();if(cur>0)hint.style.opacity='0';}
+nextBtn.onclick=()=>go(cur+1);prevBtn.onclick=()=>go(cur-1);
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key===' '||e.key==='PageDown'){e.preventDefault();go(cur+1);}
+  if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();go(cur-1);}
+  if(e.key==='Home')go(0);if(e.key==='End')go(total-1);
+});
+let tx=0;
+document.addEventListener('touchstart',e=>tx=e.touches[0].clientX,{passive:true});
+document.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx;if(Math.abs(dx)>50)go(cur+(dx<0?1:-1));},{passive:true});
+render();
+</script>
+</body>
+</html>
