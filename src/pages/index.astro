@@ -868,7 +868,7 @@ import Nav from '../components/Nav.astro';
   </div>
 </footer>
 
-<script>
+<script is:inline>
 function showTab(i) {
   document.querySelectorAll('.uc-tab').forEach((t,j)=>t.classList.toggle('active',j===i));
   document.querySelectorAll('.uc-content').forEach((c,j)=>{
@@ -916,7 +916,7 @@ window.addEventListener('scroll',()=>{ document.querySelector('nav').style.boxSh
 <button class="login-cancel" onclick="closeLogin()">Cancelar</button>
 <div class="login-note">Acceso restringido. Capa de cortesía para presentación, no un sistema de seguridad.</div>
 </div></div>
-<script id="deck-injector-js">
+<script id="deck-injector-js" is:inline>
 let _pendingDeck=null;
 function lockScroll(on){document.body.style.overflow=on?'hidden':'';}
 function openDeck(w){document.getElementById(w==='mun'?'ovMun':'ovInv').classList.add('open');lockScroll(true);}
