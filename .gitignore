@@ -1,0 +1,25 @@
+# Dependencies
+node_modules/
+
+# Astro build output
+dist/
+
+# Astro cache
+.astro/
+
+# Firebase
+.firebase/
+firebase-debug.log*
+firebase-debug.*.log*
+
+# Logs
+*.log
+npm-debug.log*
+
+# Env
+.env
+.env.local
+.env.*.local
+
+# OS
+.DS_Store
