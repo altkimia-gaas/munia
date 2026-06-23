@@ -21,5 +21,9 @@ npm-debug.log*
 .env.local
 .env.*.local
 
+# Local agent skills and temp dirs
+.agents/
+y/
+
 # OS
 .DS_Store
