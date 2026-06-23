@@ -1,0 +1,508 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout title="SGSI — Sistema de Gestión de Seguridad de la Información — MunIA">
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">
+    <div class="nav-ico"><svg viewBox="0 0 24 24"><path d="M4 6h8M4 10h6M4 14h7"/><circle cx="17" cy="15" r="5"/><path d="M20.5 18.5L23 21"/></svg></div>
+    <div class="nav-name"><span>Mun</span>IA</div>
+    <div class="nav-tag">Atención Ciudadana</div>
+  </div>
+  <a href="/" class="nav-back">
+    <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+    Volver al sitio
+  </a>
+</nav>
+
+<!-- LEGAL HEADER -->
+<div class="legal-header">
+  <div class="container">
+    <div class="legal-eyebrow"><div class="legal-eyebrow-dot"></div>Seguridad · ISO 27001 · Ley 21.663</div>
+    <h1>Sistema de Gestión de Seguridad de la Información (SGSI)</h1>
+    <p class="subtitle">MunIA — Política y Controles de Seguridad de la Información</p>
+    <p>Versión 1.0 · Junio 2026 · Próxima revisión: Junio 2027</p>
+    <div class="header-badges">
+      <div class="legal-badge">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Alineado ISO 27001
+      </div>
+      <div class="legal-badge">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+        Ley N° 21.663 — Ciberseguridad del Estado
+      </div>
+      <div class="legal-badge green">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+        Conforme Ley N° 21.719
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- LEGAL BODY -->
+<div class="legal-body">
+  <div class="container">
+    <div class="legal-content">
+
+      <!-- TOC -->
+      <div class="toc">
+        <div class="toc-title">Contenido de este documento</div>
+        <ol>
+          <li><a href="#s1">Declaración de Compromiso</a></li>
+          <li><a href="#s2">Alcance del SGSI</a></li>
+          <li><a href="#s3">Activos de Información</a></li>
+          <li><a href="#s4">Análisis de Riesgos</a></li>
+          <li><a href="#s5">Controles ISO 27001 Aplicables</a></li>
+          <li><a href="#s6">Gestión de Incidentes de Seguridad</a></li>
+          <li><a href="#s7">Continuidad del Negocio (BCP)</a></li>
+          <li><a href="#s8">Revisión y Auditoría</a></li>
+          <li><a href="#s9">Contacto</a></li>
+        </ol>
+      </div>
+
+      <!-- SECCIÓN 1 -->
+      <div class="legal-section" id="s1">
+        <h2><span class="section-num">1</span>Declaración de Compromiso</h2>
+        <div class="commitment-box">
+          <blockquote>
+            "MunIA se compromete a proteger la confidencialidad, integridad y disponibilidad de la información de los ciudadanos y municipalidades que confían en nuestra plataforma. Esta política aplica a todos los sistemas, procesos y personas involucradas en la operación de Civora."
+          </blockquote>
+          <cite>— Dirección de MunIA SpA · Junio 2026</cite>
+        </div>
+        <p>Este documento define el marco de gestión de seguridad de la información de MunIA, estableciendo los principios, controles y responsabilidades que garantizan la protección de los datos procesados en la plataforma Civora. La presente política es de cumplimiento obligatorio para todo el personal de MunIA y vincula contractualmente a los municipios clientes y sus funcionarios.</p>
+      </div>
+
+      <!-- SECCIÓN 2 -->
+      <div class="legal-section" id="s2">
+        <h2><span class="section-num">2</span>Alcance del SGSI</h2>
+        <p>El presente Sistema de Gestión de Seguridad de la Información abarca los siguientes componentes y actores:</p>
+        <div class="scope-list">
+          <div class="scope-item">
+            <div class="scope-ico">🖥️</div>
+            <div class="scope-content">
+              <div class="scope-title">Plataforma Civora SaaS — Componentes técnicos</div>
+              <div class="scope-desc">Dashboard web de gestión de tickets, API backend (Node.js / Express / Firestore), bot conversacional municipal y toda la infraestructura subyacente en Firebase / Google Cloud Platform</div>
+            </div>
+          </div>
+          <div class="scope-item">
+            <div class="scope-ico">👥</div>
+            <div class="scope-content">
+              <div class="scope-title">Personal de MunIA</div>
+              <div class="scope-desc">Todos los colaboradores, contratistas y proveedores con acceso a sistemas de producción, bases de datos o información de clientes</div>
+            </div>
+          </div>
+          <div class="scope-item">
+            <div class="scope-ico">🏛️</div>
+            <div class="scope-content">
+              <div class="scope-title">Municipalidades clientes y sus funcionarios</div>
+              <div class="scope-desc">Organismos municipales que contratan la plataforma Civora y sus funcionarios con acceso operacional, en el contexto del uso de la plataforma</div>
+            </div>
+          </div>
+        </div>
+        <div class="info-box" style="margin-top:.5rem">
+          <div class="info-icon">ℹ</div>
+          <div class="info-content">
+            <p>Este SGSI opera bajo el principio de <strong>responsabilidad compartida</strong>: MunIA es responsable de la seguridad de la infraestructura y la plataforma; la municipalidad es responsable de la gestión segura de las credenciales de sus funcionarios y del uso apropiado del sistema.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECCIÓN 3 -->
+      <div class="legal-section" id="s3">
+        <h2><span class="section-num">3</span>Activos de Información</h2>
+        <p>Los siguientes activos de información son identificados, clasificados y protegidos conforme a su nivel de sensibilidad:</p>
+        <div style="overflow-x:auto">
+          <table class="asset-table">
+            <thead>
+              <tr>
+                <th>Activo</th>
+                <th>Clasificación</th>
+                <th>Responsable</th>
+                <th>Medidas de protección</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Datos personales ciudadanos</td>
+                <td><span class="class-badge class-confidential">Confidencial</span></td>
+                <td>CTO</td>
+                <td>Cifrado en reposo y tránsito, acceso restringido por rol (RBAC), consentimiento documentado</td>
+              </tr>
+              <tr>
+                <td>Tickets y solicitudes ciudadanas</td>
+                <td><span class="class-badge class-confidential">Confidencial</span></td>
+                <td>CTO</td>
+                <td>Aislamiento estricto multi-tenant por municipalityId, Firestore Security Rules</td>
+              </tr>
+              <tr>
+                <td>Credenciales de acceso y tokens</td>
+                <td><span class="class-badge class-secret">Secreto</span></td>
+                <td>CTO</td>
+                <td>Firebase Authentication, soporte MFA, rotación de claves, nunca almacenadas en texto plano</td>
+              </tr>
+              <tr>
+                <td>Código fuente de Civora</td>
+                <td><span class="class-badge class-internal">Interno</span></td>
+                <td>CTO</td>
+                <td>Repositorio privado, control de versiones con auditoría de cambios, revisión de código obligatoria</td>
+              </tr>
+              <tr>
+                <td>Registros de auditoría</td>
+                <td><span class="class-badge class-confidential">Confidencial</span></td>
+                <td>CTO</td>
+                <td>Solo lectura (inmutables operacionalmente), retención mínima 5 años, exportables para fiscalización</td>
+              </tr>
+              <tr>
+                <td>Configuración de la plataforma</td>
+                <td><span class="class-badge class-internal">Interno</span></td>
+                <td>CTO</td>
+                <td>Variables de entorno cifradas, acceso restringido al equipo de infraestructura de MunIA</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- SECCIÓN 4 -->
+      <div class="legal-section" id="s4">
+        <h2><span class="section-num">4</span>Análisis de Riesgos (principales)</h2>
+        <p>Se identifican los siguientes riesgos principales junto con sus controles de mitigación:</p>
+        <div style="overflow-x:auto">
+          <table class="risk-table">
+            <thead>
+              <tr>
+                <th>Riesgo identificado</th>
+                <th>Probabilidad</th>
+                <th>Impacto</th>
+                <th>Control de mitigación</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Acceso no autorizado a datos ciudadanos</td>
+                <td><span class="prob-badge prob-med">Media</span></td>
+                <td><span class="impact-alto">Alto</span></td>
+                <td>Autenticación Firebase + RBAC por rol, MFA para privilegiados, cierre de sesión automático</td>
+              </tr>
+              <tr>
+                <td>Filtración de datos personales</td>
+                <td><span class="prob-badge prob-low">Baja</span></td>
+                <td><span class="impact-critico">Crítico</span></td>
+                <td>Cifrado TLS 1.3 en tránsito, cifrado en reposo GCP, Firestore Security Rules, segregación de datos por tenant</td>
+              </tr>
+              <tr>
+                <td>Indisponibilidad del servicio</td>
+                <td><span class="prob-badge prob-low">Baja</span></td>
+                <td><span class="impact-alto">Alto</span></td>
+                <td>GCP SLA 99.9% garantizado, alta disponibilidad GCP sin single point of failure, plan de contingencia documentado</td>
+              </tr>
+              <tr>
+                <td>Uso malicioso o abuso de la API</td>
+                <td><span class="prob-badge prob-med">Media</span></td>
+                <td><span class="impact-alto">Alto</span></td>
+                <td>Rate limiting, validación de entradas con Zod, CORS estricto, logs de auditoría de todas las operaciones</td>
+              </tr>
+              <tr>
+                <td>Pérdida o corrupción de datos</td>
+                <td><span class="prob-badge prob-vlow">Muy Baja</span></td>
+                <td><span class="impact-critico">Crítico</span></td>
+                <td>Backups automáticos diarios de Firestore administrados por Google Cloud, RPO de 24 horas</td>
+              </tr>
+              <tr>
+                <td>Ingeniería social o phishing sobre funcionarios</td>
+                <td><span class="prob-badge prob-med">Media</span></td>
+                <td><span class="impact-alto">Alto</span></td>
+                <td>Capacitación obligatoria en onboarding, MFA activado, política de gestión de credenciales documentada</td>
+              </tr>
+              <tr>
+                <td>Vulnerabilidades en dependencias de software</td>
+                <td><span class="prob-badge prob-med">Media</span></td>
+                <td><span class="impact-alto">Alto</span></td>
+                <td>Revisión periódica de dependencias, proceso de actualizaciones de seguridad, OWASP Top 10 como guía de desarrollo</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- SECCIÓN 5 -->
+      <div class="legal-section" id="s5">
+        <h2><span class="section-num">5</span>Controles ISO 27001 Aplicables</h2>
+        <p>Los siguientes controles del Anexo A de la norma ISO/IEC 27001:2022 han sido identificados como aplicables y se encuentran implementados o en proceso de implementación:</p>
+        <div class="controls-list">
+          <div class="control-item">
+            <span class="control-code">A.5</span>
+            <div class="control-content">
+              <div class="control-title">Políticas de seguridad de la información</div>
+              <div class="control-desc">El presente documento constituye la política de seguridad. Se revisa anualmente o ante cambios significativos en los sistemas o marco normativo.</div>
+            </div>
+          </div>
+          <div class="control-item">
+            <span class="control-code">A.6</span>
+            <div class="control-content">
+              <div class="control-title">Organización de la seguridad de la información</div>
+              <div class="control-desc">Responsable designado: CTO de MunIA. Responsabilidades de seguridad documentadas para cada rol interno. Acuerdos de confidencialidad firmados por todo el personal.</div>
+            </div>
+          </div>
+          <div class="control-item">
+            <span class="control-code">A.8</span>
+            <div class="control-content">
+              <div class="control-title">Gestión de activos de información</div>
+              <div class="control-desc">Inventario de activos mantenido (ver Sección 3), con clasificación de sensibilidad, responsable asignado y procedimiento de eliminación segura de datos al término del contrato.</div>
+            </div>
+          </div>
+          <div class="control-item">
+            <span class="control-code">A.9</span>
+            <div class="control-content">
+              <div class="control-title">Control de acceso</div>
+              <div class="control-desc">RBAC con cinco niveles de privilegio: super_admin, administrador, jefatura, funcionario, operador. Principio de mínimo privilegio aplicado en todos los módulos. Revisión periódica de accesos activos.</div>
+            </div>
+          </div>
+          <div class="control-item">
+            <span class="control-code">A.10</span>
+            <div class="control-content">
+              <div class="control-title">Criptografía</div>
+              <div class="control-desc">TLS 1.3 obligatorio para todo tránsito de datos. Cifrado en reposo gestionado por GCP. Claves gestionadas por Google Cloud KMS. Contraseñas nunca almacenadas en texto plano.</div>
+            </div>
+          </div>
+          <div class="control-item">
+            <span class="control-code">A.12</span>
+            <div class="control-content">
+              <div class="control-title">Seguridad operacional</div>
+              <div class="control-desc">Logs de auditoría completos de todas las acciones sobre datos. Gestión de vulnerabilidades con actualizaciones periódicas. Separación de entornos de desarrollo, pruebas y producción.</div>
+            </div>
+          </div>
+          <div class="control-item">
+            <span class="control-code">A.13</span>
+            <div class="control-content">
+              <div class="control-title">Seguridad en las comunicaciones</div>
+              <div class="control-desc">CORS estricto con validación de origen. HTTPS obligatorio en todos los endpoints. Validación de todas las peticiones entrantes. Sin exposición de endpoints no autenticados con datos sensibles.</div>
+            </div>
+          </div>
+          <div class="control-item">
+            <span class="control-code">A.14</span>
+            <div class="control-content">
+              <div class="control-title">Adquisición, desarrollo y mantenimiento de sistemas</div>
+              <div class="control-desc">Validación de todas las entradas con Zod (backend). OWASP Top 10 como guía de desarrollo seguro. Revisión de código obligatoria antes de despliegue en producción. Dependencias actualizadas con política documentada.</div>
+            </div>
+          </div>
+          <div class="control-item">
+            <span class="control-code">A.16</span>
+            <div class="control-content">
+              <div class="control-title">Gestión de incidentes de seguridad de la información</div>
+              <div class="control-desc">Protocolo de respuesta a incidentes documentado (ver Sección 6). Clasificación de incidentes por severidad. Notificación a municipios afectados en ≤72 horas para incidentes críticos. Reporte a la ANCI cuando corresponda por ley.</div>
+            </div>
+          </div>
+          <div class="control-item">
+            <span class="control-code">A.17</span>
+            <div class="control-content">
+              <div class="control-title">Aspectos de seguridad de la información en la gestión de continuidad del negocio</div>
+              <div class="control-desc">Backups automáticos diarios de Firestore. RTO de 4 horas y RPO de 24 horas documentados. Plan de contingencia con failover automático GCP (ver Sección 7).</div>
+            </div>
+          </div>
+          <div class="control-item">
+            <span class="control-code">A.18</span>
+            <div class="control-content">
+              <div class="control-title">Cumplimiento normativo</div>
+              <div class="control-desc">Conformidad con Ley N° 21.719 (Protección de Datos Personales), Ley N° 19.628, Ley N° 21.663 (Ciberseguridad del Estado) y Ley N° 21.180 (Transformación Digital). Revisión legal periódica ante cambios normativos.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECCIÓN 6 -->
+      <div class="legal-section" id="s6">
+        <h2><span class="section-num">6</span>Gestión de Incidentes de Seguridad</h2>
+        <p>MunIA mantiene un protocolo de respuesta ante incidentes de seguridad que garantiza la detección oportuna, la mitigación del impacto y la comunicación transparente con los municipios afectados.</p>
+        <div class="incident-flow">
+          <div class="incident-step">
+            <div class="incident-step-n">1</div>
+            <div class="incident-step-content">
+              <div class="incident-step-title">Detección y registro</div>
+              <div class="incident-step-desc">Monitoreo continuo de logs de Firebase y Google Cloud Monitoring. Alertas automáticas configuradas para patrones anómalos de acceso, errores de autenticación y tráfico inusual. Cualquier miembro del equipo puede reportar un incidente sospechoso a <a href="mailto:seguridad@munia.cl" style="color:var(--blue)">seguridad@munia.cl</a>.</div>
+            </div>
+          </div>
+          <div class="incident-step">
+            <div class="incident-step-n">2</div>
+            <div class="incident-step-content">
+              <div class="incident-step-title">Clasificación de severidad</div>
+              <div class="incident-step-desc">Los incidentes se clasifican en cuatro niveles:</div>
+              <div class="severity-grid" style="margin-top:.75rem">
+                <div class="sev-card sev-critico"><div class="sev-label">Crítico</div><div class="sev-desc">Afecta datos personales de ciudadanos o acceso no autorizado masivo</div></div>
+                <div class="sev-card sev-alto"><div class="sev-label">Alto</div><div class="sev-desc">Indisponibilidad del servicio superior a 1 hora o brecha de datos limitada</div></div>
+                <div class="sev-card sev-medio"><div class="sev-label">Medio</div><div class="sev-desc">Degradación del servicio o intento de acceso no autorizado detectado</div></div>
+                <div class="sev-card sev-bajo"><div class="sev-label">Bajo</div><div class="sev-desc">Anomalías menores sin impacto sobre datos o disponibilidad</div></div>
+              </div>
+            </div>
+          </div>
+          <div class="incident-step">
+            <div class="incident-step-n">3</div>
+            <div class="incident-step-content">
+              <div class="incident-step-title">Contención y mitigación</div>
+              <div class="incident-step-desc">El equipo de seguridad activa las medidas de contención correspondientes al nivel de severidad. Para incidentes Críticos, se activa el protocolo de respuesta inmediata en horario 24/7.</div>
+            </div>
+          </div>
+          <div class="incident-step">
+            <div class="incident-step-n">4</div>
+            <div class="incident-step-content">
+              <div class="incident-step-title">Notificación y comunicación</div>
+              <div class="incident-step-desc">Incidentes <strong>Críticos</strong> que involucren datos personales son notificados a los municipios afectados en un plazo máximo de <strong>72 horas</strong> desde su detección, conforme al artículo 58 de la Ley N° 21.719 y la Ley N° 21.663. La Agencia Nacional de Ciberseguridad (ANCI) es notificada cuando corresponde por ley.</div>
+            </div>
+          </div>
+          <div class="incident-step">
+            <div class="incident-step-n">5</div>
+            <div class="incident-step-content">
+              <div class="incident-step-title">Análisis post-incidente</div>
+              <div class="incident-step-desc">Todo incidente Crítico o Alto genera un informe post-mortem documentado, con causas raíz, acciones correctivas y medidas preventivas. El informe queda disponible para los municipios afectados que lo soliciten.</div>
+            </div>
+          </div>
+        </div>
+        <div class="contact-box" style="margin-top:.75rem">
+          <div class="contact-row">
+            <div class="contact-ico">🚨</div>
+            <div>
+              <div class="contact-label">Reporte de incidentes de seguridad</div>
+              <div class="contact-value"><a href="mailto:seguridad@munia.cl">seguridad@munia.cl</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECCIÓN 7 -->
+      <div class="legal-section" id="s7">
+        <h2><span class="section-num">7</span>Continuidad del Negocio (BCP)</h2>
+        <p>MunIA define los siguientes objetivos de continuidad para garantizar la disponibilidad del servicio y la integridad de los datos en escenarios de falla o desastre:</p>
+        <div class="bcp-grid">
+          <div class="bcp-card">
+            <div class="bcp-value">4h</div>
+            <div class="bcp-label">RTO — Recovery Time Objective</div>
+            <div class="bcp-desc">Tiempo máximo objetivo para restablecer el servicio tras una interrupción mayor</div>
+          </div>
+          <div class="bcp-card">
+            <div class="bcp-value">24h</div>
+            <div class="bcp-label">RPO — Recovery Point Objective</div>
+            <div class="bcp-desc">Máxima pérdida de datos aceptable medida en tiempo (punto de restauración más reciente)</div>
+          </div>
+        </div>
+        <div class="controls-list" style="margin-top:1rem">
+          <div class="control-item">
+            <span class="control-code">GCP</span>
+            <div class="control-content">
+              <div class="control-title">Alta disponibilidad en Google Cloud</div>
+              <div class="control-desc">La infraestructura opera con un SLA de 99.9% garantizado por Google Cloud Platform. Sin puntos únicos de falla en los componentes críticos de la plataforma.</div>
+            </div>
+          </div>
+          <div class="control-item">
+            <span class="control-code">BCK</span>
+            <div class="control-content">
+              <div class="control-title">Backups automáticos diarios</div>
+              <div class="control-desc">Google Cloud Firestore realiza copias de seguridad automáticas diarias de todos los datos. Los backups se almacenan por un mínimo de 7 días y se verifican periódicamente.</div>
+            </div>
+          </div>
+          <div class="control-item">
+            <span class="control-code">FO</span>
+            <div class="control-content">
+              <div class="control-title">Failover automático</div>
+              <div class="control-desc">Los componentes críticos cuentan con mecanismos de failover automático gestionados por GCP, que minimizan el tiempo de inactividad ante fallas de hardware o red.</div>
+            </div>
+          </div>
+          <div class="control-item">
+            <span class="control-code">DRP</span>
+            <div class="control-content">
+              <div class="control-title">Plan de recuperación ante desastres</div>
+              <div class="control-desc">Procedimiento documentado de recuperación ante escenarios de desastre mayor. Incluye responsables, pasos de recuperación y comunicación a clientes durante la interrupción.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECCIÓN 8 -->
+      <div class="legal-section" id="s8">
+        <h2><span class="section-num">8</span>Revisión y Auditoría</h2>
+        <p>La efectividad del SGSI se verifica mediante un proceso de revisión periódica y auditoría interna:</p>
+        <div class="review-box">
+          <div class="review-row">
+            <span class="review-label">Frecuencia de revisión</span>
+            <span class="review-value">Anual (o ante cambios significativos en sistemas o normativa)</span>
+          </div>
+          <div class="review-row">
+            <span class="review-label">Última revisión</span>
+            <span class="review-value">Junio de 2026 — Versión 1.0 (documento inicial)</span>
+          </div>
+          <div class="review-row">
+            <span class="review-label">Próxima revisión programada</span>
+            <span class="review-value">Junio de 2027</span>
+          </div>
+          <div class="review-row">
+            <span class="review-label">Responsable</span>
+            <span class="review-value">CTO / Responsable de Seguridad MunIA</span>
+          </div>
+          <div class="review-row">
+            <span class="review-label">Proceso de revisión</span>
+            <span class="review-value">Evaluación de controles, análisis de incidentes del período, actualización del inventario de activos y revisión del análisis de riesgos</span>
+          </div>
+          <div class="review-row">
+            <span class="review-label">Auditoría de accesos</span>
+            <span class="review-value">Revisión trimestral de roles y privilegios activos</span>
+          </div>
+        </div>
+        <p>Los registros de auditoría son inmutables operacionalmente y se conservan por un mínimo de 5 años. Son exportables en formatos CSV, PDF y Excel para inspecciones del CPLT, la ANCI o cualquier organismo fiscalizador competente.</p>
+      </div>
+
+      <!-- SECCIÓN 9 -->
+      <div class="legal-section" id="s9">
+        <h2><span class="section-num">9</span>Contacto</h2>
+        <p>Para consultas, reportes o ejercicio de derechos relacionados con la seguridad de la información, utilice los siguientes canales:</p>
+        <div class="contact-box">
+          <div class="contact-row">
+            <div class="contact-ico">🔐</div>
+            <div>
+              <div class="contact-label">Responsable de Seguridad — Incidentes y consultas SGSI</div>
+              <div class="contact-value"><a href="mailto:seguridad@munia.cl">seguridad@munia.cl</a></div>
+            </div>
+          </div>
+          <div class="contact-row">
+            <div class="contact-ico">📄</div>
+            <div>
+              <div class="contact-label">Privacidad y ejercicio de derechos ARCO</div>
+              <div class="contact-value"><a href="mailto:contacto@munia.cl">contacto@munia.cl</a></div>
+            </div>
+          </div>
+          <div class="contact-row">
+            <div class="contact-ico">🌐</div>
+            <div>
+              <div class="contact-label">Política de Privacidad</div>
+              <div class="contact-value"><a href="/legal/privacidad">/legal/privacidad</a></div>
+            </div>
+          </div>
+        </div>
+        <div class="info-box" style="margin-top:.75rem">
+          <div class="info-icon">ℹ</div>
+          <div class="info-content">
+            <p>Para reportar una vulnerabilidad de seguridad de forma responsable (<em>responsible disclosure</em>), envíe un correo a <strong>seguridad@munia.cl</strong> con el asunto "Vulnerabilidad Responsable". Nos comprometemos a acusar recibo en 48 horas hábiles y a mantenerle informado del estado de la resolución.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-inner">
+    <div class="foot-brand">
+      <div class="nav-ico" style="width:28px;height:28px;border-radius:7px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><path d="M4 6h8M4 10h6M4 14h7"/><circle cx="17" cy="15" r="5"/><path d="M20.5 18.5L23 21"/></svg></div>
+      <div class="foot-name"><span>Mun</span>IA</div>
+    </div>
+    <div class="foot-copy mono">seguridad@munia.cl · Chile 2026</div>
+    <div class="foot-links">
+      <a href="/">munia.cl</a>
+      <a href="/legal/privacidad">Política de Privacidad</a>
+      <a href="/legal/sgsi" class="active">Seguridad de la Información</a>
+    </div>
+  </div>
+</footer>
+
+</Layout>
