@@ -832,6 +832,60 @@ import Nav from '../components/Nav.astro';
 </section>
 
 
+<!-- NOSOTROS -->
+<section class="sec reveal" id="nosotros" style="background:var(--paper);padding:6rem 2rem">
+  <div class="container">
+    <div class="ey ey-blue"><div class="ey-dot"></div>Nosotros</div>
+    <h2 class="sh ink">Construimos el puente entre<br>el Estado y el vecino.</h2>
+    <p class="sub ink">Somos el equipo detrás de MunIA: una empresa chilena con foco en digitalizar la gestión municipal para que cada solicitud llegue a quien corresponde y se resuelva a tiempo.</p>
+
+    <!-- Misión + Visión -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:3rem" class="nos-grid">
+      <div style="background:#fff;border:1.5px solid var(--border-light);border-radius:16px;padding:2rem">
+        <div style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--blue);font-family:'DM Mono',monospace;margin-bottom:1rem">Misión</div>
+        <p style="font-size:15px;color:var(--ink);line-height:1.75;margin:0">Digitalizar la gestión ciudadana de los municipios chilenos para que cada solicitud, reclamo o sugerencia llegue a quien corresponde, se resuelva a tiempo y el vecino pueda seguirlo sin ir a la ventanilla.</p>
+      </div>
+      <div style="background:#fff;border:1.5px solid var(--border-light);border-radius:16px;padding:2rem">
+        <div style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--blue);font-family:'DM Mono',monospace;margin-bottom:1rem">Visión</div>
+        <p style="font-size:15px;color:var(--ink);line-height:1.75;margin:0">Convertirnos en el sistema operativo de atención ciudadana municipal: desde la primera consulta por WhatsApp hasta la firma electrónica del expediente, todo en una sola plataforma integrada con ClaveÚnica y los servicios del Estado.</p>
+      </div>
+    </div>
+
+    <!-- Valores -->
+    <div style="margin-top:3rem">
+      <div style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--blue);font-family:'DM Mono',monospace;margin-bottom:1.5rem">Valores</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem" class="nos-vals">
+        <div style="background:#fff;border:1.5px solid var(--border-light);border-radius:16px;padding:2rem">
+          <div style="width:40px;height:40px;border-radius:10px;background:rgba(33,150,243,.08);display:flex;align-items:center;justify-content:center;margin-bottom:1.25rem">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+          </div>
+          <div style="font-size:16px;font-weight:700;color:var(--ink);letter-spacing:-.3px;margin-bottom:.6rem">Cercanía</div>
+          <p style="font-size:14px;color:var(--muted-ink);line-height:1.75;margin:0">El vecino es el norte. Cada decisión de producto se evalúa preguntando si le facilita la vida al ciudadano, no al sistema.</p>
+        </div>
+        <div style="background:#fff;border:1.5px solid var(--border-light);border-radius:16px;padding:2rem">
+          <div style="width:40px;height:40px;border-radius:10px;background:rgba(33,150,243,.08);display:flex;align-items:center;justify-content:center;margin-bottom:1.25rem">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          </div>
+          <div style="font-size:16px;font-weight:700;color:var(--ink);letter-spacing:-.3px;margin-bottom:.6rem">Transparencia</div>
+          <p style="font-size:14px;color:var(--muted-ink);line-height:1.75;margin:0">Lo que ocurre con una solicitud debe ser visible para quien la hizo, siempre. Sin cajas negras.</p>
+        </div>
+        <div style="background:#fff;border:1.5px solid var(--border-light);border-radius:16px;padding:2rem">
+          <div style="width:40px;height:40px;border-radius:10px;background:rgba(33,150,243,.08);display:flex;align-items:center;justify-content:center;margin-bottom:1.25rem">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
+          <div style="font-size:16px;font-weight:700;color:var(--ink);letter-spacing:-.3px;margin-bottom:.6rem">Responsabilidad</div>
+          <p style="font-size:14px;color:var(--muted-ink);line-height:1.75;margin:0">Un reclamo sin respuesta no es un número en una lista; es una persona esperando. Nos importa que se resuelva.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<style>
+@media(max-width:768px){
+  .nos-grid,.nos-vals{grid-template-columns:1fr!important}
+}
+</style>
+
 <!-- CTA -->
 <section class="cta-sec" id="contacto">
   <div class="cta-inner reveal">
