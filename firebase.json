@@ -1,7 +1,11 @@
 {
+  "functions": {
+    "source": "functions",
+    "runtime": "nodejs20"
+  },
   "hosting": {
     "site": "munia-page",
-    "public": "dist",
+    "public": "functions/dist/client",
     "ignore": [
       "firebase.json",
       "**/.*",
@@ -10,7 +14,7 @@
     "rewrites": [
       {
         "source": "**",
-        "destination": "/index.html"
+        "function": "munia"
       }
     ]
   }
