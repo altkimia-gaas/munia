@@ -11,6 +11,15 @@ export default {
           light: '#42A5F5',
           pale: '#E3F2FD',
         },
+        // Dark design system (hero, diagnostic page)
+        dark: {
+          1: '#080B12',
+          2: '#0D1117',
+          3: '#111827',
+          border: '#1E2D4A',
+          text: '#F0F4FF',
+          muted: '#8B9DC3',
+        },
       },
     },
   },

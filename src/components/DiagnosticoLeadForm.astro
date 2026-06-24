@@ -1,0 +1,310 @@
+---
+---
+
+<div id="leadForm">
+
+  <div class="law-head">
+    <span class="law-code">✦ Último paso</span>
+    <div>
+      <div class="lf-free">Sin costo · Resultado inmediato</div>
+      <h2>Ingrese sus datos para ver su diagnóstico</h2>
+    </div>
+  </div>
+
+  <p class="law-desc">
+    Su resultado estará listo en segundos. No le cobraremos ni compartiremos sus datos con terceros.
+  </p>
+
+  <div class="lf-grid">
+
+    <div class="lf-field">
+      <label class="lf-label" for="lf-nombre">Nombre completo</label>
+      <input class="lf-input" type="text" id="lf-nombre" placeholder="Juan Pérez" autocomplete="name">
+      <p class="lf-err" id="err-nombre">Campo requerido</p>
+    </div>
+
+    <div class="lf-field">
+      <label class="lf-label" for="lf-cargo">Cargo</label>
+      <input class="lf-input" type="text" id="lf-cargo" placeholder="Jefe de TI" autocomplete="organization-title">
+      <p class="lf-err" id="err-cargo">Campo requerido</p>
+    </div>
+
+    <div class="lf-field">
+      <label class="lf-label" for="lf-email">Email institucional</label>
+      <input class="lf-input" type="email" id="lf-email" placeholder="juan@municipio.cl" autocomplete="email">
+      <p class="lf-err" id="err-email">Ingrese un email válido</p>
+    </div>
+
+    <div class="lf-field">
+      <label class="lf-label" for="lf-municipio">Municipio</label>
+      <input class="lf-input" type="text" id="lf-municipio" placeholder="Municipalidad de Valparaíso" autocomplete="organization">
+      <p class="lf-err" id="err-municipio">Campo requerido</p>
+    </div>
+
+  </div>
+
+  <div class="lf-privacy">
+    <p class="lf-privacy-title">Aviso de privacidad — Ley 21.719</p>
+    <p class="lf-privacy-text">
+      <strong>Responsable del tratamiento:</strong> ALTKimia SpA.
+      <strong>Finalidad:</strong> generar su diagnóstico de cumplimiento normativo y contactarlo sobre MunIA.
+      Sus datos no serán cedidos a terceros. Puede ejercer sus derechos de acceso, rectificación y supresión
+      escribiendo a <a href="mailto:contacto@munia.cl">contacto@munia.cl</a>.
+    </p>
+  </div>
+
+  <label class="lf-consent">
+    <input type="checkbox" id="lf-consent">
+    <span>
+      Autorizo a ALTKimia a tratar los datos ingresados con el fin de generar y enviar mi diagnóstico,
+      y a contactarme respecto de MunIA. Puedo revocar esta autorización en cualquier momento
+      escribiendo a <a href="mailto:contacto@munia.cl">contacto@munia.cl</a>.
+    </span>
+  </label>
+  <p class="lf-err lf-err-consent" id="err-consent">Debe aceptar el consentimiento para continuar</p>
+
+  <div class="nav-row" style="margin-top:1.5rem">
+    <button class="btn btn-ghost" id="lfBack">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+      Volver a revisar
+    </button>
+    <button class="btn btn-p" id="lfSubmit" disabled>
+      Ver mi diagnóstico
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+  </div>
+
+</div>
+
+<style>
+  #leadForm {
+    display: none;
+    background: var(--bg2);
+    border: 0.5px solid var(--border);
+    border-radius: 14px;
+    padding: 1.75rem;
+    margin-bottom: 1.25rem;
+  }
+  #leadForm.show { display: block; animation: fade .4s; }
+
+  .lf-free {
+    display: inline-flex;
+    align-items: center;
+    background: rgba(52,211,153,.1);
+    color: var(--ok);
+    border: 0.5px solid rgba(52,211,153,.3);
+    border-radius: 20px;
+    padding: 3px 11px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10.5px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: .5rem;
+  }
+
+  .lf-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  @media(max-width:560px) { .lf-grid { grid-template-columns: 1fr; } }
+
+  .lf-field { display: flex; flex-direction: column; gap: .4rem; }
+
+  .lf-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10.5px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .lf-input {
+    background: var(--bg3);
+    border: 0.5px solid var(--border);
+    border-radius: 9px;
+    padding: .6rem 1rem;
+    font-size: 13.5px;
+    font-family: 'Space Grotesk', sans-serif;
+    color: var(--text);
+    outline: none;
+    width: 100%;
+    transition: border-color .2s, box-shadow .2s;
+  }
+  .lf-input::placeholder { color: var(--muted); opacity: .5; }
+  .lf-input:focus {
+    border-color: rgba(33,150,243,.5);
+    box-shadow: 0 0 0 2px rgba(33,150,243,.1);
+  }
+  .lf-input.field-invalid { border-color: var(--bad); }
+  .lf-input.field-invalid:focus {
+    border-color: var(--bad);
+    box-shadow: 0 0 0 2px rgba(248,113,113,.1);
+  }
+
+  .lf-err {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--bad);
+    display: none;
+  }
+  .lf-err.show { display: block; }
+  .lf-err-consent { margin-bottom: .75rem; }
+
+  .lf-privacy {
+    background: var(--bg3);
+    border: 0.5px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem 1.25rem;
+    margin-bottom: 1rem;
+  }
+  .lf-privacy-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: .5rem;
+  }
+  .lf-privacy-text {
+    font-size: 12.5px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+  .lf-privacy-text strong { color: var(--text); }
+  .lf-privacy-text a { color: var(--teal-light); text-decoration: none; }
+  .lf-privacy-text a:hover { text-decoration: underline; }
+
+  .lf-consent {
+    display: flex;
+    gap: .75rem;
+    align-items: flex-start;
+    padding: .875rem 1.25rem;
+    background: rgba(33,150,243,.04);
+    border: 0.5px solid rgba(33,150,243,.2);
+    border-radius: 10px;
+    margin-bottom: .5rem;
+    cursor: pointer;
+  }
+  .lf-consent input[type="checkbox"] {
+    width: 15px;
+    height: 15px;
+    margin-top: 3px;
+    flex-shrink: 0;
+    accent-color: var(--teal);
+    cursor: pointer;
+  }
+  .lf-consent span { font-size: 13px; color: var(--text); line-height: 1.65; }
+  .lf-consent span a { color: var(--teal-light); }
+</style>
+
+<script is:inline>
+
+var lfValidators = {
+  nombre: function(v) {
+    if (!v.trim()) return 'Campo requerido';
+    if (v.trim().length < 2) return 'Ingrese al menos 2 caracteres';
+    return null;
+  },
+  email: function(v) {
+    if (!v.trim()) return 'Campo requerido';
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim())) return 'Ingrese un email válido (ej: nombre@municipio.cl)';
+    return null;
+  },
+  cargo: function(v) { return v.trim() ? null : 'Campo requerido'; },
+  municipio: function(v) { return v.trim() ? null : 'Campo requerido'; }
+};
+
+var lfTouched = { nombre: false, email: false, cargo: false, municipio: false };
+
+function lfValidateField(id) {
+  var input = document.getElementById('lf-' + id);
+  var errEl = document.getElementById('err-' + id);
+  var msg = lfTouched[id] ? lfValidators[id](input.value) : null;
+  var invalid = !!msg;
+  input.classList.toggle('field-invalid', invalid);
+  errEl.classList.toggle('show', invalid);
+  if (invalid) errEl.textContent = msg;
+  return !lfValidators[id](input.value);
+}
+
+function lfIsFormValid() {
+  var fieldsOk = ['nombre', 'email', 'cargo', 'municipio'].every(function(id) {
+    return !lfValidators[id](document.getElementById('lf-' + id).value);
+  });
+  return fieldsOk && document.getElementById('lf-consent').checked;
+}
+
+function lfUpdateSubmit() {
+  document.getElementById('lfSubmit').disabled = !lfIsFormValid();
+}
+
+['nombre', 'email', 'cargo', 'municipio'].forEach(function(id) {
+  var input = document.getElementById('lf-' + id);
+  input.addEventListener('blur', function() {
+    lfTouched[id] = true;
+    lfValidateField(id);
+    lfUpdateSubmit();
+  });
+  input.addEventListener('input', function() {
+    if (lfTouched[id]) lfValidateField(id);
+    lfUpdateSubmit();
+  });
+});
+
+document.getElementById('lf-consent').addEventListener('change', function() {
+  document.getElementById('err-consent').classList.toggle('show', !this.checked);
+  lfUpdateSubmit();
+});
+
+document.getElementById('lfSubmit').addEventListener('click', function() {
+  var allValid = ['nombre', 'email', 'cargo', 'municipio'].every(function(id) {
+    lfTouched[id] = true;
+    return lfValidateField(id);
+  });
+  var consent = document.getElementById('lf-consent').checked;
+  if (!consent) document.getElementById('err-consent').classList.add('show');
+  if (!allValid || !consent) return;
+
+  var labelMap = { yes: 'Sí', partial: 'Parcial', no: 'No' };
+  var scores = [0, 1, 2].map(lawScore);
+  var globalScore = Math.round(scores.reduce(function(a, b) { return a + b; }, 0) / 3);
+
+  var payload = {
+    timestamp:      new Date().toISOString(),
+    nombre:         document.getElementById('lf-nombre').value.trim(),
+    email:          document.getElementById('lf-email').value.trim(),
+    cargo:          document.getElementById('lf-cargo').value.trim(),
+    municipio:      document.getElementById('lf-municipio').value.trim(),
+    consentimiento: 'Sí',
+    scoreGlobal:    globalScore,
+    score21180:     scores[0],
+    score21719:     scores[1],
+    score21663:     scores[2],
+    r1:  labelMap[answers['0-0']] || '', r2:  labelMap[answers['0-1']] || '',
+    r3:  labelMap[answers['0-2']] || '', r4:  labelMap[answers['0-3']] || '',
+    r5:  labelMap[answers['1-0']] || '', r6:  labelMap[answers['1-1']] || '',
+    r7:  labelMap[answers['1-2']] || '', r8:  labelMap[answers['1-3']] || '',
+    r9:  labelMap[answers['2-0']] || '', r10: labelMap[answers['2-1']] || '',
+    r11: labelMap[answers['2-2']] || '', r12: labelMap[answers['2-3']] || ''
+  };
+
+  fetch('/api/lead', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  }).catch(function() {});
+
+  document.getElementById('leadForm').classList.remove('show');
+  document.dispatchEvent(new CustomEvent('lead-form-submitted'));
+});
+
+document.getElementById('lfBack').addEventListener('click', function() {
+  document.getElementById('leadForm').classList.remove('show');
+  document.querySelector('.steps-nav').style.display = 'flex';
+  goTo(2);
+});
+</script>
