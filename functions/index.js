@@ -1,11 +1,19 @@
 import { onRequest } from 'firebase-functions/v2/https';
-import express from 'express';
-import { handler as ssrHandler } from './dist/server/entry.mjs';
 
-const app = express();
+let app;
 
-// Static assets are served by Firebase Hosting directly.
-// This function only handles SSR requests.
-app.use(ssrHandler);
+async function getApp() {
+  if (app) return app;
+  const [{ default: express }, { handler }] = await Promise.all([
+    import('express'),
+    import('./dist/server/entry.mjs'),
+  ]);
+  app = express();
+  app.use(handler);
+  return app;
+}
 
-export const munia = onRequest({ region: 'us-central1' }, app);
+export const munia = onRequest({ region: 'us-central1' }, async (req, res) => {
+  const expressApp = await getApp();
+  expressApp(req, res);
+});
