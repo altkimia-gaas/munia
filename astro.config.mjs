@@ -6,5 +6,9 @@ export default defineConfig({
   integrations: [tailwind()],
   output: 'server',
   adapter: node({ mode: 'middleware' }),
-  outDir: './functions',
+  outDir: './functions/dist',
+  build: {
+    client: './functions/dist/client',
+    server: './functions/dist/server',
+  },
 });
