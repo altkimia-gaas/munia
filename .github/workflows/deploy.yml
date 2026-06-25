@@ -29,11 +29,10 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Authenticate to Google Cloud
-        id: auth
-        uses: google-github-actions/auth@v2
-        with:
-          credentials_json: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_CIVORA_MVP }}
+      - name: Write service account credentials
+        env:
+          SA_JSON: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_CIVORA_MVP }}
+        run: echo "$SA_JSON" > /tmp/gsa.json
 
       - name: Install Firebase CLI
         run: npm install -g firebase-tools
@@ -41,4 +40,4 @@ jobs:
       - name: Deploy hosting and functions
         run: firebase deploy --only hosting:munia-page,functions --project civora-mvp
         env:
-          GOOGLE_APPLICATION_CREDENTIALS: ${{ steps.auth.outputs.credentials_file_path }}
+          GOOGLE_APPLICATION_CREDENTIALS: /tmp/gsa.json
