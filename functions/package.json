@@ -5,7 +5,12 @@
   "main": "index.js",
   "engines": { "node": "22" },
   "dependencies": {
+    "@astrojs/internal-helpers": "0.4.1",
+    "clsx": "^2.1.1",
+    "es-module-lexer": "^1.7.0",
     "express": "^4.21.0",
-    "firebase-functions": "^6.0.0"
+    "firebase-functions": "^6.0.0",
+    "kleur": "^4.1.5",
+    "server-destroy": "^1.0.1"
   }
 }
