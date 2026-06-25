@@ -35,7 +35,10 @@ jobs:
       - name: Install Firebase CLI
         run: npm install -g firebase-tools
 
+      - name: Write service account credentials
+        run: printf '%s' '${{ secrets.FIREBASE_SERVICE_ACCOUNT_CIVORA_MVP }}' > /tmp/gsa.json
+
       - name: Deploy hosting and functions
         run: firebase deploy --only hosting:munia-page,functions:munia --project civora-mvp
         env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+          GOOGLE_APPLICATION_CREDENTIALS: /tmp/gsa.json
