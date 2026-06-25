@@ -1,6 +1,7 @@
 {
   "functions": {
     "source": "functions",
+    "codebase": "munia",
     "runtime": "nodejs22"
   },
   "hosting": {
