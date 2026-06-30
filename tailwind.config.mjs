@@ -5,11 +5,11 @@ export default {
     extend: {
       colors: {
         blue: {
-          DEFAULT: '#2196F3',
-          dark: '#1565C0',
-          xdark: '#0D47A1',
-          light: '#42A5F5',
-          pale: '#E3F2FD',
+          DEFAULT: '#4F46E5',
+          dark: '#4338CA',
+          xdark: '#002449',
+          light: '#818CF8',
+          pale: '#EEF2FF',
         },
         // Dark design system (hero, diagnostic page)
         dark: {
