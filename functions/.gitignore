@@ -1,5 +1,0 @@
-# Override the root .gitignore rule that excludes all dist/ directories.
-# Firebase CLI respects .gitignore when packaging functions — without this,
-# functions/dist/ (the Astro SSR build output) gets excluded from the upload
-# and the function fails at runtime trying to import entry.mjs.
-!dist/

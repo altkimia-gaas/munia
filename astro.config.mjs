@@ -1,14 +1,9 @@
 import { defineConfig } from 'astro/config';
 import tailwind from '@astrojs/tailwind';
-import node from '@astrojs/node';
+import vercel from '@astrojs/vercel/serverless';
 
 export default defineConfig({
+  output: 'hybrid',
+  adapter: vercel(),
   integrations: [tailwind()],
-  output: 'server',
-  adapter: node({ mode: 'middleware' }),
-  outDir: './functions/dist',
-  build: {
-    client: './functions/dist/client',
-    server: './functions/dist/server',
-  },
 });
