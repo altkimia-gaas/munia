@@ -27,3 +27,5 @@ y/
 
 # OS
 .DS_Store
+.vercel
+.env*

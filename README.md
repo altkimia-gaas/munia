@@ -51,13 +51,37 @@ npm run preview # Emula el entorno serverless de Vercel localmente
 
 ## Deploy
 
-Vercel detecta Astro automáticamente. El proceso es:
+> **Solo Pablo puede hacer el deploy.** El proyecto está vinculado a su cuenta personal de Vercel (`zabrosos-projects`). No hay integración Git automática — el deploy es manual vía CLI.
 
-1. Conectar este repo en [vercel.com](https://vercel.com)
-2. Configurar `APPS_SCRIPT_URL` en las variables de entorno del proyecto
-3. Cada push a la rama conectada dispara un deploy automático
+### Requisitos previos
 
-No hay comandos de deploy manual.
+- Tener acceso a la cuenta Vercel `zabrosos-projects`
+- CLI de Vercel instalada: `npm i -g vercel`
+
+### Primer deploy (ya realizado)
+
+```bash
+vercel login          # autenticarse con la cuenta zabrosos-projects
+vercel link           # vincular el proyecto local (proyecto: munia, sin conectar Git)
+vercel env add APPS_SCRIPT_URL   # configurar la variable de entorno
+vercel --prod         # deploy a producción
+```
+
+### Deploys posteriores
+
+```bash
+vercel --prod
+```
+
+### Variables de entorno en Vercel
+
+Si las variables se pierden o hay que reconfigurarlas:
+
+```bash
+vercel env add APPS_SCRIPT_URL
+```
+
+O desde el dashboard: Vercel → Project munia → Settings → Environment Variables.
 
 ## Flujo del diagnóstico
 

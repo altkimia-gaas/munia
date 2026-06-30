@@ -21,7 +21,7 @@ Sitio Astro en modo `hybrid`: las páginas se pre-renderizan estáticamente en b
 
 ## Deploy
 
-Vercel detecta automáticamente Astro. Solo se necesita conectar el repo en vercel.com y configurar la variable de entorno `APPS_SCRIPT_URL`.
+**Solo Pablo puede hacer el deploy.** El proyecto está vinculado a su cuenta personal de Vercel (`zabrosos-projects`). No hay integración Git automática — el deploy se hace manualmente con la CLI.
 
 ```bash
 # Dev local
@@ -29,9 +29,12 @@ npm run dev
 
 # Preview local con función serverless emulada
 npm run preview
+
+# Deploy a producción (solo desde la cuenta zabrosos-projects)
+vercel --prod
 ```
 
-No hay comando de deploy manual — Vercel hace el deploy automáticamente en cada push a la rama conectada.
+Para deploys posteriores basta con `vercel --prod`. Si hay que configurar variables de entorno: `vercel env add APPS_SCRIPT_URL`.
 
 ## Variables de entorno
 
