@@ -37,7 +37,7 @@
 
     <div class="lf-field">
       <label class="lf-label" for="lf-municipio">Municipio</label>
-      <input class="lf-input" type="text" id="lf-municipio" placeholder="Municipalidad de Valparaíso" autocomplete="organization">
+      <input class="lf-input" type="text" id="lf-municipio" placeholder="Municipalidad de..." autocomplete="organization">
       <p class="lf-err" id="err-municipio">Campo requerido</p>
     </div>
 
@@ -90,9 +90,9 @@
   .lf-free {
     display: inline-flex;
     align-items: center;
-    background: rgba(52,211,153,.1);
-    color: var(--ok);
-    border: 0.5px solid rgba(52,211,153,.3);
+    background: rgba(16,185,129,.1);
+    color: var(--green);
+    border: 0.5px solid rgba(16,185,129,.3);
     border-radius: 20px;
     padding: 3px 11px;
     font-family: 'DM Mono', monospace;
@@ -139,16 +139,16 @@
     border-color: rgba(79,70,229,.5);
     box-shadow: 0 0 0 2px rgba(79,70,229,.1);
   }
-  .lf-input.field-invalid { border-color: var(--bad); }
+  .lf-input.field-invalid { border-color: var(--red); }
   .lf-input.field-invalid:focus {
-    border-color: var(--bad);
-    box-shadow: 0 0 0 2px rgba(248,113,113,.1);
+    border-color: var(--red);
+    box-shadow: 0 0 0 2px rgba(239,68,68,.1);
   }
 
   .lf-err {
     font-family: 'DM Mono', monospace;
     font-size: 11px;
-    color: var(--bad);
+    color: var(--red);
     display: none;
   }
   .lf-err.show { display: block; }
