@@ -128,7 +128,7 @@
     border-radius: 9px;
     padding: .6rem 1rem;
     font-size: 13.5px;
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: inherit;
     color: var(--text);
     outline: none;
     width: 100%;
@@ -136,8 +136,8 @@
   }
   .lf-input::placeholder { color: var(--muted); opacity: .5; }
   .lf-input:focus {
-    border-color: rgba(33,150,243,.5);
-    box-shadow: 0 0 0 2px rgba(33,150,243,.1);
+    border-color: rgba(79,70,229,.5);
+    box-shadow: 0 0 0 2px rgba(79,70,229,.1);
   }
   .lf-input.field-invalid { border-color: var(--bad); }
   .lf-input.field-invalid:focus {
@@ -175,7 +175,7 @@
     line-height: 1.7;
   }
   .lf-privacy-text strong { color: var(--text); }
-  .lf-privacy-text a { color: var(--teal-light); text-decoration: none; }
+  .lf-privacy-text a { color: var(--blue-light); text-decoration: none; }
   .lf-privacy-text a:hover { text-decoration: underline; }
 
   .lf-consent {
@@ -183,8 +183,8 @@
     gap: .75rem;
     align-items: flex-start;
     padding: .875rem 1.25rem;
-    background: rgba(33,150,243,.04);
-    border: 0.5px solid rgba(33,150,243,.2);
+    background: rgba(79,70,229,.04);
+    border: 0.5px solid rgba(79,70,229,.2);
     border-radius: 10px;
     margin-bottom: .5rem;
     cursor: pointer;
@@ -194,11 +194,11 @@
     height: 15px;
     margin-top: 3px;
     flex-shrink: 0;
-    accent-color: var(--teal);
+    accent-color: var(--blue);
     cursor: pointer;
   }
   .lf-consent span { font-size: 13px; color: var(--text); line-height: 1.65; }
-  .lf-consent span a { color: var(--teal-light); }
+  .lf-consent span a { color: var(--blue-light); }
 </style>
 
 <script is:inline>
